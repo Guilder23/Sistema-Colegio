@@ -7,25 +7,40 @@
         <button type="button" class="btn-close" id="closeSidebar"></button>
     </div>
     <ul class="sidebar-nav">
+        <!-- Dashboard -->
         <li class="nav-item">
-            <a class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}" href="{% url 'core:dashboard' %}">
+            <a class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}" href="/dashboard/">
                 <i class="fas fa-home"></i> Dashboard
             </a>
         </li>
+
+        <!-- Materias -->
         <li class="nav-item">
-            <a class="nav-link {% if request.resolver_match.url_name == 'materias_gestion' %}active{% endif %}" href="{% url 'core:materias_gestion' %}">
+            <a class="nav-link {% if request.resolver_match.url_name == 'materias_gestion' %}active{% endif %}" href="/materias-gestion/">
                 <i class="fas fa-book"></i> Mis Materias
             </a>
         </li>
+
+        <!-- Contenidos -->
         <li class="nav-item">
-            <a class="nav-link {% if request.resolver_match.url_name == 'contenidos_gestion' %}active{% endif %}" href="{% url 'core:contenidos_gestion' %}">
-                <i class="fas fa-file-alt"></i> Contenidos
+            <a class="nav-link {% if request.resolver_match.url_name == 'contenidos_gestion' %}active{% endif %}" href="/contenidos-gestion/">
+                <i class="fas fa-file-alt"></i> Mis Contenidos
             </a>
         </li>
+
         <li class="nav-divider"></li>
+
+        <!-- Volver al Inicio -->
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'core:home' %}">
+            <a class="nav-link" href="/">
                 <i class="fas fa-arrow-left"></i> Volver al Sitio
+            </a>
+        </li>
+
+        <!-- Cerrar Sesión -->
+        <li class="nav-item">
+            <a class="nav-link text-danger" href="/logout/">
+                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
             </a>
         </li>
     </ul>

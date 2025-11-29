@@ -96,11 +96,14 @@ class MateriaManager {
             if (data.success) {
                 cerrarModal('editarMateriaModal');
                 this.notify('Materia actualizada', 'success');
-                window.location.reload();
+                setTimeout(() => window.location.reload(), 500);
             } else {
                 this.notify(data.error || 'Error al actualizar', 'danger');
             }
-        }).catch(() => this.notify('Error de red', 'danger'));
+        }).catch(err => {
+            console.error('Error:', err);
+            this.notify('Error de red', 'danger');
+        });
     }
 
     handleSubmitEliminar(e) {
@@ -115,11 +118,14 @@ class MateriaManager {
             if (data.success) {
                 cerrarModal('eliminarMateriaModal');
                 this.notify('Materia eliminada', 'success');
-                window.location.reload();
+                setTimeout(() => window.location.reload(), 500);
             } else {
                 this.notify(data.error || 'Error al eliminar', 'danger');
             }
-        }).catch(() => this.notify('Error de red', 'danger'));
+        }).catch(err => {
+            console.error('Error:', err);
+            this.notify('Error de red', 'danger');
+        });
     }
 
     cargarDetalle(id) {
@@ -127,15 +133,25 @@ class MateriaManager {
         if (detalles) detalles.textContent = 'Cargando...';
         fetch(`/materia/${id}/detalle/`).then(r => r.json()).then(data => {
             if (data.error) {
-                detalles.textContent = data.error;
+                detalles.innerHTML = `<div class="alert alert-danger">${data.error}</div>`;
             } else {
                 detalles.innerHTML = `
-                    <h5>${data.nombre}</h5>
-                    <p>${data.descripcion || ''}</p>
-                    <span class="badge">${data.estado_publicacion}</span>
+                    <div class="mb-3">
+                        <h5 class="fw-bold">${data.nombre}</h5>
+                        <p class="text-muted">${data.descripcion || 'Sin descripción'}</p>
+                        <div class="mt-3">
+                            <strong>Estado:</strong><br>
+                            <span class="badge ${data.estado_publicacion === 'publicada' ? 'bg-success' : 'bg-warning'} mt-2">
+                                ${data.estado_publicacion === 'publicada' ? 'Publicada' : 'Borrador'}
+                            </span>
+                        </div>
+                    </div>
                 `;
             }
-        }).catch(() => { if (detalles) detalles.textContent = 'Error al cargar'; });
+        }).catch(err => {
+            console.error('Error:', err);
+            if (detalles) detalles.innerHTML = '<div class="alert alert-danger">Error al cargar detalles</div>';
+        });
     }
 
     cargarEdicion(id) {
@@ -143,13 +159,14 @@ class MateriaManager {
         if (inputId) inputId.value = id;
         fetch(`/materia/${id}/detalle/`).then(r => r.json()).then(data => {
             if (!data.error) {
-                document.getElementById('edit_nombre')?.setAttribute('value', data.nombre);
+                const nombreInput = document.getElementById('edit_nombre');
+                if (nombreInput) nombreInput.value = data.nombre;
                 const desc = document.getElementById('edit_descripcion');
                 if (desc) desc.value = data.descripcion || '';
                 const estado = document.getElementById('edit_estado');
                 if (estado) estado.value = data.estado_publicacion;
             }
-        }).catch(() => {});
+        }).catch(err => console.error('Error al cargar edición:', err));
     }
 
     getCSRFToken(form) {

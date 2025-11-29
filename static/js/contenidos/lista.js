@@ -115,11 +115,14 @@ class ContenidoManager {
             if (data.success) {
                 cerrarModal('editarContenidoModal');
                 this.notify('Contenido actualizado', 'success');
-                window.location.reload();
+                setTimeout(() => window.location.reload(), 500);
             } else {
                 this.notify(data.error || 'Error al actualizar', 'danger');
             }
-        }).catch(() => this.notify('Error de red', 'danger'));
+        }).catch(err => {
+            console.error('Error:', err);
+            this.notify('Error de red', 'danger');
+        });
     }
 
     handleSubmitEliminar(e) {
@@ -134,32 +137,38 @@ class ContenidoManager {
             if (data.success) {
                 cerrarModal('eliminarContenidoModal');
                 this.notify('Contenido eliminado', 'success');
-                window.location.reload();
+                setTimeout(() => window.location.reload(), 500);
             } else {
                 this.notify(data.error || 'Error al eliminar', 'danger');
             }
-        }).catch(() => this.notify('Error de red', 'danger'));
+        }).catch(err => {
+            console.error('Error:', err);
+            this.notify('Error de red', 'danger');
+        });
     }
-
-    filtrarPorMateria() {}
-
-    filtrarPorTipo() {}
 
     cargarDetalle(id) {
         const detalles = document.getElementById('detallesContenidoContent');
         if (detalles) detalles.textContent = 'Cargando...';
         fetch(`/contenido/${id}/detalle/`).then(r => r.json()).then(data => {
             if (data.error) {
-                detalles.textContent = data.error;
+                detalles.innerHTML = `<div class="alert alert-danger">${data.error}</div>`;
             } else {
                 detalles.innerHTML = `
-                    <h5>${data.titulo}</h5>
-                    <p>${data.descripcion || ''}</p>
-                    <p><strong>Tipo:</strong> ${data.tipo}</p>
-                    <p><strong>Estado:</strong> ${data.estado_publicacion}</p>
+                    <div class="mb-3">
+                        <h5 class="fw-bold">${data.titulo}</h5>
+                        <p class="text-muted">${data.descripcion || 'Sin descripción'}</p>
+                        <div class="mt-3">
+                            <p><strong>Tipo:</strong> <span class="badge bg-info">${data.tipo}</span></p>
+                            <p><strong>Estado:</strong> <span class="badge ${data.estado_publicacion === 'publico' ? 'bg-success' : 'bg-warning'}">${data.estado_publicacion}</span></p>
+                        </div>
+                    </div>
                 `;
             }
-        }).catch(() => { if (detalles) detalles.textContent = 'Error al cargar'; });
+        }).catch(err => {
+            console.error('Error:', err);
+            if (detalles) detalles.innerHTML = '<div class="alert alert-danger">Error al cargar detalles</div>';
+        });
     }
 
     cargarEdicion(id) {
@@ -178,7 +187,7 @@ class ContenidoManager {
                 const estado = document.getElementById('edit_estado');
                 if (estado) estado.value = data.estado_publicacion;
             }
-        }).catch(() => {});
+        }).catch(err => console.error('Error al cargar edición:', err));
     }
 
     getCSRFToken(form) {
