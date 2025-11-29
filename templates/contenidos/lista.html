@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Gestión de Contenidos - Sistema de Colegio{% endblock %}
+
+{% block content %}
+<main class="py-5">
+    <div class="container-fluid">
+        <div class="row mb-4">
+            <div class="col">
+                <h1>
+                    Gestión de Contenidos
+                </h1>
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearContenidoModal">
+                    <i class="fas fa-plus"></i> Nuevo Contenido
+                </button>
+            </div>
+        </div>
+        
+        {% if contenidos %}
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Título</th>
+                            <th>Materia</th>
+                            <th>Tipo</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="contenidosTableBody">
+                        {% for contenido in contenidos %}
+                            <tr>
+                                <td><strong>{{ contenido.titulo }}</strong></td>
+                                <td>{{ contenido.materia.nombre }}</td>
+                                <td>
+                                    <span class="badge bg-info">
+                                        {{ contenido.get_tipo_display }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <span class="badge {% if contenido.estado_publicacion == 'publico' %}bg-success{% else %}bg-warning{% endif %}">
+                                        {{ contenido.get_estado_publicacion_display }}
+                                    </span>
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#verContenidoModal" onclick="cargarContenido({{ contenido.id }})">
+                                        Ver
+                                    </button>
+                                    <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editarContenidoModal" onclick="cargarContenidoEdicion({{ contenido.id }})">
+                                        Editar
+                                    </button>
+                                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarContenidoModal" onclick="confirmarEliminacionContenido({{ contenido.id }})">
+                                        Eliminar
+                                    </button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="alert alert-info text-center py-5">
+                <i class="fas fa-info-circle fa-2x mb-3"></i>
+                <p>No hay contenidos creados aún.</p>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearContenidoModal">
+                    <i class="fas fa-plus"></i> Crear Primer Contenido
+                </button>
+            </div>
+        {% endif %}
+    </div>
+</main>
+
+<!-- Incluir los modales -->
+{% include "contenidos/modals/crear.html" %}
+{% include "contenidos/modals/editar.html" %}
+{% include "contenidos/modals/ver.html" %}
+{% include "contenidos/modals/eliminar.html" %}
+
+{% block extra_js %}
+    <script src="{% static 'js/contenidos/lista.js' %}"></script>
+{% endblock %}
+{% endblock %}

@@ -1,0 +1,64 @@
+<!-- Modal Editar Contenido -->
+<div class="modal fade" id="editarContenidoModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Editar Contenido
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="post" enctype="multipart/form-data" id="editarContenidoForm">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <input type="hidden" id="contenidoid" name="id">
+                    <div class="mb-3">
+                        <label for="edit_materia" class="form-label">Materia *</label>
+                        <select class="form-control" id="edit_materia" name="materia" required>
+                            {% for materia in materias %}
+                                <option value="{{ materia.id }}">{{ materia.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit_titulo" class="form-label">Título *</label>
+                        <input type="text" class="form-control" id="edit_titulo" name="titulo" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit_descripcion" class="form-label">Descripción</label>
+                        <textarea class="form-control" id="edit_descripcion" name="descripcion" rows="3"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit_tipo" class="form-label">Tipo</label>
+                        <select class="form-control" id="edit_tipo" name="tipo">
+                            <option value="texto">Texto</option>
+                            <option value="video">Video</option>
+                            <option value="documento">Documento</option>
+                            <option value="imagen">Imagen</option>
+                            <option value="multimedia">Multimedia</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit_archivo" class="form-label">Archivo</label>
+                        <input type="file" class="form-control" id="edit_archivo" name="archivo">
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit_estado" class="form-label">Estado</label>
+                        <select class="form-control" id="edit_estado" name="estado_publicacion">
+                            <option value="privado">Privado</option>
+                            <option value="publico">Público</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        Guardar Cambios
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

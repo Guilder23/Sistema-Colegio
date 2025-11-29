@@ -1,0 +1,32 @@
+{% load static %}
+<div class="sidebar" id="sidebarMenu">
+    <div class="sidebar-header">
+        <h5>
+            <i class="fas fa-bars"></i> Menú
+        </h5>
+        <button type="button" class="btn-close" id="closeSidebar"></button>
+    </div>
+    <ul class="sidebar-nav">
+        <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}" href="{% url 'core:dashboard' %}">
+                <i class="fas fa-home"></i> Dashboard
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'materias_gestion' %}active{% endif %}" href="{% url 'core:materias_gestion' %}">
+                <i class="fas fa-book"></i> Mis Materias
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'contenidos_gestion' %}active{% endif %}" href="{% url 'core:contenidos_gestion' %}">
+                <i class="fas fa-file-alt"></i> Contenidos
+            </a>
+        </li>
+        <li class="nav-divider"></li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'core:home' %}">
+                <i class="fas fa-arrow-left"></i> Volver al Sitio
+            </a>
+        </li>
+    </ul>
+</div>

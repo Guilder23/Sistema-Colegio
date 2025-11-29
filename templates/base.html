@@ -10,15 +10,44 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Custom CSS -->
+    
+    <!-- CSS Principal -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    <!-- CSS Componentes -->
+    <link rel="stylesheet" href="{% static 'css/componentes/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/componentes/sidebar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/componentes/footer.css' %}">
+    
+    <!-- CSS Secciones Estáticas -->
+    <link rel="stylesheet" href="{% static 'css/secciones_estaticas/inicio.css' %}">
+    <link rel="stylesheet" href="{% static 'css/secciones_estaticas/historia.css' %}">
+    <link rel="stylesheet" href="{% static 'css/secciones_estaticas/mision.css' %}">
+    <link rel="stylesheet" href="{% static 'css/secciones_estaticas/autoridades.css' %}">
+    <link rel="stylesheet" href="{% static 'css/secciones_estaticas/contacto.css' %}">
+    
+    <!-- CSS Secciones -->
+    <link rel="stylesheet" href="{% static 'css/secciones/lista.css' %}">
+    
+    <!-- CSS Vistas Dinámicas -->
+    <link rel="stylesheet" href="{% static 'css/materias/lista.css' %}">
+    <link rel="stylesheet" href="{% static 'css/contenidos/lista.css' %}">
+    
+    <!-- CSS Modals -->
+    <link rel="stylesheet" href="{% static 'css/modals.css' %}">
+    
     {% block extra_css %}{% endblock %}
 </head>
 <body>
-    {% block navbar %}
-        {% include "includes/navbar.html" %}
-    {% endblock %}
+    <!-- Navbar -->
+    {% include "componentes/navbar.html" %}
     
+    <!-- Sidebar (solo en vistas dinámicas) -->
+    {% if show_sidebar %}
+        {% include "componentes/sidebar.html" %}
+    {% endif %}
+    
+    <!-- Mensajes -->
     {% if messages %}
         <div class="container mt-3">
             {% for message in messages %}
@@ -30,19 +59,29 @@
         </div>
     {% endif %}
     
+    <!-- Contenido Principal -->
     {% block content %}{% endblock %}
     
-    {% block footer %}
-        {% include "includes/footer.html" %}
-    {% endblock %}
-    
-    <!-- Modals -->
-    {% include "includes/modals.html" %}
+    <!-- Footer -->
+    {% include "componentes/footer.html" %}
     
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Custom JS -->
+    
+    <!-- JS Componentes -->
+    <script src="{% static 'js/componentes/navbar.js' %}"></script>
+    <script src="{% static 'js/componentes/sidebar.js' %}"></script>
+    
+    <!-- JS Modales -->
+    <script src="{% static 'js/modales/modales.js' %}"></script>
+    
+    <!-- JS Vistas Dinámicas -->
+    <script src="{% static 'js/materias/lista.js' %}"></script>
+    <script src="{% static 'js/contenidos/lista.js' %}"></script>
+    
+    <!-- JS Principal -->
     <script src="{% static 'js/main.js' %}"></script>
+    
     {% block extra_js %}{% endblock %}
 </body>
 </html>

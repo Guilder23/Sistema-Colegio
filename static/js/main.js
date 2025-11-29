@@ -1,156 +1,203 @@
-// JavaScript principal del sitio
+// ==================== MAIN.JS - FUNCIONALIDADES GLOBALES ====================
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Inicializar tooltips de Bootstrap
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl);
-    });
-    
-    // Inicializar popovers de Bootstrap
-    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
-    var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-        return new bootstrap.Popover(popoverTriggerEl);
-    });
-    
-    // Cerrar modals cuando se presiona Escape
-    document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape') {
-            const modals = document.querySelectorAll('.modal');
-            modals.forEach(modal => {
-                const bsModal = bootstrap.Modal.getInstance(modal);
-                if (bsModal) {
-                    bsModal.hide();
-                }
+document.addEventListener('DOMContentLoaded', () => {
+    // Navbar dropdown toggle
+    const navbarUserBtn = document.querySelector('.navbar-user-btn');
+    const navbarDropdown = document.querySelector('.navbar-dropdown');
+    const navbarMobileToggle = document.querySelector('.navbar-mobile-toggle');
+    const navbarMenu = document.querySelector('.navbar-menu');
+
+    // Dropdown de usuario
+    if (navbarUserBtn && navbarDropdown) {
+        navbarUserBtn.addEventListener('click', () => {
+            navbarDropdown.classList.toggle('show');
+        });
+
+        // Cerrar dropdown al hacer clic fuera
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.navbar-user')) {
+                navbarDropdown.classList.remove('show');
+            }
+        });
+    }
+
+    // Mobile menu toggle
+    if (navbarMobileToggle && navbarMenu) {
+        navbarMobileToggle.addEventListener('click', () => {
+            navbarMenu.classList.toggle('show');
+        });
+
+        // Cerrar menú al hacer clic en un enlace
+        const navbarItems = navbarMenu.querySelectorAll('.navbar-item a');
+        navbarItems.forEach(item => {
+            item.addEventListener('click', () => {
+                navbarMenu.classList.remove('show');
             });
+        });
+    }
+
+    // Sidebar toggle en mobile
+    const sidebarToggleBtn = document.querySelector('[data-sidebar-toggle]');
+    const sidebar = document.querySelector('.sidebar');
+    if (sidebarToggleBtn && sidebar) {
+        sidebarToggleBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('show');
+        });
+
+        // Cerrar sidebar al hacer clic en un enlace
+        const sidebarLinks = sidebar.querySelectorAll('.sidebar-link');
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                sidebar.classList.remove('show');
+            });
+        });
+    }
+
+    // Establecer enlace activo en sidebar
+    const currentPath = window.location.pathname;
+    const sidebarLinks = document.querySelectorAll('.sidebar-link');
+    sidebarLinks.forEach(link => {
+        if (link.getAttribute('href') === currentPath) {
+            link.classList.add('active');
         }
     });
-    
-    // Validar formularios
+
+    // Alertas que desaparecen automáticamente
+    const alerts = document.querySelectorAll('[data-dismiss-alert]');
+    alerts.forEach(alert => {
+        const dismissTime = parseInt(alert.getAttribute('data-dismiss-alert')) || 5000;
+        setTimeout(() => {
+            alert.style.opacity = '0';
+            alert.style.transition = 'opacity 0.3s ease';
+            setTimeout(() => {
+                alert.remove();
+            }, 300);
+        }, dismissTime);
+    });
+
+    // Confirmar eliminación
+    const formsDelete = document.querySelectorAll('[data-confirm-delete]');
+    formsDelete.forEach(form => {
+        form.addEventListener('submit', (e) => {
+            const message = form.getAttribute('data-confirm-message') || '¿Está seguro de que desea eliminar este elemento?';
+            if (!confirm(message)) {
+                e.preventDefault();
+            }
+        });
+    });
+
+    // Mostrar mensaje de carga en formularios
     const forms = document.querySelectorAll('form');
     forms.forEach(form => {
-        form.addEventListener('submit', function(event) {
-            if (!form.checkValidity()) {
-                event.preventDefault();
-                event.stopPropagation();
-            }
-            form.classList.add('was-validated');
-        });
-    });
-    
-    // Auto-cerrar alertas después de 5 segundos
-    const alerts = document.querySelectorAll('.alert');
-    alerts.forEach(alert => {
-        if (!alert.classList.contains('alert-error')) {
-            setTimeout(() => {
-                const bsAlert = new bootstrap.Alert(alert);
-                bsAlert.close();
-            }, 5000);
-        }
-    });
-    
-    // Confirmar eliminación
-    const deleteButtons = document.querySelectorAll('.delete-btn');
-    deleteButtons.forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            if (!confirm('¿Está seguro de que desea eliminar este elemento?')) {
-                e.preventDefault();
+        form.addEventListener('submit', function() {
+            const submitBtn = this.querySelector('button[type="submit"]');
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Cargando...';
             }
         });
     });
-    
-    // Scroll suave
+
+    // Smooth scroll para anclas
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href !== '#' && document.querySelector(href)) {
                 e.preventDefault();
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
+                document.querySelector(href).scrollIntoView({
+                    behavior: 'smooth'
                 });
             }
         });
     });
-    
-    // Cambiar tema oscuro/claro
-    const themeToggle = document.getElementById('theme-toggle');
-    if (themeToggle) {
-        themeToggle.addEventListener('click', function() {
-            document.body.classList.toggle('dark-theme');
-            localStorage.setItem('theme', document.body.classList.contains('dark-theme') ? 'dark' : 'light');
-        });
-        
-        // Cargar tema guardado
-        if (localStorage.getItem('theme') === 'dark') {
-            document.body.classList.add('dark-theme');
-        }
-    }
-    
-    // Preview de imagen en formularios
-    const imageInputs = document.querySelectorAll('input[type="file"][accept*="image"]');
-    imageInputs.forEach(input => {
-        input.addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const preview = document.createElement('img');
-                    preview.src = e.target.result;
-                    preview.style.maxWidth = '200px';
-                    preview.style.marginTop = '10px';
-                    preview.className = 'img-fluid rounded';
-                    
-                    const container = input.parentElement;
-                    const existingPreview = container.querySelector('img');
-                    if (existingPreview) {
-                        existingPreview.remove();
-                    }
-                    container.appendChild(preview);
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-    });
-    
-    console.log('✓ Sitio cargado correctamente');
 });
 
-// Función auxiliar para mostrar notificaciones
-function showNotification(message, type = 'info') {
-    const alertDiv = document.createElement('div');
-    alertDiv.className = `alert alert-${type} alert-dismissible fade show`;
-    alertDiv.innerHTML = `
-        ${message}
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    `;
+/* Funciones útiles globales */
+
+// Formatear fecha
+function formatDate(dateString) {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString('es-ES', options);
+}
+
+// Mostrar notificación
+function showNotification(message, type = 'info', duration = 3000) {
+    const alert = document.createElement('div');
+    alert.className = `alert alert-${type}`;
+    alert.textContent = message;
+    alert.style.position = 'fixed';
+    alert.style.top = '100px';
+    alert.style.right = '20px';
+    alert.style.zIndex = '9999';
+    alert.style.maxWidth = '400px';
     
-    const container = document.querySelector('.container:first-of-type');
-    if (container) {
-        container.insertBefore(alertDiv, container.firstChild);
-        
-        setTimeout(() => {
-            const bsAlert = new bootstrap.Alert(alertDiv);
-            bsAlert.close();
-        }, 5000);
-    }
+    document.body.appendChild(alert);
+    
+    setTimeout(() => {
+        alert.style.opacity = '0';
+        alert.style.transition = 'opacity 0.3s ease';
+        setTimeout(() => alert.remove(), 300);
+    }, duration);
 }
 
-// Función para confirmar acciones
-function confirmAction(message = '¿Está seguro?') {
-    return confirm(message);
-}
-
-// Función para cargar contenido con AJAX
-async function loadContent(url, targetElement) {
-    try {
-        const response = await fetch(url);
-        if (response.ok) {
-            const content = await response.text();
-            document.querySelector(targetElement).innerHTML = content;
+// Validar formulario
+function validateForm(formId) {
+    const form = document.getElementById(formId);
+    if (!form) return false;
+    
+    const inputs = form.querySelectorAll('input[required], textarea[required], select[required]');
+    let isValid = true;
+    
+    inputs.forEach(input => {
+        if (!input.value.trim()) {
+            input.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            input.classList.remove('is-invalid');
         }
-    } catch (error) {
-        console.error('Error al cargar contenido:', error);
-        showNotification('Error al cargar contenido', 'danger');
+    });
+    
+    return isValid;
+}
+
+// API call helper
+async function apiCall(url, method = 'GET', data = null) {
+    const options = {
+        method,
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        }
+    };
+    
+    if (data && method !== 'GET') {
+        options.body = JSON.stringify(data);
     }
+    
+    try {
+        const response = await fetch(url, options);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error('API Error:', error);
+        throw error;
+    }
+}
+
+// Obtener cookie CSRF
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
 }

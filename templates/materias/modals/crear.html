@@ -1,0 +1,41 @@
+<!-- Modal Crear Materia -->
+<div class="modal fade" id="crearMateriaModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    Nueva Materia
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="post" action="{% url 'core:materia_create' %}" id="crearMateriaForm">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre de la Materia *</label>
+                        <input type="text" class="form-control" name="nombre" required placeholder="Ej: Matemáticas">
+                    </div>
+                    <div class="mb-3">
+                        <label for="descripcion" class="form-label">Descripción</label>
+                        <textarea class="form-control" name="descripcion" rows="3" placeholder="Describe la materia"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="estado_publicacion" class="form-label">Estado</label>
+                        <select class="form-control" name="estado_publicacion">
+                            <option value="borrador">Borrador</option>
+                            <option value="publicada">Publicada</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        Crear Materia
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

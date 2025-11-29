@@ -1,0 +1,32 @@
+<!-- Modal Eliminar Materia -->
+<div class="modal fade" id="eliminarMateriaModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title">
+                    Eliminar Materia
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    ¿Estás seguro de que deseas eliminar esta materia? Esta acción no se puede deshacer.
+                </p>
+                <div class="alert alert-warning">
+                    <strong>Advertencia:</strong> Se eliminarán todos los contenidos asociados a esta materia.
+                </div>
+            </div>
+            <form method="post" id="eliminarMateriaForm">
+                {% csrf_token %}
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-danger">
+                        Eliminar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

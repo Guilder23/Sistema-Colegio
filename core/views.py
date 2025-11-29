@@ -1,349 +1,309 @@
-import json
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from django.contrib.auth import authenticate, login, logout
+from django.views.generic import TemplateView
+from django.contrib.auth.views import LoginView, LogoutView
+from django.views.generic.edit import CreateView
 from django.contrib.auth.models import User
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.contrib import messages
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
-from django.conf import settings
-from django.core.paginator import Paginator
-from .models import ProfesorProfile, Materia, Contenido, ImagenContenido
+from django.views.decorators.http import require_http_methods
+from django.utils.decorators import method_decorator
+from .models import Materia, Contenido, ProfesorProfile
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
+import json
 
-
-# ==================== VISTAS PÚBLICAS ====================
-
-class HomeView(View):
-    """Página principal del sitio público"""
-    def get(self, request):
-        # Cargar datos estáticos
-        try:
-            with open(settings.STATIC_ROOT / 'data' / 'escuela.json', 'r', encoding='utf-8') as f:
-                escuela = json.load(f)
-        except:
-            escuela = {'nombre': 'Colegio Tecnológico', 'contacto': {}}
-        
-        materias_publicadas = Materia.objects.filter(
-            estado_publicacion='publicada',
-            activo=True
-        ).order_by('-fecha_publicacion')[:6]
-        
-        contexto = {
-            'escuela': escuela,
-            'materias_destacadas': materias_publicadas,
-        }
-        return render(request, 'core/home.html', contexto)
-
-
-class HistoriaView(View):
-    """Página de historia del colegio (estática)"""
-    def get(self, request):
-        try:
-            with open(settings.STATIC_ROOT / 'data' / 'historia.json', 'r', encoding='utf-8') as f:
-                historia = json.load(f)
-        except:
-            historia = {}
-        
-        return render(request, 'core/historia.html', {'historia': historia})
-
-
-class MisionVisionView(View):
-    """Página de misión y visión (estática)"""
-    def get(self, request):
-        try:
-            with open(settings.STATIC_ROOT / 'data' / 'mision_vision.json', 'r', encoding='utf-8') as f:
-                datos = json.load(f)
-        except:
-            datos = {}
-        
-        return render(request, 'core/mision_vision.html', datos)
-
-
-class AutoridadesView(View):
-    """Página de autoridades (estática)"""
-    def get(self, request):
-        try:
-            with open(settings.STATIC_ROOT / 'data' / 'autoridades.json', 'r', encoding='utf-8') as f:
-                datos = json.load(f)
-        except:
-            datos = {'autoridades': []}
-        
-        return render(request, 'core/autoridades.html', datos)
-
-
-class MateriasPublicasView(ListView):
-    """Listado de materias publicadas"""
-    model = Materia
-    template_name = 'core/materias.html'
-    context_object_name = 'materias'
-    paginate_by = 12
-    
-    def get_queryset(self):
-        return Materia.objects.filter(
-            estado_publicacion='publicada',
-            activo=True
-        ).select_related('profesor').order_by('-fecha_publicacion')
-
-
-class MateriaDetailView(DetailView):
-    """Detalle de una materia con sus contenidos"""
-    model = Materia
-    template_name = 'core/materia_detail.html'
-    context_object_name = 'materia'
-    
-    def get_queryset(self):
-        return Materia.objects.filter(
-            estado_publicacion='publicada',
-            activo=True
-        )
+# Vistas de la app core
+class IndexView(TemplateView):
+    """Vista para la página de inicio"""
+    template_name = 'secciones_estaticas/inicio.html'
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['contenidos'] = self.object.contenidos.filter(
-            estado_publicacion='publico',
-            activo=True
-        ).order_by('orden')
+        context['show_sidebar'] = False
         return context
 
 
-class ContenidoDetailView(DetailView):
-    """Detalle de un contenido con galerías"""
-    model = Contenido
-    template_name = 'core/contenido_detail.html'
-    context_object_name = 'contenido'
-    
-    def get_queryset(self):
-        return Contenido.objects.filter(
-            estado_publicacion='publico',
-            activo=True
-        )
+class DashboardView(LoginRequiredMixin, TemplateView):
+    """Vista para el panel de control"""
+    template_name = 'dashboard.html'
+    login_url = 'core:login'
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['galeria'] = self.object.galeria.all().order_by('orden')
+        context['show_sidebar'] = True
+        
+        # Obtener o crear el perfil del profesor
+        profesor_profile, _ = ProfesorProfile.objects.get_or_create(
+            user=self.request.user,
+            defaults={'activo': True}
+        )
+        
+        # Obtener materias y contenidos del usuario
+        context['materias'] = Materia.objects.filter(profesor=profesor_profile).order_by('-fecha_creacion')
+        context['contenidos'] = Contenido.objects.filter(materia__profesor=profesor_profile).order_by('-fecha_creacion')
+        
         return context
 
 
-# ==================== AUTENTICACIÓN ====================
-
-class LoginView(View):
-    """Login de profesores"""
-    def post(self, request):
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        
-        try:
-            user = User.objects.get(email=email)
-            user = authenticate(request, username=user.username, password=password)
-            
-            if user is not None:
-                login(request, user)
-                messages.success(request, f'¡Bienvenido {user.first_name}!')
-                return redirect('dashboard')
-            else:
-                messages.error(request, 'Contraseña incorrecta')
-        except User.DoesNotExist:
-            messages.error(request, 'Usuario no encontrado')
-        
-        return redirect('home')
+class HistoriaView(TemplateView):
+    """Vista de la historia"""
+    template_name = 'secciones_estaticas/historia.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['show_sidebar'] = False
+        return context
 
 
-class LogoutView(View):
-    """Logout de profesores"""
-    def get(self, request):
-        logout(request)
-        messages.success(request, 'Sesión cerrada correctamente')
-        return redirect('home')
+class MisionVisionView(TemplateView):
+    """Vista de misión y visión"""
+    template_name = 'secciones_estaticas/mision.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['show_sidebar'] = False
+        return context
 
 
-class RegistroView(View):
-    """Registro de nuevos profesores"""
-    def post(self, request):
-        first_name = request.POST.get('first_name')
-        last_name = request.POST.get('last_name')
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        especialidad = request.POST.get('especialidad', '')
-        
-        try:
-            if User.objects.filter(email=email).exists():
-                messages.error(request, 'El correo ya está registrado')
-            elif User.objects.filter(username=email).exists():
-                messages.error(request, 'El usuario ya existe')
-            else:
-                user = User.objects.create_user(
-                    username=email,
-                    email=email,
-                    password=password,
-                    first_name=first_name,
-                    last_name=last_name
-                )
-                ProfesorProfile.objects.create(
-                    user=user,
-                    especialidad=especialidad
-                )
-                login(request, user)
-                messages.success(request, '¡Registro exitoso! Bienvenido')
-                return redirect('dashboard')
-        except Exception as e:
-            messages.error(request, f'Error en el registro: {str(e)}')
-        
-        return redirect('home')
+class AutoridadesView(TemplateView):
+    """Vista de autoridades"""
+    template_name = 'secciones_estaticas/autoridades.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['show_sidebar'] = False
+        return context
 
 
-# ==================== DASHBOARD ====================
-
-class DashboardView(LoginRequiredMixin, View):
-    """Panel principal del profesor"""
-    def get(self, request):
-        try:
-            profesor = request.user.profesor_profile
-        except:
-            profesor = None
-        
-        if not profesor:
-            messages.error(request, 'Debes completar tu perfil de profesor')
-            return redirect('home')
-        
-        materias = profesor.materias.all()
-        total_contenidos = Contenido.objects.filter(materia__profesor=profesor).count()
-        
-        contexto = {
-            'profesor': profesor,
-            'materias': materias,
-            'total_materias': materias.count(),
-            'total_contenidos': total_contenidos,
-            'materias_publicadas': materias.filter(estado_publicacion='publicada').count(),
-        }
-        return render(request, 'dashboard/dashboard.html', contexto)
+class ContactoView(TemplateView):
+    """Vista de contacto"""
+    template_name = 'secciones_estaticas/contacto.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['show_sidebar'] = False
+        return context
 
 
-# ==================== MATERIAS - CRUD ====================
-
-class MateriasGestionView(LoginRequiredMixin, View):
-    """Listado de materias del profesor para gestionar"""
-    def get(self, request):
-        profesor = get_object_or_404(ProfesorProfile, user=request.user)
-        materias = profesor.materias.all().order_by('-fecha_creacion')
-        
-        paginator = Paginator(materias, 10)
-        page_number = request.GET.get('page')
-        materias = paginator.get_page(page_number)
-        
-        return render(request, 'dashboard/materias_gestion.html', {'materias': materias})
+class MateriasListView(TemplateView):
+    """Vista para listar materias públicas"""
+    template_name = 'materias/lista.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['show_sidebar'] = False
+        context['materias'] = Materia.objects.filter(estado_publicacion='publicada').select_related('profesor')
+        return context
 
 
-class MateriaCreateView(LoginRequiredMixin, CreateView):
-    """Crear nueva materia"""
-    model = Materia
-    template_name = 'dashboard/materia_form.html'
-    fields = ['nombre', 'descripcion', 'curso', 'paralelo', 'imagen_portada', 'color_portada', 'icono']
-    success_url = reverse_lazy('materias_gestion')
+class MateriasGestionView(LoginRequiredMixin, TemplateView):
+    """Vista para gestionar materias del usuario"""
+    template_name = 'materias/lista.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['show_sidebar'] = True
+        profesor_profile, _ = ProfesorProfile.objects.get_or_create(
+            user=self.request.user,
+            defaults={'activo': True}
+        )
+        context['materias'] = Materia.objects.filter(profesor=profesor_profile)
+        return context
+
+
+class ContenidosGestionView(LoginRequiredMixin, TemplateView):
+    """Vista para gestionar contenidos"""
+    template_name = 'contenidos/lista.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['show_sidebar'] = True
+        profesor_profile, _ = ProfesorProfile.objects.get_or_create(
+            user=self.request.user,
+            defaults={'activo': True}
+        )
+        context['contenidos'] = Contenido.objects.filter(materia__profesor=profesor_profile).select_related('materia')
+        context['materias'] = Materia.objects.filter(profesor=profesor_profile)
+        return context
+
+
+class CustomLoginView(LoginView):
+    """Vista personalizada de login"""
+    template_name = 'secciones_estaticas/inicio.html'
+    next_page = 'core:dashboard'
+    redirect_authenticated_user = True
+
+
+class CustomLogoutView(LogoutView):
+    """Vista personalizada de logout"""
+    next_page = 'core:index'
+
+
+class RegistroView(CreateView):
+    """Vista para registro de usuarios"""
+    model = User
+    fields = ['username', 'first_name', 'email', 'password']
+    template_name = 'secciones_estaticas/inicio.html'
+    success_url = reverse_lazy('core:dashboard')
     
     def form_valid(self, form):
-        profesor = get_object_or_404(ProfesorProfile, user=self.request.user)
-        form.instance.profesor = profesor
-        messages.success(self.request, 'Materia creada exitosamente')
-        return super().form_valid(form)
-
-
-class MateriaUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    """Editar materia"""
-    model = Materia
-    template_name = 'dashboard/materia_form.html'
-    fields = ['nombre', 'descripcion', 'curso', 'paralelo', 'imagen_portada', 'color_portada', 'icono', 'estado_publicacion', 'activo']
-    success_url = reverse_lazy('materias_gestion')
-    
-    def test_func(self):
-        materia = self.get_object()
-        return materia.profesor.user == self.request.user
-    
-    def form_valid(self, form):
-        messages.success(self.request, 'Materia actualizada exitosamente')
-        return super().form_valid(form)
-
-
-class MateriaDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-    """Eliminar (desactivar) materia"""
-    model = Materia
-    success_url = reverse_lazy('materias_gestion')
-    
-    def test_func(self):
-        materia = self.get_object()
-        return materia.profesor.user == self.request.user
-    
-    def delete(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        self.object.activo = False
-        self.object.save()
-        messages.success(request, 'Materia desactivada')
-        return redirect(self.success_url)
-
-
-# ==================== CONTENIDOS - CRUD ====================
-
-class ContenidosGestionView(LoginRequiredMixin, View):
-    """Listado de contenidos para gestionar"""
-    def get(self, request):
-        profesor = get_object_or_404(ProfesorProfile, user=request.user)
-        contenidos = Contenido.objects.filter(materia__profesor=profesor).order_by('-fecha_creacion')
-        
-        paginator = Paginator(contenidos, 10)
-        page_number = request.GET.get('page')
-        contenidos = paginator.get_page(page_number)
-        
-        return render(request, 'dashboard/contenidos_gestion.html', {'contenidos': contenidos})
-
-
-class ContenidoCreateView(LoginRequiredMixin, CreateView):
-    """Crear nuevo contenido"""
-    model = Contenido
-    template_name = 'dashboard/contenido_form.html'
-    fields = ['materia', 'titulo', 'descripcion', 'imagen_principal', 'archivo_pdf', 'link_video', 'orden']
-    success_url = reverse_lazy('contenidos_gestion')
-    
-    def form_valid(self, form):
-        profesor = get_object_or_404(ProfesorProfile, user=self.request.user)
-        materia = form.cleaned_data['materia']
-        
-        if materia.profesor.user != self.request.user:
-            messages.error(self.request, 'No tienes permisos para agregar contenido a esta materia')
+        password = form.cleaned_data.get('password')
+        password_confirm = self.request.POST.get('password_confirm')
+        if password_confirm != password:
+            form.add_error('password', 'Las contraseñas no coinciden')
             return self.form_invalid(form)
-        
-        messages.success(self.request, 'Contenido creado exitosamente')
+        user = form.save(commit=False)
+        user.set_password(password)
+        user.save()
+        user = authenticate(self.request, username=user.username, password=password)
+        if user:
+            login(self.request, user)
+            messages.success(self.request, 'Registro exitoso. Bienvenido!')
         return super().form_valid(form)
 
 
-class ContenidoUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
-    """Editar contenido"""
-    model = Contenido
-    template_name = 'dashboard/contenido_form.html'
-    fields = ['titulo', 'descripcion', 'imagen_principal', 'archivo_pdf', 'link_video', 'estado_publicacion', 'orden', 'activo']
-    success_url = reverse_lazy('contenidos_gestion')
+# ==================== VISTAS CRUD MATERIAS ====================
+
+class MateriaCreateView(LoginRequiredMixin, View):
+    """Vista para crear materias"""
+    login_url = 'core:login'
     
-    def test_func(self):
-        contenido = self.get_object()
-        return contenido.materia.profesor.user == self.request.user
-    
-    def form_valid(self, form):
-        messages.success(self.request, 'Contenido actualizado exitosamente')
-        return super().form_valid(form)
+    def post(self, request):
+        try:
+            # Obtener o crear el perfil del profesor
+            profesor_profile, _ = ProfesorProfile.objects.get_or_create(
+                user=request.user,
+                defaults={'activo': True}
+            )
+            
+            materia = Materia.objects.create(
+                profesor=profesor_profile,
+                nombre=request.POST.get('nombre'),
+                descripcion=request.POST.get('descripcion', ''),
+                estado_publicacion=request.POST.get('estado_publicacion', 'borrador')
+            )
+            return JsonResponse({'id': materia.id, 'success': True})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
 
 
-class ContenidoDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-    """Eliminar (desactivar) contenido"""
-    model = Contenido
-    success_url = reverse_lazy('contenidos_gestion')
+class MateriaUpdateView(LoginRequiredMixin, View):
+    """Vista para actualizar materias"""
+    login_url = 'core:login'
     
-    def test_func(self):
-        contenido = self.get_object()
-        return contenido.materia.profesor.user == self.request.user
+    def post(self, request, pk):
+        try:
+            materia = Materia.objects.get(pk=pk)
+            materia.nombre = request.POST.get('nombre', materia.nombre)
+            materia.descripcion = request.POST.get('descripcion', materia.descripcion)
+            materia.estado_publicacion = request.POST.get('estado_publicacion', materia.estado_publicacion)
+            materia.save()
+            return JsonResponse({'success': True})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+
+
+class MateriaDeleteView(LoginRequiredMixin, View):
+    """Vista para eliminar materias"""
+    login_url = 'core:login'
     
-    def delete(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        self.object.activo = False
-        self.object.save()
-        messages.success(request, 'Contenido desactivado')
-        return redirect(self.success_url)
+    def post(self, request, pk):
+        try:
+            materia = Materia.objects.get(pk=pk)
+            materia.delete()
+            return JsonResponse({'success': True})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+
+
+class MateriaDetailView(LoginRequiredMixin, View):
+    """Vista para obtener detalles de una materia"""
+    login_url = 'core:login'
+    
+    def get(self, request, pk):
+        try:
+            materia = Materia.objects.get(pk=pk)
+            data = {
+                'id': materia.id,
+                'nombre': materia.nombre,
+                'descripcion': materia.descripcion,
+                'estado_publicacion': materia.estado_publicacion
+            }
+            return JsonResponse(data)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+
+
+# ==================== VISTAS CRUD CONTENIDOS ====================
+
+class ContenidoCreateView(LoginRequiredMixin, View):
+    """Vista para crear contenidos"""
+    login_url = 'core:login'
+    
+    def post(self, request):
+        try:
+            contenido = Contenido.objects.create(
+                materia_id=request.POST.get('materia'),
+                titulo=request.POST.get('titulo'),
+                descripcion=request.POST.get('descripcion', ''),
+                tipo=request.POST.get('tipo', 'texto'),
+                archivo=request.FILES.get('archivo', None),
+                estado_publicacion=request.POST.get('estado_publicacion', 'privado')
+            )
+            return JsonResponse({'id': contenido.id, 'success': True})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+
+
+class ContenidoUpdateView(LoginRequiredMixin, View):
+    """Vista para actualizar contenidos"""
+    login_url = 'core:login'
+    
+    def post(self, request, pk):
+        try:
+            contenido = Contenido.objects.get(pk=pk)
+            contenido.titulo = request.POST.get('titulo', contenido.titulo)
+            contenido.descripcion = request.POST.get('descripcion', contenido.descripcion)
+            contenido.tipo = request.POST.get('tipo', contenido.tipo)
+            contenido.estado_publicacion = request.POST.get('estado_publicacion', contenido.estado_publicacion)
+            if 'archivo' in request.FILES:
+                contenido.archivo = request.FILES['archivo']
+            contenido.save()
+            return JsonResponse({'success': True})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+
+
+class ContenidoDeleteView(LoginRequiredMixin, View):
+    """Vista para eliminar contenidos"""
+    login_url = 'core:login'
+    
+    def post(self, request, pk):
+        try:
+            contenido = Contenido.objects.get(pk=pk)
+            contenido.delete()
+            return JsonResponse({'success': True})
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
+
+
+class ContenidoDetailView(LoginRequiredMixin, View):
+    """Vista para obtener detalles de un contenido"""
+    login_url = 'core:login'
+    
+    def get(self, request, pk):
+        try:
+            contenido = Contenido.objects.get(pk=pk)
+            data = {
+                'id': contenido.id,
+                'titulo': contenido.titulo,
+                'descripcion': contenido.descripcion,
+                'tipo': contenido.tipo,
+                'estado_publicacion': contenido.estado_publicacion,
+                'materia': contenido.materia.id
+            }
+            return JsonResponse(data)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)

@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Inicio - Sistema de Colegio{% endblock %}
+
+{% block content %}
+<main>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center min-vh-100">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold mb-4">
+                        Bienvenido a SistemaColegio
+                    </h1>
+                    <p class="lead mb-4">
+                        Plataforma educativa moderna para gestionar materias, contenidos y colaborar con profesores y estudiantes.
+                    </p>
+                    <div class="d-flex gap-3">
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'core:dashboard' %}" class="btn btn-primary btn-lg">
+                                Mi Panel
+                            </a>
+                        {% else %}
+                            <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                Iniciar Sesión
+                            </button>
+                            <button type="button" class="btn btn-outline-primary btn-lg" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#registroModal">
+                                Registrarse
+                            </button>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <img src="{% static 'images/hero.png' %}" alt="Hero" class="img-fluid" onerror="this.style.display='none'">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Características -->
+    <section class="features-section py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5">Características Principales</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card text-center p-4">
+                        
+                        <h5>Gestión de Materias</h5>
+                        <p>Crea, edita y organiza todas tus materias en un solo lugar.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card text-center p-4">
+                        
+                        <h5>Contenido Digital</h5>
+                        <p>Sube y gestiona contenidos multimedia para tus estudiantes.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-card text-center p-4">
+                        
+                        <h5>Colaboración</h5>
+                        <p>Trabaja en equipo con otros profesores y estudiantes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section py-5 bg-primary text-white text-center">
+        <div class="container">
+            <h2 class="mb-4">¿Listo para comenzar?</h2>
+            <p class="lead mb-4">
+                Únete a nuestra comunidad educativa y accede a todas las materias y contenidos.
+            </p>
+            {% if not user.is_authenticated %}
+                <button class="btn btn-light btn-lg" data-bs-toggle="modal" data-bs-target="#loginModal">
+                    Iniciar Sesión Ahora
+                </button>
+            {% endif %}
+        </div>
+    </section>
+</main>
+
+<!-- Modal Login -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="loginModalLabel">
+                    Iniciar Sesión
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="{% url 'core:login' %}" id="loginForm">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="login_username" class="form-label">Usuario</label>
+                        <input type="text" class="form-control" id="login_username" name="username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="login_password" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" id="login_password" name="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">
+                        Iniciar Sesión
+                    </button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <p class="w-100 text-center mb-0">
+                    ¿No tienes cuenta? 
+                    <a href="#" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#registroModal">
+                        Regístrate aquí
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Registro -->
+<div class="modal fade" id="registroModal" tabindex="-1" aria-labelledby="registroModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="registroModalLabel">
+                    Registrarse
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="{% url 'core:registro' %}" id="registroForm">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="reg_username" class="form-label">Usuario</label>
+                        <input type="text" class="form-control" id="reg_username" name="username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="reg_first_name" class="form-label">Nombre</label>
+                        <input type="text" class="form-control" id="reg_first_name" name="first_name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="reg_email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="reg_email" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="reg_password" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" id="reg_password" name="password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="reg_password_confirm" class="form-label">Confirmar Contraseña</label>
+                        <input type="password" class="form-control" id="reg_password_confirm" name="password_confirm" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">
+                        Registrarse
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

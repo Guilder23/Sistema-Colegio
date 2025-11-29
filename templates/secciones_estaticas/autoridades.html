@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Autoridades - Sistema de Colegio{% endblock %}
+
+{% block content %}
+<main class="py-5">
+    <div class="container">
+        <h1 class="text-center mb-5">
+            <i class="fas fa-users"></i> Autoridades
+        </h1>
+        
+        <p class="text-center lead mb-5">
+            Conoce al equipo directivo que dirige nuestra institución.
+        </p>
+        
+        <div class="row">
+            <!-- Autoridad 1 -->
+            <div class="col-md-6 mb-4">
+                <div class="authority-card">
+                    <div class="authority-image">
+                        <i class="fas fa-user-tie fa-4x"></i>
+                    </div>
+                    <div class="authority-info">
+                        <h5>Dr. Juan Pérez García</h5>
+                        <p class="role">Rector</p>
+                        <p class="specialty">Educación Superior</p>
+                        <p class="description">
+                            Profesional con más de 20 años de experiencia en gestión educativa.
+                        </p>
+                        <div class="authority-contact mt-3">
+                            <a href="mailto:rector@colegio.edu" class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-envelope"></i> Email
+                            </a>
+                            <a href="tel:5551234567" class="btn btn-sm btn-outline-secondary">
+                                <i class="fas fa-phone"></i> Llamar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Autoridad 2 -->
+            <div class="col-md-6 mb-4">
+                <div class="authority-card">
+                    <div class="authority-image">
+                        <i class="fas fa-user-tie fa-4x"></i>
+                    </div>
+                    <div class="authority-info">
+                        <h5>Lic. María Rodríguez López</h5>
+                        <p class="role">Vicerrectora Académica</p>
+                        <p class="specialty">Pedagogía</p>
+                        <p class="description">
+                            Especialista en currículo y desarrollo de programas educativos innovadores.
+                        </p>
+                        <div class="authority-contact mt-3">
+                            <a href="mailto:vicerrectora@colegio.edu" class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-envelope"></i> Email
+                            </a>
+                            <a href="tel:5559876543" class="btn btn-sm btn-outline-secondary">
+                                <i class="fas fa-phone"></i> Llamar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Autoridad 3 -->
+            <div class="col-md-6 mb-4">
+                <div class="authority-card">
+                    <div class="authority-image">
+                        <i class="fas fa-user-tie fa-4x"></i>
+                    </div>
+                    <div class="authority-info">
+                        <h5>Ing. Carlos Mendoza Silva</h5>
+                        <p class="role">Director de Tecnología</p>
+                        <p class="specialty">Informática Educativa</p>
+                        <p class="description">
+                            Ingeniero en Sistemas con especialización en plataformas educativas digitales.
+                        </p>
+                        <div class="authority-contact mt-3">
+                            <a href="mailto:tecnologia@colegio.edu" class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-envelope"></i> Email
+                            </a>
+                            <a href="tel:5555551234" class="btn btn-sm btn-outline-secondary">
+                                <i class="fas fa-phone"></i> Llamar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Autoridad 4 -->
+            <div class="col-md-6 mb-4">
+                <div class="authority-card">
+                    <div class="authority-image">
+                        <i class="fas fa-user-tie fa-4x"></i>
+                    </div>
+                    <div class="authority-info">
+                        <h5>Psic. Laura Fernández Gómez</h5>
+                        <p class="role">Directora de Bienestar</p>
+                        <p class="specialty">Psicología Educativa</p>
+                        <p class="description">
+                            Psicóloga clínica especializada en atención al desarrollo integral del estudiante.
+                        </p>
+                        <div class="authority-contact mt-3">
+                            <a href="mailto:bienestar@colegio.edu" class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-envelope"></i> Email
+                            </a>
+                            <a href="tel:5554443333" class="btn btn-sm btn-outline-secondary">
+                                <i class="fas fa-phone"></i> Llamar
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

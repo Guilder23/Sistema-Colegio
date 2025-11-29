@@ -1,0 +1,68 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="{% url 'core:home' %}">
+            <i class="fas fa-school"></i> SistemaColegio
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'core:home' %}">
+                        <i class="fas fa-home"></i> Inicio
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'core:historia' %}">
+                        <i class="fas fa-history"></i> Historia
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'core:mision_vision' %}">
+                        <i class="fas fa-bullseye"></i> Misión/Visión
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'core:autoridades' %}">
+                        <i class="fas fa-users"></i> Autoridades
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'core:contacto' %}">
+                        <i class="fas fa-envelope"></i> Contacto
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'core:materias' %}">
+                        <i class="fas fa-book"></i> Materias
+                    </a>
+                </li>
+                
+                {% if user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user-circle"></i> {{ user.first_name|default:user.username }}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="{% url 'core:dashboard' %}">
+                                <i class="fas fa-chart-line"></i> Panel
+                            </a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'core:logout' %}">
+                                <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                            </a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-light btn-sm text-dark ms-2" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">
+                            <i class="fas fa-sign-in-alt"></i> Iniciar
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
