@@ -1,0 +1,185 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dashboard - Panel del Profesor{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3 col-lg-2 bg-dark sticky-top" style="min-height: 100vh;">
+            <div class="sidebar-sticky p-3">
+                <h5 class="text-white mb-4">
+                    <i class="fas fa-user-circle"></i> {{ user.first_name }}
+                </h5>
+                <nav class="nav flex-column">
+                    <a class="nav-link text-white mb-2" href="{% url 'dashboard' %}">
+                        <i class="fas fa-chart-line"></i> Dashboard
+                    </a>
+                    <a class="nav-link text-white mb-2" href="{% url 'materias_gestion' %}">
+                        <i class="fas fa-book"></i> Gestionar Materias
+                    </a>
+                    <a class="nav-link text-white mb-2" href="{% url 'materia_create' %}">
+                        <i class="fas fa-plus-circle"></i> Crear Materia
+                    </a>
+                    <a class="nav-link text-white mb-2" href="{% url 'contenidos_gestion' %}">
+                        <i class="fas fa-align-left"></i> Gestionar Contenidos
+                    </a>
+                    <a class="nav-link text-white mb-2" href="{% url 'contenido_create' %}">
+                        <i class="fas fa-file-plus"></i> Crear Contenido
+                    </a>
+                    <hr class="bg-secondary">
+                    <a class="nav-link text-white mb-2" href="#">
+                        <i class="fas fa-cog"></i> Configuración
+                    </a>
+                    <a class="nav-link text-danger" href="{% url 'logout' %}">
+                        <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                    </a>
+                </nav>
+            </div>
+        </div>
+        
+        <!-- Contenido Principal -->
+        <div class="col-md-9 col-lg-10">
+            <!-- Navbar del Dashboard -->
+            <nav class="navbar navbar-light bg-light mb-4 border-bottom">
+                <span class="navbar-brand mb-0 h1">
+                    <i class="fas fa-tachometer-alt"></i> Panel de Control
+                </span>
+                <div>
+                    <span class="navbar-text me-3">{{ user.email }}</span>
+                </div>
+            </nav>
+            
+            <!-- Contenido del Dashboard -->
+            <h1 class="mb-4">¡Bienvenido, {{ user.first_name }}!</h1>
+            
+            <!-- Tarjetas de Estadísticas -->
+            <div class="row mb-5 g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="card bg-primary text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <i class="fas fa-book"></i> Materias Creadas
+                            </h5>
+                            <p class="card-text display-4">{{ materias.count }}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="card bg-success text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <i class="fas fa-check-circle"></i> Publicadas
+                            </h5>
+                            <p class="card-text display-4">{{ materias_publicadas }}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="card bg-warning text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <i class="fas fa-drafting-compass"></i> Borradores
+                            </h5>
+                            <p class="card-text display-4">{{ materias_borradores }}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-3">
+                    <div class="card bg-info text-white">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <i class="fas fa-align-left"></i> Contenidos
+                            </h5>
+                            <p class="card-text display-4">{{ total_contenidos }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Información del Profesor -->
+            <div class="row mb-5 g-4">
+                <div class="col-lg-6">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0"><i class="fas fa-user"></i> Mi Perfil</h5>
+                        </div>
+                        <div class="card-body">
+                            <p><strong>Nombres:</strong> {{ user.first_name }} {{ user.last_name }}</p>
+                            <p><strong>Email:</strong> {{ user.email }}</p>
+                            <p><strong>Especialidad:</strong> {{ profesor.especialidad }}</p>
+                            <p><strong>Teléfono:</strong> {{ profesor.telefono|default:"No registrado" }}</p>
+                            <a href="#" class="btn btn-primary btn-sm">
+                                <i class="fas fa-edit"></i> Editar Perfil
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-info text-white">
+                            <h5 class="mb-0"><i class="fas fa-calendar-alt"></i> Actividad Reciente</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="text-muted"><i class="fas fa-info-circle"></i> Aquí aparecerá tu actividad reciente</p>
+                            <ul class="list-unstyled">
+                                {% if materias %}
+                                    {% for materia in materias|slice:":3" %}
+                                        <li class="mb-2">
+                                            <i class="fas fa-plus-circle text-success"></i> 
+                                            Creaste: <strong>{{ materia.nombre }}</strong>
+                                            <br>
+                                            <small class="text-muted">{{ materia.fecha_creacion|date:"d/m/Y H:i" }}</small>
+                                        </li>
+                                    {% endfor %}
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Acciones Rápidas -->
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0"><i class="fas fa-bolt"></i> Acciones Rápidas</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex gap-3 flex-wrap">
+                        <a href="{% url 'materia_create' %}" class="btn btn-lg btn-outline-primary">
+                            <i class="fas fa-plus"></i> Crear Nueva Materia
+                        </a>
+                        <a href="{% url 'contenido_create' %}" class="btn btn-lg btn-outline-info">
+                            <i class="fas fa-file-plus"></i> Crear Contenido
+                        </a>
+                        <a href="{% url 'materias_gestion' %}" class="btn btn-lg btn-outline-secondary">
+                            <i class="fas fa-list"></i> Ver Mis Materias
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .sidebar-sticky {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+    
+    .nav-link {
+        transition: all 0.3s ease;
+    }
+    
+    .nav-link:hover {
+        transform: translateX(5px);
+    }
+</style>
+{% endblock %}

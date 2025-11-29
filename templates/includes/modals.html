@@ -1,0 +1,161 @@
+<!-- Modal de Login -->
+<div class="modal fade" id="loginModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="POST" action="{% url 'login' %}">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="loginUsername" class="form-label">Usuario</label>
+                        <input type="text" class="form-control" id="loginUsername" name="username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="loginPassword" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" id="loginPassword" name="password" required>
+                    </div>
+                    <p class="text-center text-muted small">¿No tienes cuenta? 
+                        <a href="#registroModal" data-bs-toggle="modal" data-bs-dismiss="modal" onclick="document.getElementById('registroModal').click()">
+                            Regístrate aquí
+                        </a>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Registro -->
+<div class="modal fade" id="registroModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title"><i class="fas fa-user-plus"></i> Registro de Profesor</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="POST" action="{% url 'registro' %}">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="registroNombres" class="form-label">Nombres</label>
+                            <input type="text" class="form-control" id="registroNombres" name="nombres" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="registroApellidos" class="form-label">Apellidos</label>
+                            <input type="text" class="form-control" id="registroApellidos" name="apellidos" required>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="registroEspecialidad" class="form-label">Especialidad</label>
+                        <input type="text" class="form-control" id="registroEspecialidad" name="especialidad" 
+                               placeholder="Ej: Matemáticas, Física, Español" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="registroEmail" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="registroEmail" name="email" required>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="registroUsername" class="form-label">Usuario</label>
+                            <input type="text" class="form-control" id="registroUsername" name="username" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="registroPassword" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" id="registroPassword" name="password" required>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="registroPasswordConfirm" class="form-label">Confirmar Contraseña</label>
+                        <input type="password" class="form-control" id="registroPasswordConfirm" name="password_confirm" required>
+                    </div>
+                    
+                    <p class="text-center text-muted small">¿Ya tienes cuenta? 
+                        <a href="#loginModal" data-bs-toggle="modal" data-bs-dismiss="modal">
+                            Inicia sesión
+                        </a>
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-success">Registrarse</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Contacto -->
+<div class="modal fade" id="contactoModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-white">
+                <h5 class="modal-title"><i class="fas fa-envelope"></i> Contacto</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                {% if info_colegio %}
+                    <div class="mb-3">
+                        <h6><i class="fas fa-phone"></i> Teléfono</h6>
+                        <p>{{ info_colegio.telefono_1 }}</p>
+                        {% if info_colegio.telefono_2 %}
+                            <p>{{ info_colegio.telefono_2 }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3">
+                        <h6><i class="fas fa-envelope"></i> Email</h6>
+                        <p><a href="mailto:{{ info_colegio.correo_institucional }}">{{ info_colegio.correo_institucional }}</a></p>
+                    </div>
+                    <div class="mb-3">
+                        <h6><i class="fas fa-map-marker-alt"></i> Dirección</h6>
+                        <p>{{ info_colegio.direccion }}</p>
+                    </div>
+                    <div class="mb-3">
+                        <h6><i class="fas fa-clock"></i> Horario</h6>
+                        <p>{{ info_colegio.horario_inicio|time:"H:i" }} - {{ info_colegio.horario_fin|time:"H:i" }}</p>
+                    </div>
+                {% else %}
+                    <p>Información de contacto no disponible</p>
+                {% endif %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de Ubicación -->
+<div class="modal fade" id="ubicacionModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-info text-white">
+                <h5 class="modal-title"><i class="fas fa-map-marker-alt"></i> Ubicación</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                {% if info_colegio %}
+                    <iframe width="100%" height="400" frameborder="0" style="border:0" 
+                            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDxOh-xHJJMAQyQmUWqEqxzHHvI6gNKBBQ&q={{ info_colegio.latitud }},{{ info_colegio.longitud }}&zoom=15" 
+                            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                {% else %}
+                    <p>Información de ubicación no disponible</p>
+                {% endif %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

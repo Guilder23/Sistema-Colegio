@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Misión y Visión - Sistema de Colegio{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="text-center mb-5"><i class="fas fa-binoculars"></i> Misión y Visión</h1>
+    
+    <div class="row g-5">
+        <!-- Misión -->
+        <div class="col-lg-6">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0"><i class="fas fa-target"></i> Misión</h3>
+                </div>
+                <div class="card-body">
+                    {% if mision %}
+                        <p class="lead">{{ mision.contenido|linebreaks }}</p>
+                        {% if mision.imagen_opcional %}
+                            <img src="{{ mision.imagen_opcional.url }}" class="img-fluid rounded mt-3" 
+                                 alt="Misión">
+                        {% endif %}
+                    {% else %}
+                        <p class="text-muted">Información no disponible</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Visión -->
+        <div class="col-lg-6">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <h3 class="mb-0"><i class="fas fa-eye"></i> Visión</h3>
+                </div>
+                <div class="card-body">
+                    {% if vision %}
+                        <p class="lead">{{ vision.contenido|linebreaks }}</p>
+                        {% if vision.imagen_opcional %}
+                            <img src="{{ vision.imagen_opcional.url }}" class="img-fluid rounded mt-3" 
+                                 alt="Visión">
+                        {% endif %}
+                    {% else %}
+                        <p class="text-muted">Información no disponible</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

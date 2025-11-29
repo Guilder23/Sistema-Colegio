@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Materia - Sistema de Colegio{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- Header Materia -->
+    <div class="row mb-5">
+        <div class="col-lg-8">
+            <h1 class="mb-3">{{ materia.nombre }}</h1>
+            <p class="lead text-muted">{{ materia.curso }} - {{ materia.paralelo }}</p>
+            <p>{{ materia.descripcion }}</p>
+            <div class="mt-3">
+                <small class="text-muted">
+                    <i class="fas fa-user"></i> Profesor: {{ materia.profesor.user.first_name }} {{ materia.profesor.user.last_name }}
+                </small>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            {% if materia.imagen_portada %}
+                <img src="{{ materia.imagen_portada.url }}" class="img-fluid rounded" alt="{{ materia.nombre }}">
+            {% endif %}
+        </div>
+    </div>
+    
+    <!-- Contenidos -->
+    <h2 class="mb-4">
+        <i class="fas fa-list"></i> Contenidos de la Materia
+    </h2>
+    
+    {% if contenidos %}
+        <div class="row g-4">
+            {% for contenido in contenidos %}
+                <div class="col-md-6">
+                    <div class="card shadow-sm">
+                        {% if contenido.imagen_principal %}
+                            <img src="{{ contenido.imagen_principal.url }}" class="card-img-top" 
+                                 alt="{{ contenido.titulo }}" style="height: 200px; object-fit: cover;">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ contenido.titulo }}</h5>
+                            <p class="card-text">{{ contenido.descripcion|truncatewords:30 }}</p>
+                            <a href="{% url 'contenido_detail' contenido.id %}" class="btn btn-primary">
+                                <i class="fas fa-eye"></i> Ver Contenido
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            <i class="fas fa-info-circle"></i> No hay contenidos disponibles en este momento.
+        </div>
+    {% endif %}
+    
+    <div class="mt-5">
+        <a href="{% url 'materias' %}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left"></i> Volver a Materias
+        </a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,225 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Inicio - Sistema de Colegio{% endblock %}
+
+{% block content %}
+<main>
+    <!-- Banner Principal -->
+    <section class="hero-section bg-primary text-white py-5">
+        <div class="container py-5">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold mb-3">
+                        <i class="fas fa-graduation-cap"></i> Bienvenido
+                    </h1>
+                    <p class="lead mb-4">
+                        {% if info_colegio %}
+                            {{ info_colegio.nombre }}
+                        {% else %}
+                            Descubre nuestros programas educativos
+                        {% endif %}
+                    </p>
+                    <div class="d-flex gap-3">
+                        <a href="{% url 'materias' %}" class="btn btn-light btn-lg">
+                            <i class="fas fa-book"></i> Ver Materias
+                        </a>
+                        <button class="btn btn-outline-light btn-lg" data-bs-toggle="modal" data-bs-target="#loginModal">
+                            <i class="fas fa-sign-in-alt"></i> Acceso Profesor
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="text-center">
+                        <i class="fas fa-school" style="font-size: 150px; opacity: 0.3;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Materias Destacadas -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-4">
+                <i class="fas fa-book-open"></i> Materias Disponibles
+            </h2>
+            
+            {% if materias %}
+                <div class="row g-4">
+                    {% for materia in materias %}
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card h-100 shadow-sm hover-shadow" style="border-top: 4px solid {{ materia.color_portada }};">
+                                {% if materia.imagen_portada %}
+                                    <img src="{{ materia.imagen_portada.url }}" class="card-img-top" 
+                                         alt="{{ materia.nombre }}" style="height: 200px; object-fit: cover;">
+                                {% else %}
+                                    <div class="bg-secondary text-white d-flex align-items-center justify-content-center" 
+                                         style="height: 200px; font-size: 3rem;">
+                                        <i class="fas {{ materia.icono|default:'fa-book' }}"></i>
+                                    </div>
+                                {% endif %}
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ materia.nombre }}</h5>
+                                    <p class="card-text text-muted">{{ materia.curso }} - {{ materia.paralelo }}</p>
+                                    <p class="card-text small">{{ materia.descripcion|truncatewords:20 }}</p>
+                                    <div class="d-flex justify-content-between align-items-center mt-3">
+                                        <small class="text-muted">
+                                            <i class="fas fa-user"></i> {{ materia.profesor.user.first_name }}
+                                        </small>
+                                        <a href="{% url 'materia_detail' materia.id %}" class="btn btn-sm btn-primary">
+                                            <i class="fas fa-arrow-right"></i> Ver
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                
+                <div class="text-center mt-5">
+                    <a href="{% url 'materias' %}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-list"></i> Ver Todas las Materias
+                    </a>
+                </div>
+            {% else %}
+                <div class="alert alert-info text-center">
+                    <i class="fas fa-info-circle"></i> No hay materias publicadas en este momento.
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <!-- Noticias y Eventos -->
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">
+                <i class="fas fa-newspaper"></i> Últimas Noticias
+            </h2>
+            
+            {% if noticias %}
+                <div class="row g-4">
+                    {% for noticia in noticias %}
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card shadow-sm h-100">
+                                {% if noticia.imagen %}
+                                    <img src="{{ noticia.imagen.url }}" class="card-img-top" 
+                                         alt="{{ noticia.titulo }}" style="height: 200px; object-fit: cover;">
+                                {% endif %}
+                                <div class="card-body">
+                                    {% if noticia.destacada %}
+                                        <span class="badge bg-danger mb-2">
+                                            <i class="fas fa-star"></i> Destacada
+                                        </span>
+                                    {% endif %}
+                                    <h5 class="card-title">{{ noticia.titulo }}</h5>
+                                    <p class="card-text text-muted small">
+                                        {{ noticia.contenido|truncatewords:15 }}
+                                    </p>
+                                    <p class="text-muted small">
+                                        <i class="fas fa-calendar"></i> {{ noticia.fecha_creacion|date:"d/m/Y" }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="alert alert-info text-center">
+                    <i class="fas fa-info-circle"></i> No hay noticias en este momento.
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+    <!-- Galería de Imágenes -->
+    {% if galeria %}
+        <section class="py-5 bg-light">
+            <div class="container">
+                <h2 class="text-center mb-4">
+                    <i class="fas fa-images"></i> Galería del Colegio
+                </h2>
+                <div class="row g-3">
+                    {% for imagen in galeria %}
+                        <div class="col-md-6 col-lg-4">
+                            <img src="{{ imagen.imagen.url }}" class="img-fluid rounded shadow-sm" 
+                                 alt="{{ imagen.titulo }}" style="height: 250px; width: 100%; object-fit: cover; cursor: pointer;"
+                                 data-bs-toggle="modal" data-bs-target="#galeriaModal{{ imagen.id }}">
+                        </div>
+                        
+                        <!-- Modal para cada imagen -->
+                        <div class="modal fade" id="galeriaModal{{ imagen.id }}" tabindex="-1">
+                            <div class="modal-dialog modal-lg modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">{{ imagen.titulo }}</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <img src="{{ imagen.imagen.url }}" class="img-fluid" alt="{{ imagen.titulo }}">
+                                        {% if imagen.descripcion %}
+                                            <p class="mt-3">{{ imagen.descripcion }}</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+    <!-- Sección de Información -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="text-center p-4 border rounded">
+                        <h3 class="mb-3">
+                            <i class="fas fa-users fs-1 text-primary"></i>
+                        </h3>
+                        <h5>Comunidad Educativa</h5>
+                        <p class="text-muted">Unidos en la búsqueda de excelencia académica</p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="text-center p-4 border rounded">
+                        <h3 class="mb-3">
+                            <i class="fas fa-graduation-cap fs-1 text-success"></i>
+                        </h3>
+                        <h5>Calidad Educativa</h5>
+                        <p class="text-muted">Programas académicos de excelencia internacional</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .hero-section {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    .hover-shadow {
+        transition: all 0.3s ease;
+    }
+    
+    .hover-shadow:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+    }
+    
+    .card {
+        transition: all 0.3s ease;
+    }
+    
+    .card:hover {
+        transform: translateY(-5px);
+    }
+</style>
+{% endblock %}

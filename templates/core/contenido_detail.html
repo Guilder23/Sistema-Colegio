@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ contenido.titulo }} - Sistema de Colegio{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'materias' %}">Materias</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'materia_detail' contenido.materia.id %}">{{ contenido.materia.nombre }}</a></li>
+            <li class="breadcrumb-item active">{{ contenido.titulo }}</li>
+        </ol>
+    </nav>
+    
+    <div class="row">
+        <div class="col-lg-8">
+            <h1 class="mb-3">{{ contenido.titulo }}</h1>
+            <p class="lead text-muted">{{ contenido.materia.nombre }}</p>
+            
+            {% if contenido.imagen_principal %}
+                <img src="{{ contenido.imagen_principal.url }}" class="img-fluid rounded mb-4" 
+                     alt="{{ contenido.titulo }}">
+            {% endif %}
+            
+            <div class="content-body mb-4">
+                {{ contenido.descripcion|linebreaks }}
+            </div>
+            
+            <!-- Recursos Multimedia -->
+            <div class="resources-section mb-5">
+                <h3 class="mb-3"><i class="fas fa-download"></i> Recursos Disponibles</h3>
+                
+                {% if contenido.archivo_pdf or contenido.archivo_video or contenido.link_video or imagenes %}
+                    <div class="row g-3">
+                        {% if contenido.archivo_pdf %}
+                            <div class="col-md-6">
+                                <a href="{{ contenido.archivo_pdf.url }}" class="btn btn-outline-danger w-100" download>
+                                    <i class="fas fa-file-pdf"></i> Descargar PDF
+                                </a>
+                            </div>
+                        {% endif %}
+                        
+                        {% if contenido.archivo_video %}
+                            <div class="col-md-6">
+                                <a href="{{ contenido.archivo_video.url }}" class="btn btn-outline-info w-100" download>
+                                    <i class="fas fa-video"></i> Descargar Video
+                                </a>
+                            </div>
+                        {% endif %}
+                        
+                        {% if contenido.link_video %}
+                            <div class="col-md-6">
+                                <a href="{{ contenido.link_video }}" class="btn btn-outline-warning w-100" target="_blank">
+                                    <i class="fab fa-youtube"></i> Ver Video
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+            
+            <!-- Galería -->
+            {% if imagenes %}
+                <div class="gallery-section mb-5">
+                    <h3 class="mb-3"><i class="fas fa-images"></i> Galería de Imágenes</h3>
+                    <div class="row g-3">
+                        {% for imagen in imagenes %}
+                            <div class="col-md-6">
+                                <img src="{{ imagen.imagen.url }}" class="img-fluid rounded" 
+                                     alt="{{ imagen.titulo }}" style="cursor: pointer; max-height: 300px; object-fit: cover;"
+                                     data-bs-toggle="modal" data-bs-target="#imagenModal{{ imagen.id }}">
+                                {% if imagen.titulo %}
+                                    <p class="mt-2 small text-muted">{{ imagen.titulo }}</p>
+                                {% endif %}
+                            </div>
+                            
+                            <!-- Modal para cada imagen -->
+                            <div class="modal fade" id="imagenModal{{ imagen.id }}" tabindex="-1">
+                                <div class="modal-dialog modal-lg modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">{{ imagen.titulo }}</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <img src="{{ imagen.imagen.url }}" class="img-fluid" alt="{{ imagen.titulo }}">
+                                            {% if imagen.descripcion %}
+                                                <p class="mt-3">{{ imagen.descripcion }}</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+            <div class="card shadow-sm sticky-top" style="top: 20px;">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-info-circle"></i> Información</h5>
+                </div>
+                <div class="card-body">
+                    <p class="mb-3">
+                        <strong><i class="fas fa-book"></i> Materia:</strong><br>
+                        <a href="{% url 'materia_detail' contenido.materia.id %}">{{ contenido.materia.nombre }}</a>
+                    </p>
+                    <p class="mb-3">
+                        <strong><i class="fas fa-graduation-cap"></i> Curso:</strong><br>
+                        {{ contenido.materia.curso }} - {{ contenido.materia.paralelo }}
+                    </p>
+                    <p class="mb-3">
+                        <strong><i class="fas fa-user"></i> Profesor:</strong><br>
+                        {{ contenido.materia.profesor.user.first_name }} {{ contenido.materia.profesor.user.last_name }}
+                    </p>
+                    <p>
+                        <strong><i class="fas fa-calendar"></i> Fecha:</strong><br>
+                        {{ contenido.fecha_publicacion|date:"d/m/Y" }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="mt-5">
+        <a href="{% url 'materia_detail' contenido.materia.id %}" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left"></i> Volver a Materia
+        </a>
+    </div>
+</div>
+
+<style>
+    .content-body {
+        font-size: 1.1rem;
+        line-height: 1.8;
+    }
+</style>
+{% endblock %}

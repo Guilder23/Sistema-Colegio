@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Materias - Sistema de Colegio{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="mb-4">
+        <i class="fas fa-book-open"></i> Materias
+    </h1>
+    
+    <!-- Filtros -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="btn-group" role="group">
+                <a href="{% url 'materias' %}" class="btn btn-outline-primary">
+                    <i class="fas fa-th"></i> Todas
+                </a>
+                {% for curso in cursos %}
+                    <a href="?curso={{ curso }}" class="btn btn-outline-primary">
+                        {{ curso }}
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Lista de Materias -->
+    {% if materias %}
+        <div class="row g-4">
+            {% for materia in materias %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100 shadow-sm hover-shadow" style="border-top: 4px solid {{ materia.color_portada }};">
+                        {% if materia.imagen_portada %}
+                            <img src="{{ materia.imagen_portada.url }}" class="card-img-top" 
+                                 alt="{{ materia.nombre }}" style="height: 200px; object-fit: cover;">
+                        {% else %}
+                            <div class="bg-secondary text-white d-flex align-items-center justify-content-center" 
+                                 style="height: 200px; font-size: 3rem;">
+                                <i class="fas {{ materia.icono|default:'fa-book' }}"></i>
+                            </div>
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ materia.nombre }}</h5>
+                            <p class="card-text text-muted">
+                                <i class="fas fa-graduation-cap"></i> {{ materia.curso }} - {{ materia.paralelo }}
+                            </p>
+                            <p class="card-text small">{{ materia.descripcion|truncatewords:20 }}</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <small class="text-muted">
+                                    <i class="fas fa-user"></i> {{ materia.profesor.user.first_name }}
+                                </small>
+                                <a href="{% url 'materia_detail' materia.id %}" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Paginación -->
+        {% if is_paginated %}
+            <nav aria-label="Page navigation" class="mt-5">
+                <ul class="pagination justify-content-center">
+                    {% if page_obj.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page=1">Primera</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+                        </li>
+                    {% endif %}
+                    
+                    {% for num in page_obj.paginator.page_range %}
+                        {% if page_obj.number == num %}
+                            <li class="page-item active">
+                                <span class="page-link">{{ num }}</span>
+                            </li>
+                        {% else %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                    
+                    {% if page_obj.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Última</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        {% endif %}
+    {% else %}
+        <div class="alert alert-info text-center">
+            <i class="fas fa-info-circle"></i> No hay materias disponibles en este momento.
+        </div>
+    {% endif %}
+</div>
+
+<style>
+    .hover-shadow {
+        transition: all 0.3s ease;
+    }
+    
+    .hover-shadow:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+    }
+</style>
+{% endblock %}
