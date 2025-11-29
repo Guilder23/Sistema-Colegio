@@ -1,382 +1,427 @@
-/* Variables */
-:root {
-    --primary-color: #667eea;
-    --secondary-color: #764ba2;
-    --success-color: #48bb78;
-    --danger-color: #f56565;
-    --warning-color: #ed8936;
-    --info-color: #4299e1;
-    --light-bg: #f7fafc;
-    --dark-bg: #1a202c;
-    --border-radius: 10px;
-    --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+/* ============================================
+   SISTEMA COLEGIO - MAIN STYLESHEET
+   ============================================
+   Este archivo importa todos los módulos CSS
+   en el orden correcto para cascada adecuada
+   ============================================ */
+
+/* 1. VARIABLES Y COLORES */
+@import url('variables.css');
+
+/* 2. TIPOGRAFÍA Y FUENTES */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap');
+
+/* 3. RESET Y ESTILOS BASE */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* Global Styles */
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--light-bg);
-    color: #2d3748;
+    font-family: var(--font-primary);
+    color: var(--text-primary);
+    background-color: var(--bg-primary);
     line-height: 1.6;
 }
 
-/* Navbar */
-.navbar {
-    box-shadow: var(--box-shadow);
-    transition: all 0.3s ease;
+/* 4. COMPONENTES MODULARIZADOS */
+@import url('navbar.css');
+@import url('hero.css');
+@import url('cards.css');
+@import url('forms.css');
+@import url('footer.css');
+@import url('dashboard.css');
+
+/* 5. UTILIDADES GLOBALES */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
-.navbar-brand {
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-}
-
-.nav-link {
-    transition: all 0.3s ease;
-    position: relative;
-}
-
-.nav-link:hover {
-    color: #fff !important;
-    transform: translateY(-2px);
-}
-
-.nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: #fff;
-    transition: width 0.3s ease;
-}
-
-.nav-link:hover::after {
+.container-fluid {
     width: 100%;
+    padding: 0 20px;
 }
 
-/* Cards */
-.card {
-    border: none;
-    border-radius: var(--border-radius);
-    box-shadow: var(--box-shadow);
-    transition: all 0.3s ease;
-    overflow: hidden;
-}
+/* Espaciado */
+.mt-0 { margin-top: 0; }
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mt-4 { margin-top: 2rem; }
+.mt-5 { margin-top: 3rem; }
 
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-}
+.mb-0 { margin-bottom: 0; }
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+.mb-4 { margin-bottom: 2rem; }
+.mb-5 { margin-bottom: 3rem; }
 
-.card-header {
-    border-bottom: none;
-    padding: 1.5rem;
-}
+.p-1 { padding: 0.5rem; }
+.p-2 { padding: 1rem; }
+.p-3 { padding: 1.5rem; }
+.p-4 { padding: 2rem; }
+.p-5 { padding: 3rem; }
 
-.card-body {
-    padding: 1.5rem;
-}
-
-/* Botones */
-.btn {
-    border-radius: 8px;
-    padding: 10px 20px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    border: none;
-}
-
-.btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-.btn-primary {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-    color: white;
-}
-
-.btn-primary:hover {
-    background: linear-gradient(135deg, #5568d3 0%, #6b3f8e 100%);
-    color: white;
-}
-
-/* Tabla */
-.table {
-    background-color: white;
-    border-radius: var(--border-radius);
-    overflow: hidden;
-}
-
-.table-hover tbody tr:hover {
-    background-color: #f0f4ff;
-}
-
-.table thead {
-    background-color: var(--dark-bg) !important;
-    color: white;
-}
-
-/* Badges */
-.badge {
-    padding: 8px 12px;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 0.85rem;
-}
-
-/* Alert */
-.alert {
-    border-radius: var(--border-radius);
-    border: none;
-}
-
-.alert-info {
-    background-color: #c7f0d8;
-    color: #22543d;
-    border-left: 4px solid var(--info-color);
-}
-
-.alert-success {
-    background-color: #c6f6d5;
-    color: #22543d;
-    border-left: 4px solid var(--success-color);
-}
-
-.alert-danger {
-    background-color: #fed7d7;
-    color: #742a2a;
-    border-left: 4px solid var(--danger-color);
-}
-
-.alert-warning {
-    background-color: #feebc8;
-    color: #7c2d12;
-    border-left: 4px solid var(--warning-color);
-}
-
-/* Hero Section */
-.hero-section {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-    min-height: 500px;
+/* Flexbox utilities */
+.d-flex {
     display: flex;
-    align-items: center;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.justify-content-center {
     justify-content: center;
+}
+
+.justify-content-between {
+    justify-content: space-between;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.gap-2 {
+    gap: 1rem;
+}
+
+.gap-3 {
+    gap: 1.5rem;
+}
+
+.gap-4 {
+    gap: 2rem;
+}
+
+/* Text utilities */
+.text-center {
+    text-align: center;
+}
+
+.text-white {
     color: white;
-    position: relative;
+}
+
+.text-primary {
+    color: var(--primary);
+}
+
+.text-secondary {
+    color: var(--secondary);
+}
+
+.text-muted {
+    color: var(--text-light);
+}
+
+.fw-bold {
+    font-weight: 700;
+}
+
+.fw-600 {
+    font-weight: 600;
+}
+
+/* Display utilities */
+.d-none {
+    display: none;
+}
+
+.d-block {
+    display: block;
+}
+
+.d-inline {
+    display: inline;
+}
+
+.d-inline-block {
+    display: inline-block;
+}
+
+/* Visibility */
+.invisible {
+    visibility: hidden;
+}
+
+.visible {
+    visibility: visible;
+}
+
+/* Overflow */
+.overflow-hidden {
     overflow: hidden;
 }
 
-.hero-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.1);
-    z-index: 0;
+.overflow-auto {
+    overflow: auto;
 }
 
-.hero-section > * {
+/* Position */
+.relative {
     position: relative;
-    z-index: 1;
 }
 
-/* Hover Effects */
-.hover-shadow {
-    transition: all 0.3s ease;
-    cursor: pointer;
+.absolute {
+    position: absolute;
 }
 
-.hover-shadow:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15) !important;
+.fixed {
+    position: fixed;
 }
 
-/* Footer */
-footer {
-    background-color: var(--dark-bg);
-    color: #a0aec0;
-    margin-top: 5rem;
-}
-
-footer a {
-    color: #cbd5e0;
-    transition: color 0.3s ease;
-}
-
-footer a:hover {
-    color: white;
-    text-decoration: underline;
-}
-
-footer h5 {
-    color: white;
-    font-weight: 700;
-    margin-bottom: 1rem;
-}
-
-/* Sidebar */
-.sidebar-sticky {
+.sticky {
     position: sticky;
-    top: 0;
-    z-index: 1000;
 }
 
-.bg-dark .nav-link {
-    color: #a0aec0 !important;
-    transition: all 0.3s ease;
-}
-
-.bg-dark .nav-link:hover {
-    color: white !important;
-    background-color: rgba(255, 255, 255, 0.1);
-    transform: translateX(5px);
-}
-
-.bg-dark .nav-link.active {
-    color: white !important;
-    background-color: var(--primary-color);
-    border-radius: 8px;
-}
-
-/* Forms */
-.form-control,
-.form-select {
-    border-radius: 8px;
-    border: 1px solid #e2e8f0;
-    padding: 10px 12px;
-    transition: all 0.3s ease;
-}
-
-.form-control:focus,
-.form-select:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-}
-
-.form-label {
-    font-weight: 600;
-    color: #2d3748;
-    margin-bottom: 0.5rem;
-}
-
-/* Modal */
-.modal-content {
-    border: none;
-    border-radius: var(--border-radius);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-}
-
-.modal-header {
-    border-bottom: 2px solid #e2e8f0;
-}
-
-.modal-title {
-    font-weight: 700;
-}
-
-.btn-close {
-    filter: brightness(0) invert(1);
-}
-
-.btn-close-white {
-    filter: brightness(0) invert(1);
-}
-
-/* Pagination */
-.pagination {
-    margin-top: 2rem;
-}
-
-.page-link {
-    border-radius: 8px;
-    margin: 0 5px;
-    transition: all 0.3s ease;
-}
-
-.page-link:hover:not(.page-item.active .page-link) {
-    background-color: var(--primary-color);
-    color: white;
-    border-color: var(--primary-color);
-}
-
-.page-item.active .page-link {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
-}
-
-/* Responsivo */
-@media (max-width: 768px) {
-    .hero-section {
-        min-height: 300px;
-        padding: 2rem 0;
-    }
-    
-    .display-4 {
-        font-size: 2rem;
-    }
-    
-    .card {
-        margin-bottom: 1rem;
-    }
-    
-    .table {
-        font-size: 0.9rem;
-    }
-}
-
-/* Animaciones */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.card, .alert {
-    animation: fadeIn 0.5s ease-out;
-}
-
-/* Utilidades */
-.shadow-lg {
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15) !important;
-}
-
-.rounded {
-    border-radius: var(--border-radius);
-}
-
-.text-gradient {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-/* Scrollbar personalizado */
+/* 6. SCROLLBAR PERSONALIZADA */
 ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: var(--bg-light);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--primary-color);
-    border-radius: 5px;
+    background: var(--primary);
+    border-radius: 4px;
+    transition: background 0.3s;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--secondary-color);
+    background: var(--primary-dark);
 }
+
+/* 7. ANIMACIONES GLOBALES */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideInDown {
+    from {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* 8. RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+
+    .mt-md-0 { margin-top: 0; }
+    .mt-md-3 { margin-top: 1.5rem; }
+
+    .d-md-none {
+        display: none;
+    }
+
+    .d-md-block {
+        display: block;
+    }
+}
+
+@media (max-width: 480px) {
+    .mt-sm-2 { margin-top: 1rem; }
+    .mb-sm-3 { margin-bottom: 1.5rem; }
+
+    .d-sm-none {
+        display: none;
+    }
+}
+
+/* 9. ACCESIBILIDAD */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Focus visible para navegación por teclado */
+:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* 10. IMPRESIÓN */
+@media print {
+    body {
+        background-color: white;
+    }
+
+    .navbar,
+    .footer,
+    .no-print {
+        display: none;
+    }
+
+    a {
+        color: var(--primary);
+        text-decoration: underline;
+    }
+}
+
+/* 11. TEMAS OSCUROS (Preparado para futuro) */
+@media (prefers-color-scheme: dark) {
+    /* Aquí irían los estilos para modo oscuro si se desea */
+}
+
+/* 12. COMPATIBILIDAD Y FALLBACKS */
+html {
+    font-size: 16px;
+}
+
+/* Fallback para navegadores antiguos */
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s;
+    font-weight: 600;
+}
+
+/* 13. HELPERS Y UTILIDADES ADICIONALES */
+.clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ellipsis-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.ellipsis-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* 14. SOPORTE PARA GRID Y FLEXBOX */
+.grid {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 768px) {
+    .grid-3,
+    .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .grid-2,
+    .grid-3,
+    .grid-4 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 15. FOOTER Y BOTTOM SPACING */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+
+/* 16. TABLAS RESPONSIVAS */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+th {
+    background-color: var(--bg-light);
+    font-weight: 600;
+    color: var(--primary);
+}
+
+tr:hover {
+    background-color: rgba(30, 64, 175, 0.05);
+}
+
+/* Fin del stylesheet */

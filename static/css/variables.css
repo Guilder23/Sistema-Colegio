@@ -1,0 +1,240 @@
+/* ============================================
+   VARIABLES Y COLORES GLOBALES
+   ============================================ */
+
+:root {
+  /* Colores Primarios */
+  --color-primario: #1e40af;
+  --color-primario-dark: #1e3a8a;
+  --color-primario-light: #3b82f6;
+  
+  /* Colores Secundarios */
+  --color-secundario: #0891b2;
+  --color-secundario-dark: #0e7490;
+  --color-secundario-light: #06b6d4;
+  
+  /* Colores de Acento */
+  --color-acento: #f59e0b;
+  --color-acento-dark: #d97706;
+  --color-acento-light: #fbbf24;
+  
+  /* Estados */
+  --color-exito: #10b981;
+  --color-peligro: #ef4444;
+  --color-alerta: #f59e0b;
+  --color-info: #3b82f6;
+  
+  /* Escala de Grises */
+  --color-blanco: #ffffff;
+  --color-gris-50: #f9fafb;
+  --color-gris-100: #f3f4f6;
+  --color-gris-200: #e5e7eb;
+  --color-gris-300: #d1d5db;
+  --color-gris-400: #9ca3af;
+  --color-gris-500: #6b7280;
+  --color-gris-600: #4b5563;
+  --color-gris-700: #374151;
+  --color-gris-800: #1f2937;
+  --color-gris-900: #111827;
+  
+  /* Espaciado */
+  --espaciado-xs: 0.25rem;
+  --espaciado-sm: 0.5rem;
+  --espaciado-md: 1rem;
+  --espaciado-lg: 1.5rem;
+  --espaciado-xl: 2rem;
+  --espaciado-2xl: 3rem;
+  --espaciado-3xl: 4rem;
+  
+  /* Tipografía */
+  --fuente-primaria: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  --fuente-secundaria: 'Georgia', serif;
+  --tamaño-titulo: 2.5rem;
+  --tamaño-subtitulo: 1.875rem;
+  --tamaño-heading: 1.5rem;
+  --tamaño-base: 1rem;
+  --tamaño-pequeño: 0.875rem;
+  --tamaño-muy-pequeño: 0.75rem;
+  
+  /* Sombras */
+  --sombra-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --sombra-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --sombra-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --sombra-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  
+  /* Transiciones */
+  --transicion-rapida: 150ms ease-in-out;
+  --transicion-normal: 300ms ease-in-out;
+  --transicion-lenta: 500ms ease-in-out;
+  
+  /* Border radius */
+  --radio-sm: 0.375rem;
+  --radio-md: 0.5rem;
+  --radio-lg: 0.75rem;
+  --radio-xl: 1rem;
+}
+
+/* ============================================
+   RESET Y ESTILOS BASE
+   ============================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--fuente-primaria);
+  color: var(--color-gris-900);
+  background-color: var(--color-gris-50);
+  line-height: 1.6;
+}
+
+a {
+  color: var(--color-primario);
+  text-decoration: none;
+  transition: color var(--transicion-normal);
+}
+
+a:hover {
+  color: var(--color-primario-dark);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--fuente-primaria);
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: var(--espaciado-md);
+}
+
+h1 { font-size: var(--tamaño-titulo); }
+h2 { font-size: var(--tamaño-subtitulo); }
+h3 { font-size: var(--tamaño-heading); }
+
+p {
+  margin-bottom: var(--espaciado-md);
+}
+
+/* ============================================
+   UTILIDADES COMUNES
+   ============================================ */
+
+.contenedor {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--espaciado-md);
+}
+
+.seccion {
+  padding: var(--espaciado-3xl) 0;
+}
+
+.seccion-titulo {
+  text-align: center;
+  margin-bottom: var(--espaciado-2xl);
+}
+
+.seccion-titulo h2 {
+  position: relative;
+  display: inline-block;
+  padding-bottom: var(--espaciado-md);
+}
+
+.seccion-titulo h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(to right, var(--color-primario), var(--color-acento));
+  border-radius: 2px;
+}
+
+/* Grid responsive */
+.grid {
+  display: grid;
+  gap: var(--espaciado-lg);
+}
+
+.grid-2 {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.grid-3 {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.grid-4 {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+/* Flex utilities */
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Textos */
+.texto-centro { text-align: center; }
+.texto-derecha { text-align: right; }
+.texto-izquierda { text-align: left; }
+
+.texto-muted {
+  color: var(--color-gris-500);
+}
+
+.texto-pequeño {
+  font-size: var(--tamaño-pequeño);
+}
+
+.texto-grande {
+  font-size: 1.125rem;
+}
+
+/* Badges */
+.badge {
+  display: inline-block;
+  padding: var(--espaciado-xs) var(--espaciado-sm);
+  border-radius: var(--radio-md);
+  font-size: var(--tamaño-muy-pequeño);
+  font-weight: 600;
+}
+
+.badge-primario {
+  background-color: var(--color-primario);
+  color: white;
+}
+
+.badge-acento {
+  background-color: var(--color-acento);
+  color: var(--color-gris-900);
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+  :root {
+    --tamaño-titulo: 1.875rem;
+    --tamaño-subtitulo: 1.5rem;
+  }
+  
+  .grid-2,
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: 1fr;
+  }
+}

@@ -6,7 +6,6 @@ urlpatterns = [
     path('', views.HomeView.as_view(), name='home'),
     path('historia/', views.HistoriaView.as_view(), name='historia'),
     path('mision-vision/', views.MisionVisionView.as_view(), name='mision_vision'),
-    path('profesores/', views.ProfesoresView.as_view(), name='profesores'),
     path('autoridades/', views.AutoridadesView.as_view(), name='autoridades'),
     path('materias/', views.MateriasPublicasView.as_view(), name='materias'),
     path('materia/<int:pk>/', views.MateriaDetailView.as_view(), name='materia_detail'),

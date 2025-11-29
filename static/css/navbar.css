@@ -1,0 +1,125 @@
+/* ============================================
+   NAVBAR Y NAVEGACIÓN
+   ============================================ */
+
+.navbar {
+  background: linear-gradient(135deg, var(--color-primario) 0%, var(--color-secundario) 100%);
+  box-shadow: var(--sombra-md);
+  padding: var(--espaciado-md) 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-contenedor {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--espaciado-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-logo {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: var(--espaciado-sm);
+  transition: transform var(--transicion-normal);
+}
+
+.navbar-logo:hover {
+  transform: scale(1.05);
+  color: var(--color-acento-light);
+}
+
+.navbar-logo i {
+  font-size: 2rem;
+}
+
+.navbar-menu {
+  display: flex;
+  list-style: none;
+  gap: var(--espaciado-lg);
+  align-items: center;
+}
+
+.navbar-enlace {
+  color: white;
+  font-weight: 500;
+  transition: all var(--transicion-normal);
+  position: relative;
+  padding: var(--espaciado-sm) 0;
+}
+
+.navbar-enlace::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--color-acento);
+  transition: width var(--transicion-normal);
+}
+
+.navbar-enlace:hover {
+  color: var(--color-acento-light);
+}
+
+.navbar-enlace:hover::after {
+  width: 100%;
+}
+
+.navbar-usuario {
+  display: flex;
+  align-items: center;
+  gap: var(--espaciado-md);
+  color: white;
+}
+
+.navbar-usuario-avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background-color: var(--color-acento);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform var(--transicion-normal);
+}
+
+.navbar-usuario-avatar:hover {
+  transform: scale(1.1);
+}
+
+.navbar-btn-logout {
+  background-color: var(--color-peligro);
+  color: white;
+  border: none;
+  padding: var(--espaciado-sm) var(--espaciado-md);
+  border-radius: var(--radio-md);
+  cursor: pointer;
+  transition: all var(--transicion-normal);
+  font-weight: 500;
+}
+
+.navbar-btn-logout:hover {
+  background-color: #dc2626;
+  transform: translateY(-2px);
+  box-shadow: var(--sombra-lg);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .navbar-menu {
+    gap: var(--espaciado-md);
+  }
+  
+  .navbar-enlace {
+    font-size: var(--tamaño-pequeño);
+  }
+}
