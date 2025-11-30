@@ -6,7 +6,7 @@
                 <h5 class="modal-title">Editar Materia</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <form id="form-editar-materia">
+            <form id="form-editar-materia" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="modal-body">
                     <input type="hidden" id="materia-id-editar">
@@ -24,6 +24,11 @@
                             <option value="borrador">Borrador</option>
                             <option value="publicada">Publicada</option>
                         </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="foto-editar" class="form-label">Foto de la Materia</label>
+                        <input type="file" class="form-control" id="foto-editar" name="foto" accept="image/*">
+                        <small class="text-muted">Opcional. Reemplaza la imagen existente.</small>
                     </div>
                 </div>
                 <div class="modal-footer">

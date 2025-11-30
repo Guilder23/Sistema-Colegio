@@ -34,6 +34,7 @@ class Materia(models.Model):
     nombre = models.CharField(max_length=200)
     descripcion = models.TextField(blank=True)
     estado_publicacion = models.CharField(max_length=20, choices=ESTADO_CHOICES, default='borrador')
+    foto = models.ImageField(upload_to='materias/fotos/', blank=True, null=True)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

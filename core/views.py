@@ -244,6 +244,9 @@ class MateriaCreateView(LoginRequiredMixin, View):
                 descripcion=request.POST.get('descripcion', ''),
                 estado_publicacion=request.POST.get('estado_publicacion', 'borrador')
             )
+            if 'foto' in request.FILES:
+                materia.foto = request.FILES['foto']
+                materia.save()
             messages.success(request, f'✓ Materia "{materia.nombre}" creada exitosamente')
             return JsonResponse({'id': materia.id, 'success': True})
         except Exception as e:
@@ -262,6 +265,8 @@ class MateriaUpdateView(LoginRequiredMixin, View):
             materia.nombre = request.POST.get('nombre', materia.nombre)
             materia.descripcion = request.POST.get('descripcion', materia.descripcion)
             materia.estado_publicacion = request.POST.get('estado_publicacion', materia.estado_publicacion)
+            if 'foto' in request.FILES:
+                materia.foto = request.FILES['foto']
             materia.save()
             messages.success(request, f'✓ Materia "{materia.nombre}" actualizada exitosamente')
             return JsonResponse({'success': True})
@@ -297,7 +302,8 @@ class MateriaDetailView(LoginRequiredMixin, View):
                 'id': materia.id,
                 'nombre': materia.nombre,
                 'descripcion': materia.descripcion,
-                'estado_publicacion': materia.estado_publicacion
+                'estado_publicacion': materia.estado_publicacion,
+                'foto_url': materia.foto.url if materia.foto else None
             }
             return JsonResponse(data)
         except Exception as e:

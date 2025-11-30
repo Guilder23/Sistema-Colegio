@@ -18,6 +18,10 @@ document.addEventListener('DOMContentLoaded', function() {
         formData.append('nombre', nombre);
         formData.append('descripcion', descripcion);
         formData.append('estado_publicacion', estado);
+        const fotoInput = document.getElementById('foto-crear');
+        if (fotoInput && fotoInput.files && fotoInput.files[0]) {
+            formData.append('foto', fotoInput.files[0]);
+        }
         formData.append('csrfmiddlewaretoken', getCookie('csrftoken'));
 
         fetch('/materia/crear/', {

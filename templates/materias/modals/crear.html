@@ -6,7 +6,7 @@
                 <h5 class="modal-title">Nueva Materia</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <form id="form-crear-materia">
+            <form id="form-crear-materia" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="modal-body">
                     <div class="mb-3">
@@ -23,6 +23,11 @@
                             <option value="borrador">Borrador</option>
                             <option value="publicada">Publicada</option>
                         </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="foto-crear" class="form-label">Foto de la Materia</label>
+                        <input type="file" class="form-control" id="foto-crear" name="foto" accept="image/*">
+                        <small class="text-muted">Se mostrará cuando la materia esté publicada.</small>
                     </div>
                 </div>
                 <div class="modal-footer">
