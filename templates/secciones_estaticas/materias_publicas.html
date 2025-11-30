@@ -1,10 +1,12 @@
 {% extends "base.html" %}
 {% load static %}
+{% load custom_filters %}
 
 {% block title %}Materias - Sistema de Colegio{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/secciones_estaticas/materias_publicas.css' %}">
+<link rel="stylesheet" href="{% static 'css/secciones_estaticas/modals/ver_materia.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -21,7 +23,7 @@
             <div class="row g-4">
                 {% for materia in materias %}
                     <div class="col-12 col-md-6 col-lg-4">
-                        <div class="card h-100 shadow-sm">
+                        <div class="card h-100 shadow-sm" data-descripcion="{{ materia.descripcion }}" data-contenidos='{{ contenidos_por_materia|get_item:materia.id }}'>
                             <div class="card-body d-flex flex-column">
                                 <div class="d-flex align-items-start justify-content-between mb-2">
                                     <h5 class="card-title mb-0">{{ materia.nombre }}</h5>
@@ -33,7 +35,7 @@
                                         <i class="fas fa-chalkboard-teacher text-primary"></i>
                                         <span class="fw-semibold">{{ materia.profesor.user.first_name }}</span>
                                     </div>
-                                    <a class="btn btn-outline-primary btn-sm" href="#">Ver</a>
+                                    <button class="btn btn-outline-primary btn-sm" data-materia-id="{{ materia.id }}">Ver</button>
                                 </div>
                             </div>
                         </div>
@@ -48,4 +50,12 @@
         {% endif %}
     </div>
 </main>
+
+<!-- Modal Ver Materia -->
+{% include 'secciones_estaticas/modals/ver_materia.html' %}
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/secciones_estaticas/modals/ver_materia.js' %}"></script>
 {% endblock %}

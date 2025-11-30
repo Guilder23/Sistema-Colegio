@@ -1,0 +1,32 @@
+<!-- Modal Ver Materia -->
+<div class="modal fade" id="verMateriaModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <h5 class="modal-title" id="modalMateriaTitle">Materia</h5>
+                    <small class="text-muted d-block mt-1" id="modalMateriaProfesor">Profesor</small>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Descripción de la Materia -->
+                <div class="materia-description">
+                    <h6>Descripción</h6>
+                    <p id="modalMateriaDescripcion"></p>
+                </div>
+
+                <!-- Lista de Contenidos -->
+                <div>
+                    <h6 class="mb-3">Contenidos Publicados</h6>
+                    <div class="contenidos-list" id="modalContenidosList">
+                        <div class="text-center text-muted py-3">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <p>Cargando contenidos...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

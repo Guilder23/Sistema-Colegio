@@ -108,9 +108,32 @@ class MateriasListView(TemplateView):
     template_name = 'secciones_estaticas/materias_publicas.html'
     
     def get_context_data(self, **kwargs):
+        import json
+        from datetime import datetime
+        
         context = super().get_context_data(**kwargs)
         context['show_sidebar'] = False
-        context['materias'] = Materia.objects.filter(estado_publicacion='publicada').select_related('profesor')
+        materias = Materia.objects.filter(estado_publicacion='publicada').select_related('profesor')
+        context['materias'] = materias
+        
+        # Preparar contenidos para cada materia
+        contenidos_por_materia = {}
+        for materia in materias:
+            contenidos = Contenido.objects.filter(
+                materia=materia,
+                estado_publicacion='publico'
+            ).order_by('-fecha_creacion')
+            
+            contenidos_por_materia[materia.id] = json.dumps([{
+                'titulo': contenido.titulo,
+                'descripcion': contenido.descripcion[:150] + '...' if len(contenido.descripcion) > 150 else contenido.descripcion,
+                'tipo': contenido.tipo,
+                'fecha': contenido.fecha_creacion.strftime('%d/%m/%Y'),
+                'tiene_archivo': bool(contenido.archivo),
+                'archivo_url': contenido.archivo.url if contenido.archivo else '#'
+            } for contenido in contenidos])
+        
+        context['contenidos_por_materia'] = contenidos_por_materia
         return context
 
 
