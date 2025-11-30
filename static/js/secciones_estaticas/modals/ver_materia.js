@@ -80,6 +80,56 @@ function abrirVerMateriaModal(materiaId) {
         `).join('');
     }
 
+    const mediaGrid = document.getElementById('modalContenidosMedia');
+    if (mediaGrid) {
+        const mediaItems = contenidos.filter(c => c.tiene_archivo);
+        if (mediaItems.length === 0) {
+            mediaGrid.innerHTML = `
+                <div class="text-center text-muted py-3">
+                    <i class="fas fa-photo-video fa-2x mb-2"></i>
+                    <p class="mb-0">Sin archivos multimedia disponibles</p>
+                </div>
+            `;
+        } else {
+            mediaGrid.innerHTML = mediaItems.map(c => {
+                const tipo = (c.tipo || '').toLowerCase();
+                if (tipo === 'imagen') {
+                    return `
+                        <div class="media-item">
+                            <img src="${c.archivo_url}" alt="${c.titulo}" class="media-thumb">
+                            <div class="media-meta">
+                                <span class="badge">${tipo}</span>
+                                <a href="${c.archivo_url}" target="_blank" class="text-primary">Abrir</a>
+                            </div>
+                        </div>
+                    `;
+                } else if (tipo === 'video') {
+                    return `
+                        <div class="media-item">
+                            <video src="${c.archivo_url}" class="media-thumb" controls></video>
+                            <div class="media-meta">
+                                <span class="badge">${tipo}</span>
+                                <a href="${c.archivo_url}" target="_blank" class="text-primary">Abrir</a>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    return `
+                        <div class="media-item">
+                            <div class="d-flex align-items-center justify-content-center media-thumb bg-light">
+                                <i class="fas fa-file-alt text-muted"></i>
+                            </div>
+                            <div class="media-meta">
+                                <span class="badge">${tipo || 'archivo'}</span>
+                                <a href="${c.archivo_url}" target="_blank" class="text-primary">Abrir</a>
+                            </div>
+                        </div>
+                    `;
+                }
+            }).join('');
+        }
+    }
+
     // Mostrar el modal
     if (verMateriaModal) {
         verMateriaModal.show();

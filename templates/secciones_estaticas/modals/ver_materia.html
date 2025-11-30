@@ -1,6 +1,6 @@
 <!-- Modal Ver Materia -->
 <div class="modal fade" id="verMateriaModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <div class="modal-header">
                 <div>
@@ -10,19 +10,31 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <!-- Descripción de la Materia -->
-                <div class="materia-description">
-                    <h6>Descripción</h6>
-                    <p id="modalMateriaDescripcion"></p>
-                </div>
-
-                <!-- Lista de Contenidos -->
-                <div>
-                    <h6 class="mb-3">Contenidos Publicados</h6>
-                    <div class="contenidos-list" id="modalContenidosList">
-                        <div class="text-center text-muted py-3">
-                            <i class="fas fa-spinner fa-spin"></i>
-                            <p>Cargando contenidos...</p>
+                <div class="row g-4">
+                    <div class="col-lg-6">
+                        <div class="materia-description">
+                            <h6>Descripción</h6>
+                            <p id="modalMateriaDescripcion"></p>
+                        </div>
+                        <div>
+                            <h6 class="mb-3">Contenidos Publicados</h6>
+                            <div class="contenidos-list" id="modalContenidosList">
+                                <div class="text-center text-muted py-3">
+                                    <i class="fas fa-spinner fa-spin"></i>
+                                    <p>Cargando contenidos...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="media-panel">
+                            <h6 class="mb-3">Multimedia</h6>
+                            <div id="modalContenidosMedia" class="media-grid">
+                                <div class="text-center text-muted py-3">
+                                    <i class="fas fa-photo-video fa-2x mb-2"></i>
+                                    <p class="mb-0">Sin archivos multimedia disponibles</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
