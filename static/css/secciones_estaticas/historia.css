@@ -1,23 +1,86 @@
-/* Estilos para página de historia */
-.history-section {
-    padding: 40px 20px;
-    background: #f8f9fa;
-}
-
-.history-section h1 {
-    color: #333;
-    margin-bottom: 30px;
-    font-size: 2rem;
-    border-bottom: 3px solid #667eea;
-    padding-bottom: 10px;
-}
-
+/* ======== TIMELINE GENERAL ======== */
 .timeline {
     position: relative;
-    padding: 20px 0;
+    margin: 40px 0;
+    padding-left: 30px;
 }
 
+/* Línea vertical */
+.timeline::before {
+    content: "";
+    position: absolute;
+    left: 20px;
+    top: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--primary);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow);
+}
+
+/* ======== ITEM ======== */
 .timeline-item {
+    position: relative;
     margin-bottom: 40px;
-    padding-left: 40px;
+    padding-left: 45px;
+}
+
+/* Marcador (Año) */
+.timeline-marker {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: var(--primary);
+    color: var(--on-dark);
+    padding: 8px 14px;
+    border-radius: var(--radius-lg);
+    font-weight: 700;
+    font-size: 0.9rem;
+    box-shadow: var(--shadow-lg);
+    transition: 0.25s ease;
+}
+
+.timeline-item:hover .timeline-marker {
+    background: var(--primary-600);
+    transform: scale(1.07);
+}
+
+/* ======== CONTENIDO ======== */
+.timeline-content {
+    background: var(--bg);
+    padding: 20px;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--primary);
+    transition: 0.25s ease;
+}
+
+.timeline-content h5 {
+    margin-bottom: 6px;
+    color: var(--dark);
+    font-weight: 700;
+}
+
+.timeline-content p {
+    color: var(--text-muted);
+    margin: 0;
+}
+
+/* Hover */
+.timeline-item:hover .timeline-content {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* ======== RESPONSIVE ======== */
+@media (max-width: 576px) {
+    .timeline::before {
+        left: 12px;
+    }
+    .timeline-marker {
+        left: -5px;
+    }
+    .timeline-item {
+        padding-left: 55px;
+    }
 }

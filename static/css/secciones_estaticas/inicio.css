@@ -1,25 +1,207 @@
-/* Estilos para página de inicio */
-.hero-section {
-    background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
-    color: var(--on-dark);
-    padding: 60px 20px;
-    text-align: center;
+/* ==========================================================
+   ESTILO GLOBAL MODERNO
+========================================================== */
+:root {
+    --blur-glass: rgba(255, 255, 255, 0.15);
 }
 
-.hero-section h1 {
-    font-size: 2.5rem;
-    font-weight: bold;
-    margin-bottom: 20px;
+body {
+    overflow-x: hidden;
 }
 
-.hero-section p {
+/* Animación suave al entrar */
+.fade-up {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all .8s ease-out;
+}
+
+.fade-up.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ==========================================================
+   HERO SECTION
+========================================================== */
+.hero-landing { position: relative; background-size: cover; background-position: center; background-repeat: no-repeat; }
+.hero-landing .hero-overlay { position: relative; background: linear-gradient(135deg, rgba(0,0,0,.35), rgba(0,0,0,.35)); padding: 120px 20px; }
+
+/* Burbujas animadas decorativas */
+.hero-section::before,
+.hero-section::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    background: var(--blur-glass);
+    backdrop-filter: blur(10px);
+    animation: float-bubbles 8s infinite ease-in-out;
+}
+
+.hero-section::before {
+    width: 350px;
+    height: 350px;
+    top: -80px;
+    right: -120px;
+}
+
+.hero-section::after {
+    width: 250px;
+    height: 250px;
+    bottom: -60px;
+    left: -90px;
+    animation-delay: 2s;
+}
+
+@keyframes float-bubbles {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(25px); }
+    100% { transform: translateY(0px); }
+}
+
+.hero-landing h1 {
+    font-size: 3.2rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    line-height: 1.2;
+}
+
+.hero-landing p {
+    font-size: 1.25rem;
+    opacity: 0.9;
+    margin-top: 20px;
+}
+
+/* Botones */
+.hero-buttons .btn {
+    padding: 14px 32px;
     font-size: 1.1rem;
-    margin-bottom: 30px;
+    border-radius: 14px;
+    transition: all 0.3s ease;
 }
 
-.hero-buttons {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    flex-wrap: wrap;
+.hero-buttons .btn-primary:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
 }
+
+.hero-buttons .btn-outline-primary:hover {
+    background: var(--color-primario);
+    color: white;
+}
+
+/* Imagen Hero */
+.hero-landing {
+    background-image: url('/static/images/colegio_frontal.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    width: 100%;
+}
+.hero-landing img {
+    filter: drop-shadow(0 20px 35px rgba(0, 0, 0, 0.2));
+    animation: float-img 6s ease-in-out infinite;
+}
+
+@keyframes float-img {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+/* ==========================================================
+   FEATURES SECTION
+========================================================== */
+.features-section {
+    padding: 80px 0;
+}
+
+.features-section h2 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 50px;
+}
+
+/* Cards modernas */
+.feature-card {
+    background: var(--blur-glass);
+    backdrop-filter: blur(12px);
+    border-radius: 18px;
+    padding: 30px;
+    transition: all 0.4s ease;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    position: relative;
+}
+
+/* Efecto de iluminación */
+.feature-card::before {
+    content: "";
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: var(--gradient-end);
+    filter: blur(45px);
+    top: -10px;
+    left: -10px;
+    opacity: 0;
+    transition: 0.4s ease;
+}
+
+.feature-card:hover::before {
+    opacity: 0.6;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.18);
+}
+
+.feature-card h5 {
+    font-weight: 700;
+    margin-top: 15px;
+    margin-bottom: 12px;
+}
+
+.feature-card p {
+    opacity: 0.8;
+}
+
+/* ==========================================================
+   CTA
+========================================================== */
+.cta-section {
+    background: var(--color-primario);
+    padding: 90px 20px;
+    border-radius: 0;
+    position: relative;
+}
+
+.cta-section .btn {
+    padding: 12px 35px;
+    border-radius: 14px;
+    font-weight: 600;
+    transition: .3s;
+}
+
+.cta-section .btn:hover {
+    transform: scale(1.05);
+    background: white;
+    color: var(--color-primario);
+}
+
+/* ==========================================================
+   Animate elements on scroll
+========================================================== */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all .8s ease;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ========================================================== */

@@ -1,26 +1,87 @@
-/* Estilos para página de misión y visión */
-.mission-vision-section {
-    padding: 40px 20px;
+/* =======================
+   TARJETAS MISION / VISION
+   ======================= */
+.card {
+    border: none;
+    border-radius: var(--radius-lg);
+    background: var(--bg);
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.mission-vision-section h1 {
-    text-align: center;
-    margin-bottom: 40px;
-    font-size: 2.2rem;
-    color: #333;
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
 }
 
-.mission-vision-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-    max-width: 1000px;
-    margin: 0 auto;
+.card-title {
+    font-weight: 700;
+    color: var(--dark);
 }
 
-.card-item {
-    padding: 25px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+/* =======================
+       SECCIÓN VALORES
+   ======================= */
+.value-card {
+    background: var(--bg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    transition: all 0.3s ease;
+}
+
+.value-card:hover {
+    transform: translateY(-7px) scale(1.03);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary);
+}
+
+.value-card h5 {
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+/* Iconos */
+.value-card i {
+    transition: transform 0.3s;
+}
+
+.value-card:hover i {
+    transform: scale(1.15) rotate(5deg);
+}
+
+/* =======================
+     ANIMACIONES ENTRADA
+   ======================= */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.7s ease-out;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* =======================
+   TÍTULOS PRINCIPALES
+   ======================= */
+h1, h2 {
+    font-weight: 800;
+    color: var(--primary);
+}
+
+h1 i, h2 i {
+    color: var(--primary);
+}
+
+/* Fino detalle visual */
+.container {
+    animation: fadeIn 0.8s ease both;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }

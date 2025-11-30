@@ -12,6 +12,7 @@
 }
 
 .navbar-brand { font-size: 1.25rem; font-weight: 700; color: var(--primary); text-decoration: none; }
+.brand-logo { width: 32px; height: 32px; object-fit: cover; border-radius: 50%; border: 1px solid var(--border); }
 
 .navbar-menu {
     display: flex;
