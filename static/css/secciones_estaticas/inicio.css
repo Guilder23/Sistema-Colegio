@@ -197,6 +197,66 @@
 }
 
 /* ==========================================================
+   AMBIENTES SECTION
+========================================================== */
+
+.ambientes-section {
+    background: #ffffff;
+    padding: 100px 0;
+}
+
+.ambientes-section h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 3.5rem;
+    text-align: center;
+    color: var(--text);
+}
+
+.ambiente-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-2xl);
+    aspect-ratio: 1;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    height: 250px;
+}
+
+.ambiente-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ambiente-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(30, 64, 175, 0.7) 0%, rgba(8, 145, 178, 0.7) 100%);
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
+}
+
+.ambiente-card:hover img {
+    transform: scale(1.1);
+}
+
+.ambiente-card:hover .ambiente-overlay {
+    opacity: 1;
+}
+
+.ambiente-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(30, 64, 175, 0.2);
+}
+
+/* ==========================================================
    CTA SECTION
 ========================================================== */
 
@@ -328,6 +388,19 @@
 
     .feature-card {
         padding: 2rem 1.5rem;
+    }
+
+    .ambientes-section {
+        padding: 60px 0;
+    }
+
+    .ambientes-section h2 {
+        font-size: 1.875rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .ambiente-card {
+        height: 200px;
     }
 
     .cta-section {
