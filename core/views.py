@@ -10,7 +10,7 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 from django.utils.decorators import method_decorator
 from .models import Materia, Contenido, ProfesorProfile
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 import json
 
@@ -130,6 +130,13 @@ class CustomLoginView(LoginView):
 class CustomLogoutView(LogoutView):
     """Vista personalizada de logout"""
     next_page = 'core:index'
+    template_name = 'registration/logged_out.html'
+    http_method_names = ['get', 'post', 'options']
+    
+    def get(self, request, *args, **kwargs):
+        """Permite logout mediante GET"""
+        logout(request)
+        return redirect(self.next_page)
 
 
 class RegistroView(CreateView):
