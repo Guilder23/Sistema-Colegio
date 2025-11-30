@@ -4,69 +4,70 @@
 {% block title %}Gestión de Materias - Sistema de Colegio{% endblock %}
 
 {% block content %}
-<main class="py-5">
-    <div class="container-fluid">
-        <div class="row mb-4">
-            <div class="col">
-                <h1>
-                    Gestión de Materias
-                </h1>
+<div style="display: flex; min-height: calc(100vh - 70px); width: 100%;">
+    <!-- Content -->
+    <main style="flex: 1; padding: 2rem; width: 100%; overflow-y: auto;">
+        <div class="container-fluid">
+            <div class="row mb-4">
+                <div class="col">
+                    <h1>Gestión de Materias</h1>
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearMateriaModal">
+                        <i class="fas fa-plus"></i> Nueva Materia
+                    </button>
+                </div>
             </div>
-            <div class="col-auto">
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearMateriaModal">
-                    <i class="fas fa-plus"></i> Nueva Materia
-                </button>
-            </div>
-        </div>
-        
-        {% if materias %}
-            <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead class="table-light">
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Descripción</th>
-                            <th>Estado</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="materiasTableBody">
-                        {% for materia in materias %}
+            
+            {% if materias %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-light">
                             <tr>
-                                <td><strong>{{ materia.nombre }}</strong></td>
-                                <td>{{ materia.descripcion|truncatewords:10 }}</td>
-                                <td>
-                                    <span class="badge {% if materia.estado_publicacion == 'publicada' %}bg-success{% else %}bg-warning{% endif %}">
-                                        {{ materia.get_estado_publicacion_display }}
-                                    </span>
-                                </td>
-                                <td>
-                                    <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#verMateriaModal" onclick="cargarMateria({{ materia.id }})">
-                                        Ver
-                                    </button>
-                                    <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editarMateriaModal" onclick="cargarMateriaEdicion({{ materia.id }})">
-                                        Editar
-                                    </button>
-                                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarMateriaModal" onclick="confirmarEliminacion({{ materia.id }})">
-                                        Eliminar
-                                    </button>
-                                </td>
+                                <th>Nombre</th>
+                                <th>Descripción</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
                             </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        {% else %}
-            <div class="alert alert-info text-center py-5">
-                <i class="fas fa-info-circle fa-2x mb-3"></i>
-                <p>No has creado materias aún.</p>
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearMateriaModal">
-                    <i class="fas fa-plus"></i> Crear Primera Materia
-                </button>
-            </div>
-        {% endif %}
-    </div>
-</main>
+                        </thead>
+                        <tbody id="materiasTableBody">
+                            {% for materia in materias %}
+                                <tr>
+                                    <td><strong>{{ materia.nombre }}</strong></td>
+                                    <td>{{ materia.descripcion|truncatewords:10 }}</td>
+                                    <td>
+                                        <span class="badge {% if materia.estado_publicacion == 'publicada' %}bg-success{% else %}bg-warning{% endif %}">
+                                            {{ materia.get_estado_publicacion_display }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#verMateriaModal" onclick="cargarMateria({{ materia.id }})">
+                                            Ver
+                                        </button>
+                                        <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editarMateriaModal" onclick="cargarMateriaEdicion({{ materia.id }})">
+                                            Editar
+                                        </button>
+                                        <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#eliminarMateriaModal" onclick="confirmarEliminacion({{ materia.id }})">
+                                            Eliminar
+                                        </button>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="alert alert-info text-center py-5">
+                    <i class="fas fa-info-circle fa-2x mb-3"></i>
+                    <p>No has creado materias aún.</p>
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearMateriaModal">
+                        <i class="fas fa-plus"></i> Crear Primera Materia
+                    </button>
+                </div>
+            {% endif %}
+        </div>
+    </main>
+</div>
 
 <!-- Incluir los modales -->
 {% include "materias/modals/crear.html" %}

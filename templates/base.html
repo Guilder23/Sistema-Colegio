@@ -13,6 +13,7 @@
     
     <!-- CSS Principal -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
     
     <!-- CSS Componentes -->
     <link rel="stylesheet" href="{% static 'css/componentes/navbar.css' %}">
@@ -42,25 +43,28 @@
     <!-- Navbar -->
     {% include "componentes/navbar.html" %}
     
-    <!-- Sidebar (solo en vistas dinámicas) -->
-    {% if show_sidebar %}
-        {% include "componentes/sidebar.html" %}
-    {% endif %}
-    
-    <!-- Mensajes -->
-    {% if messages %}
-        <div class="container mt-3">
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-                    {{ message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    <!-- Layout con Sidebar opcional -->
+    <div class="{% if show_sidebar %}dashboard-container{% endif %}">
+        {% if show_sidebar %}
+            {% include "componentes/sidebar.html" %}
+        {% endif %}
+
+        <div>
+            <!-- Mensajes -->
+            {% if messages %}
+                <div class="container mt-3">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    {% endfor %}
                 </div>
-            {% endfor %}
+            {% endif %}
+
+            {% block content %}{% endblock %}
         </div>
-    {% endif %}
-    
-    <!-- Contenido Principal -->
-    {% block content %}{% endblock %}
+    </div>
     
     <!-- Footer -->
     {% include "componentes/footer.html" %}

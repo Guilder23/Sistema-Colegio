@@ -35,10 +35,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         context['show_sidebar'] = True
         
         # Obtener o crear el perfil del profesor
-        profesor_profile, _ = ProfesorProfile.objects.get_or_create(
-            user=self.request.user,
-            defaults={'activo': True}
-        )
+        profesor_profile, _ = ProfesorProfile.objects.get_or_create(user=self.request.user)
         
         # Obtener materias y contenidos del usuario
         context['materias'] = Materia.objects.filter(profesor=profesor_profile).order_by('-fecha_creacion')
@@ -89,7 +86,7 @@ class ContactoView(TemplateView):
 
 class MateriasListView(TemplateView):
     """Vista para listar materias públicas"""
-    template_name = 'materias/lista.html'
+    template_name = 'secciones_estaticas/materias_publicas.html'
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -105,10 +102,7 @@ class MateriasGestionView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['show_sidebar'] = True
-        profesor_profile, _ = ProfesorProfile.objects.get_or_create(
-            user=self.request.user,
-            defaults={'activo': True}
-        )
+        profesor_profile, _ = ProfesorProfile.objects.get_or_create(user=self.request.user)
         context['materias'] = Materia.objects.filter(profesor=profesor_profile)
         return context
 
@@ -120,10 +114,7 @@ class ContenidosGestionView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['show_sidebar'] = True
-        profesor_profile, _ = ProfesorProfile.objects.get_or_create(
-            user=self.request.user,
-            defaults={'activo': True}
-        )
+        profesor_profile, _ = ProfesorProfile.objects.get_or_create(user=self.request.user)
         context['contenidos'] = Contenido.objects.filter(materia__profesor=profesor_profile).select_related('materia')
         context['materias'] = Materia.objects.filter(profesor=profesor_profile)
         return context

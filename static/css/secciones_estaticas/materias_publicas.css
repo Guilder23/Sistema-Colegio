@@ -1,0 +1,36 @@
+.materias-publicas-header h1 {
+    font-weight: 700;
+}
+
+.materias-publicas-header p {
+    color: #6b7280;
+}
+
+.card {
+    border: 1px solid var(--border);
+    border-radius: var(--border-radius);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.card-title {
+    font-weight: 600;
+}
+
+.card-text {
+    font-size: 0.95rem;
+}
+
+.badge {
+    font-size: 0.75rem;
+}
+
+.materias-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

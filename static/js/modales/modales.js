@@ -1,57 +1,53 @@
-class Modal {
-    constructor(modalId) {
-        this.modal = document.getElementById(modalId);
-        this.closeButtons = this.modal.querySelectorAll('[data-modal-close]');
-        this.init();
+// Funciones globales para abrir y cerrar modales
+function abrirModal(modalId) {
+    const modalElement = document.getElementById(modalId);
+    if (modalElement) {
+        const modal = new bootstrap.Modal(modalElement);
+        modal.show();
     }
+}
 
-    init() {
-        this.closeButtons.forEach(btn => {
-            btn.addEventListener('click', () => this.close());
-        });
-
-        window.addEventListener('click', (e) => {
-            if (e.target === this.modal) {
-                this.close();
-            }
-        });
-
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && this.modal.classList.contains('show')) {
-                this.close();
-            }
-        });
-    }
-
-    open() {
-        this.modal.classList.add('show');
-        document.body.style.overflow = 'hidden';
-    }
-
-    close() {
-        this.modal.classList.remove('show');
-        document.body.style.overflow = 'auto';
-    }
-
-    toggle() {
-        if (this.modal.classList.contains('show')) {
-            this.close();
-        } else {
-            this.open();
+function cerrarModal(modalId) {
+    const modalElement = document.getElementById(modalId);
+    if (modalElement) {
+        const modal = bootstrap.Modal.getInstance(modalElement);
+        if (modal) {
+            modal.hide();
         }
     }
 }
 
-function abrirModal(modalId) {
-    const modal = new Modal(modalId);
-    modal.open();
+// Clase Modal personalizada (para compatibilidad)
+class Modal {
+    constructor(modalId) {
+        this.modalId = modalId;
+        this.modal = document.getElementById(modalId);
+        this.bsModal = null;
+        if (this.modal) {
+            this.bsModal = new bootstrap.Modal(this.modal);
+        }
+    }
+
+    open() {
+        if (this.bsModal) {
+            this.bsModal.show();
+        }
+    }
+
+    close() {
+        if (this.bsModal) {
+            this.bsModal.hide();
+        }
+    }
+
+    toggle() {
+        if (this.bsModal) {
+            this.bsModal.toggle();
+        }
+    }
 }
 
-function cerrarModal(modalId) {
-    const modal = new Modal(modalId);
-    modal.close();
-}
-
+// Inicializar al cargar la página
 document.addEventListener('DOMContentLoaded', () => {
     const modalTriggers = document.querySelectorAll('[data-modal-trigger]');
     
