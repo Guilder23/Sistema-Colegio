@@ -9,7 +9,7 @@
 
 {% block content %}
 <div style="display: flex; min-height: calc(100vh - 70px);">
-    <main style="flex: 1; padding: 2rem; width: 100%; overflow-y: auto;">
+    <main style="flex: 1; padding: 1rem; width: 100%; overflow-y: auto;">
         <!-- Hero Welcome -->
         <section class="dashboard-header py-5 bg-gradient">
         <div class="container">
@@ -32,7 +32,7 @@
     </section>
 
     <!-- Quick Stats -->
-    <section class="quick-stats py-4">
+    <section class="quick-stats py-2">
         <div class="container">
             <div class="row g-4">
                 <div class="col-md-3">
@@ -84,7 +84,7 @@
     </section>
 
     <!-- Main Content -->
-    <section class="dashboard-content py-5">
+    <section class="dashboard-content py-2">
         <div class="container">
             <div class="row">
                 <!-- Left Column - Quick Actions -->
@@ -121,7 +121,7 @@
                         <div class="card-body">
                             {% if materias %}
                                 <div class="list-group">
-                                    {% for materia in materias|slice:":5" %}
+                                    {% for materia in materias|slice:":2" %}
                                         <div class="list-group-item">
                                             <div class="d-flex justify-content-between align-items-start">
                                                 <div>
@@ -153,7 +153,7 @@
                         <div class="card-body">
                             {% if contenidos %}
                                 <div class="list-group">
-                                    {% for contenido in contenidos|slice:":5" %}
+                                    {% for contenido in contenidos|slice:":2" %}
                                         <div class="list-group-item">
                                             <div class="d-flex justify-content-between align-items-start">
                                                 <div>
