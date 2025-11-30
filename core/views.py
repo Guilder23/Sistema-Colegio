@@ -170,7 +170,20 @@ class CustomLoginView(LoginView):
     
     def form_valid(self, form):
         messages.success(self.request, f'✓ Bienvenido {form.get_user().first_name or form.get_user().username}!')
-        return super().form_valid(form)
+        response = super().form_valid(form)
+        # Usar redirect para evitar el modal de confirmación de reenvío de formulario
+        return redirect(self.next_page)
+    
+    def form_invalid(self, form):
+        """Mostrar mensaje de error cuando las credenciales son incorrectas"""
+        messages.error(self.request, 'Usuario o contraseña incorrectos. Verifique sus datos e intente de nuevo.')
+        return super().form_invalid(form)
+    
+    def get_context_data(self, **kwargs):
+        """Agregar el form al contexto para mostrar en el modal"""
+        context = super().get_context_data(**kwargs)
+        context['show_sidebar'] = False
+        return context
 
 
 class CustomLogoutView(LogoutView):
@@ -206,6 +219,8 @@ class RegistroView(CreateView):
         if user:
             login(self.request, user)
             messages.success(self.request, 'Registro exitoso. Bienvenido!')
+            # Usar redirect para evitar el modal de confirmación de reenvío de formulario
+            return redirect(self.success_url)
         return super().form_valid(form)
 
 

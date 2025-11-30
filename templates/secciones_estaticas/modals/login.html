@@ -6,6 +6,11 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <div id="loginErrorAlert" class="alert alert-danger alert-dismissible fade" role="alert" style="display: none;">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span id="loginErrorMessage"></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
                 <form method="post" action="{% url 'core:login' %}" id="loginForm">
                     {% csrf_token %}
                     <div class="mb-3">
