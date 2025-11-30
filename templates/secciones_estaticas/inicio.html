@@ -12,6 +12,14 @@
                     <div class="col-lg-8 col-xl-6">
                         <h1 class="display-5 fw-bold mb-3">Bienvenido a SistemaColegio</h1>
                         <p class="lead mb-4">Plataforma educativa moderna para gestionar materias, contenidos y colaborar con profesores y estudiantes.</p>
+
+                            <p>
+                                DISTRITO: TIQUIPAYA <br>
+                                SIE: 60900053 <br>
+                                NUCLEO: “TORIBIO CLAURE” <br>
+                                NIVELES: INICIAL – PRIMARIA – SECUNDARIA BTH
+                            </p>
+
                         <div class="d-flex gap-3">
                             {% if user.is_authenticated %}
                                 <a href="{% url 'core:dashboard' %}" class="btn btn-primary btn-lg">Mi Panel</a>
@@ -40,7 +48,6 @@
                 </div>
                 <div class="col-md-4 mb-4">
                     <div class="feature-card text-center p-4">
-                        
                         <h5>Contenido Digital</h5>
                         <p>Sube y gestiona contenidos multimedia para tus estudiantes.</p>
                     </div>

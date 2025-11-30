@@ -73,16 +73,16 @@ class AutoridadesView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['show_sidebar'] = False
         context['director'] = {
-            'nombre': 'Dr. Juan Pérez García',
-            'cargo': 'Rector',
-            'email': 'rector@colegio.edu',
-            'telefono': '5551234567'
+            'nombre': 'Mgr. Adolfo Arancibia Mallcu',
+            'cargo': 'Director',
+            'email': 'director@colegio.edu',
+            'telefono': '72744555'
         }
         context['secretaria'] = {
-            'nombre': 'Lic. María Rodríguez López',
-            'cargo': 'Secretaría Académica',
+            'nombre': 'Sra. Jhanet Parra Quispe',            
+            'cargo': 'Secretaría',
             'email': 'secretaria@colegio.edu',
-            'telefono': '5559876543'
+            'telefono': '69513526'
         }
         context['profesores'] = (
             ProfesorProfile.objects
