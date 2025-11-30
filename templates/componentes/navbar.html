@@ -1,6 +1,11 @@
 {% load static %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
     <div class="container-fluid">
+        {% if show_sidebar %}
+        <button class="btn btn-outline-light d-lg-none me-2" id="openSidebar" type="button">
+            <i class="fas fa-bars"></i>
+        </button>
+        {% endif %}
         <a class="navbar-brand fw-bold" href="/">
             <i class="fas fa-school"></i> SistemaColegio
         </a>

@@ -1,10 +1,5 @@
 /* ==================== FOOTER ==================== */
-.footer {
-    background-color: var(--dark);
-    color: var(--on-dark);
-    padding: 3rem 1.5rem 1rem;
-    margin-top: 5rem;
-}
+.footer { background-color: var(--dark); color: var(--on-dark); padding: 3rem 1.5rem 1rem; margin-top: 3rem; border-top: 4px solid var(--primary); }
 
 .footer-container {
     max-width: 1200px;
@@ -18,11 +13,7 @@
     margin-bottom: 2rem;
 }
 
-.footer-column h4 {
-    font-size: 1.1rem;
-    margin-bottom: 1rem;
-    color: var(--primary);
-}
+.footer-column h4 { font-size: 1.05rem; margin-bottom: 1rem; color: var(--on-dark); opacity: .9; }
 
 .footer-column p {
     color: var(--border-strong);
@@ -59,22 +50,8 @@
     margin-top: 1rem;
 }
 
-.footer-social a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    background-color: var(--primary);
-    border-radius: 50%;
-    color: var(--on-dark);
-    font-size: 1.2rem;
-    transition: background-color 0.3s ease;
-}
-
-.footer-social a:hover {
-    background-color: var(--secondary);
-}
+.footer-social a { display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background-color: var(--primary); border-radius: 12px; color: var(--on-dark); font-size: 1.1rem; transition: transform .2s ease, background-color .2s ease; }
+.footer-social a:hover { background-color: var(--secondary); transform: translateY(-2px); }
 
 .footer-contact {
     display: flex;

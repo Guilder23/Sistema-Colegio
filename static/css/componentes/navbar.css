@@ -1,11 +1,5 @@
 /* ==================== NAVBAR ==================== */
-.navbar {
-    background-color: var(--bg);
-    box-shadow: var(--shadow);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
+.navbar { background-color: var(--bg); box-shadow: var(--shadow); position: sticky; top: 0; z-index: 100; backdrop-filter: saturate(180%) blur(8px); border-bottom: 1px solid var(--border); }
 
 .navbar-container {
     max-width: 1200px;
@@ -17,12 +11,7 @@
     height: 70px;
 }
 
-.navbar-brand {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--primary);
-    text-decoration: none;
-}
+.navbar-brand { font-size: 1.25rem; font-weight: 700; color: var(--primary); text-decoration: none; }
 
 .navbar-menu {
     display: flex;
@@ -31,15 +20,10 @@
     align-items: center;
 }
 
-.navbar-item a {
-    color: var(--dark);
-    font-weight: 500;
-    transition: color 0.3s ease;
-}
-
-.navbar-item a:hover {
-    color: var(--primary);
-}
+.navbar-item a { color: var(--dark); font-weight: 500; padding: .5rem .75rem; border-radius: var(--radius-sm); transition: all .2s ease; }
+.navbar-item a:hover { color: var(--primary); background-color: rgba(var(--primary-rgb), .06); }
+.navbar .nav-link.active { color: var(--primary); position: relative; }
+.navbar .nav-link.active::after { content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 2px; background-color: var(--primary); border-radius: 2px; }
 
 .navbar-user {
     position: relative;
@@ -60,18 +44,7 @@
     color: var(--primary);
 }
 
-.navbar-dropdown {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background-color: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-lg);
-    min-width: 200px;
-    display: none;
-    margin-top: 0.5rem;
-}
+.navbar-dropdown { position: absolute; top: 100%; right: 0; background-color: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-lg); min-width: 220px; display: none; margin-top: .5rem; }
 
 .navbar-dropdown.show {
     display: block;
@@ -85,10 +58,7 @@
     transition: background-color 0.3s ease;
 }
 
-.navbar-dropdown-item:hover {
-    background-color: var(--light);
-    color: var(--primary);
-}
+.navbar-dropdown-item:hover { background-color: rgba(var(--primary-rgb), .06); color: var(--primary); }
 
 .navbar-dropdown-divider {
     height: 1px;
