@@ -1,5 +1,5 @@
 <!-- Modal Crear Contenido -->
-<div class="modal fade" id="crearContenidoModal" tabindex="-1">
+<div class="modal fade" id="modal-crear-contenido" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -8,12 +8,12 @@
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <form method="post" action="{% url 'core:contenido_create' %}" enctype="multipart/form-data" id="crearContenidoForm">
+            <form id="form-crear-contenido" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="materia" class="form-label">Materia *</label>
-                        <select class="form-control" name="materia" required>
+                        <label for="materia-crear" class="form-label">Materia *</label>
+                        <select class="form-control" id="materia-crear" name="materia" required>
                             <option value="">Selecciona una materia</option>
                             {% for materia in materias %}
                                 <option value="{{ materia.id }}">{{ materia.nombre }}</option>
@@ -21,16 +21,16 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="titulo" class="form-label">Título *</label>
-                        <input type="text" class="form-control" name="titulo" required placeholder="Título del contenido">
+                        <label for="titulo-crear" class="form-label">Título *</label>
+                        <input type="text" class="form-control" id="titulo-crear" name="titulo" required placeholder="Título del contenido">
                     </div>
                     <div class="mb-3">
-                        <label for="descripcion" class="form-label">Descripción</label>
-                        <textarea class="form-control" name="descripcion" rows="3"></textarea>
+                        <label for="descripcion-crear" class="form-label">Descripción</label>
+                        <textarea class="form-control" id="descripcion-crear" name="descripcion" rows="3"></textarea>
                     </div>
                     <div class="mb-3">
-                        <label for="tipo" class="form-label">Tipo de Contenido</label>
-                        <select class="form-control" name="tipo">
+                        <label for="tipo-crear" class="form-label">Tipo de Contenido</label>
+                        <select class="form-control" id="tipo-crear" name="tipo">
                             <option value="texto">Texto</option>
                             <option value="video">Video</option>
                             <option value="documento">Documento</option>
@@ -39,12 +39,12 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="archivo" class="form-label">Archivo</label>
-                        <input type="file" class="form-control" name="archivo">
+                        <label for="archivo-crear" class="form-label">Archivo</label>
+                        <input type="file" class="form-control" id="archivo-crear" name="archivo">
                     </div>
                     <div class="mb-3">
-                        <label for="estado" class="form-label">Estado</label>
-                        <select class="form-control" name="estado_publicacion">
+                        <label for="estado-crear" class="form-label">Estado</label>
+                        <select class="form-control" id="estado-crear" name="estado_publicacion">
                             <option value="privado">Privado</option>
                             <option value="publico">Público</option>
                         </select>

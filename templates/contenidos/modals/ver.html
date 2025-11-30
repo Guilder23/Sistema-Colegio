@@ -1,5 +1,5 @@
 <!-- Modal Ver Contenido -->
-<div class="modal fade" id="verContenidoModal" tabindex="-1">
+<div class="modal fade" id="modal-ver-contenido" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -9,8 +9,27 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <div id="detallesContenidoContent">
-                    <p class="text-center">Cargando detalles...</p>
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <h6 class="text-muted">Título</h6>
+                        <p id="ver-titulo-contenido">-</p>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <h6 class="text-muted">Descripción</h6>
+                        <p id="ver-descripcion-contenido">-</p>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-6">
+                        <h6 class="text-muted">Tipo</h6>
+                        <p id="ver-tipo-contenido">-</p>
+                    </div>
+                    <div class="col-6">
+                        <h6 class="text-muted">Estado</h6>
+                        <p id="ver-estado-contenido">-</p>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">

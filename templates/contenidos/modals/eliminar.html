@@ -1,5 +1,5 @@
 <!-- Modal Eliminar Contenido -->
-<div class="modal fade" id="eliminarContenidoModal" tabindex="-1">
+<div class="modal fade" id="modal-eliminar-contenido" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header bg-danger text-white">
@@ -12,18 +12,16 @@
                 <p>
                     ¿Estás seguro de que deseas eliminar este contenido? Esta acción no se puede deshacer.
                 </p>
+                <p id="eliminar-titulo-contenido" class="text-muted small"></p>
             </div>
-            <form method="post" id="eliminarContenidoForm">
-                {% csrf_token %}
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        Cancelar
-                    </button>
-                    <button type="submit" class="btn btn-danger">
-                        Eliminar
-                    </button>
-                </div>
-            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    Cancelar
+                </button>
+                <button type="button" id="btn-confirmar-eliminar-contenido" class="btn btn-danger">
+                    Eliminar
+                </button>
+            </div>
         </div>
     </div>
 </div>

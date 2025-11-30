@@ -1,5 +1,5 @@
 <!-- Modal Editar Contenido -->
-<div class="modal fade" id="editarContenidoModal" tabindex="-1">
+<div class="modal fade" id="modal-editar-contenido" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -8,29 +8,29 @@
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <form method="post" enctype="multipart/form-data" id="editarContenidoForm">
+            <form id="form-editar-contenido" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="modal-body">
-                    <input type="hidden" id="contenidoid" name="id">
+                    <input type="hidden" id="contenido-id-editar" name="id">
                     <div class="mb-3">
-                        <label for="edit_materia" class="form-label">Materia *</label>
-                        <select class="form-control" id="edit_materia" name="materia" required>
+                        <label for="materia-editar" class="form-label">Materia *</label>
+                        <select class="form-control" id="materia-editar" name="materia" required>
                             {% for materia in materias %}
                                 <option value="{{ materia.id }}">{{ materia.nombre }}</option>
                             {% endfor %}
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="edit_titulo" class="form-label">Título *</label>
-                        <input type="text" class="form-control" id="edit_titulo" name="titulo" required>
+                        <label for="titulo-editar" class="form-label">Título *</label>
+                        <input type="text" class="form-control" id="titulo-editar" name="titulo" required>
                     </div>
                     <div class="mb-3">
-                        <label for="edit_descripcion" class="form-label">Descripción</label>
-                        <textarea class="form-control" id="edit_descripcion" name="descripcion" rows="3"></textarea>
+                        <label for="descripcion-editar" class="form-label">Descripción</label>
+                        <textarea class="form-control" id="descripcion-editar" name="descripcion" rows="3"></textarea>
                     </div>
                     <div class="mb-3">
-                        <label for="edit_tipo" class="form-label">Tipo</label>
-                        <select class="form-control" id="edit_tipo" name="tipo">
+                        <label for="tipo-editar" class="form-label">Tipo</label>
+                        <select class="form-control" id="tipo-editar" name="tipo">
                             <option value="texto">Texto</option>
                             <option value="video">Video</option>
                             <option value="documento">Documento</option>
@@ -39,12 +39,12 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="edit_archivo" class="form-label">Archivo</label>
-                        <input type="file" class="form-control" id="edit_archivo" name="archivo">
+                        <label for="archivo-editar" class="form-label">Archivo</label>
+                        <input type="file" class="form-control" id="archivo-editar" name="archivo">
                     </div>
                     <div class="mb-3">
-                        <label for="edit_estado" class="form-label">Estado</label>
-                        <select class="form-control" id="edit_estado" name="estado_publicacion">
+                        <label for="estado-editar" class="form-label">Estado</label>
+                        <select class="form-control" id="estado-editar" name="estado_publicacion">
                             <option value="privado">Privado</option>
                             <option value="publico">Público</option>
                         </select>
