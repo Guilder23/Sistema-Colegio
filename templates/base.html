@@ -13,6 +13,7 @@
     
     <!-- CSS Principal -->
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/mensajes.css' %}">>
     
     <!-- CSS Componentes -->
     <link rel="stylesheet" href="{% static 'css/componentes/navbar.css' %}">
@@ -52,18 +53,19 @@
             {% include "componentes/sidebar.html" %}
         {% endif %}
 
+        <!-- Mensajes -->
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
         <div>
-            <!-- Mensajes -->
-            {% if messages %}
-                <div class="container mt-3">
-                    {% for message in messages %}
-                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-                            {{ message }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                        </div>
-                    {% endfor %}
-                </div>
-            {% endif %}
                 {% include "secciones_estaticas/modals/login.html" %}
                 {% include "secciones_estaticas/modals/registro.html" %}
             {% block content %}{% endblock %}
@@ -91,6 +93,7 @@
     
     <!-- JS Base y Dashboard -->
     <script src="{% static 'js/base.js' %}"></script>
+    <script src="{% static 'js/mensajes.js' %}"></script>
     <script src="{% static 'js/dashboard.js' %}"></script>
     
     <!-- JS Vistas Dinámicas - Materias -->

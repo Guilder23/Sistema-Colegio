@@ -144,6 +144,10 @@ class CustomLoginView(LoginView):
     template_name = 'secciones_estaticas/inicio.html'
     next_page = 'core:dashboard'
     redirect_authenticated_user = True
+    
+    def form_valid(self, form):
+        messages.success(self.request, f'✓ Bienvenido {form.get_user().first_name or form.get_user().username}!')
+        return super().form_valid(form)
 
 
 class CustomLogoutView(LogoutView):
@@ -154,6 +158,7 @@ class CustomLogoutView(LogoutView):
     
     def get(self, request, *args, **kwargs):
         """Permite logout mediante GET"""
+        messages.success(request, '✓ Sesión cerrada exitosamente')
         logout(request)
         return redirect(self.next_page)
 
@@ -201,8 +206,10 @@ class MateriaCreateView(LoginRequiredMixin, View):
                 descripcion=request.POST.get('descripcion', ''),
                 estado_publicacion=request.POST.get('estado_publicacion', 'borrador')
             )
+            messages.success(request, f'✓ Materia "{materia.nombre}" creada exitosamente')
             return JsonResponse({'id': materia.id, 'success': True})
         except Exception as e:
+            messages.error(request, f'✗ Error al crear materia: {str(e)}')
             return JsonResponse({'error': str(e)}, status=400)
 
 
@@ -213,12 +220,15 @@ class MateriaUpdateView(LoginRequiredMixin, View):
     def post(self, request, pk):
         try:
             materia = Materia.objects.get(pk=pk)
+            nombre_anterior = materia.nombre
             materia.nombre = request.POST.get('nombre', materia.nombre)
             materia.descripcion = request.POST.get('descripcion', materia.descripcion)
             materia.estado_publicacion = request.POST.get('estado_publicacion', materia.estado_publicacion)
             materia.save()
+            messages.success(request, f'✓ Materia "{materia.nombre}" actualizada exitosamente')
             return JsonResponse({'success': True})
         except Exception as e:
+            messages.error(request, f'✗ Error al actualizar materia: {str(e)}')
             return JsonResponse({'error': str(e)}, status=400)
 
 
@@ -229,9 +239,12 @@ class MateriaDeleteView(LoginRequiredMixin, View):
     def post(self, request, pk):
         try:
             materia = Materia.objects.get(pk=pk)
+            nombre_materia = materia.nombre
             materia.delete()
+            messages.success(request, f'✓ Materia "{nombre_materia}" eliminada exitosamente')
             return JsonResponse({'success': True})
         except Exception as e:
+            messages.error(request, f'✗ Error al eliminar materia: {str(e)}')
             return JsonResponse({'error': str(e)}, status=400)
 
 
@@ -269,8 +282,10 @@ class ContenidoCreateView(LoginRequiredMixin, View):
                 archivo=request.FILES.get('archivo', None),
                 estado_publicacion=request.POST.get('estado_publicacion', 'privado')
             )
+            messages.success(request, f'✓ Contenido "{contenido.titulo}" creado exitosamente')
             return JsonResponse({'id': contenido.id, 'success': True})
         except Exception as e:
+            messages.error(request, f'✗ Error al crear contenido: {str(e)}')
             return JsonResponse({'error': str(e)}, status=400)
 
 
@@ -288,8 +303,10 @@ class ContenidoUpdateView(LoginRequiredMixin, View):
             if 'archivo' in request.FILES:
                 contenido.archivo = request.FILES['archivo']
             contenido.save()
+            messages.success(request, f'✓ Contenido "{contenido.titulo}" actualizado exitosamente')
             return JsonResponse({'success': True})
         except Exception as e:
+            messages.error(request, f'✗ Error al actualizar contenido: {str(e)}')
             return JsonResponse({'error': str(e)}, status=400)
 
 
@@ -300,9 +317,12 @@ class ContenidoDeleteView(LoginRequiredMixin, View):
     def post(self, request, pk):
         try:
             contenido = Contenido.objects.get(pk=pk)
+            titulo_contenido = contenido.titulo
             contenido.delete()
+            messages.success(request, f'✓ Contenido "{titulo_contenido}" eliminado exitosamente')
             return JsonResponse({'success': True})
         except Exception as e:
+            messages.error(request, f'✗ Error al eliminar contenido: {str(e)}')
             return JsonResponse({'error': str(e)}, status=400)
 
 
