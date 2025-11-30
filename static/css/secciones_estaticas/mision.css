@@ -1,62 +1,166 @@
-/* =======================
-   TARJETAS MISION / VISION
-   ======================= */
-.card {
-    border: none;
-    border-radius: var(--radius-lg);
-    background: var(--bg);
-    box-shadow: var(--shadow);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+/* ==================== MISIÓN Y VISIÓN ==================== */
+
+.mision-section {
+    padding: 100px 0;
+    background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
 }
 
-.card:hover {
-    transform: translateY(-6px);
-    box-shadow: var(--shadow-lg);
+.mision-section h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 3rem;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
-.card-title {
+.mision-vision-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+
+.mision-card, .vision-card, .card {
+    background: #ffffff;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-2xl);
+    padding: 3rem 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.mision-card::before, .vision-card::before, .card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mision-card:hover::before, .vision-card:hover::before, .card:hover::before {
+    transform: scaleX(1);
+}
+
+.mision-card::after, .vision-card::after, .card::after {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, rgba(30, 64, 175, 0.1) 0%, rgba(8, 145, 178, 0.1) 100%);
+    border-radius: 50%;
+    top: -30px;
+    right: -30px;
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mision-card:hover::after, .vision-card:hover::after, .card:hover::after {
+    opacity: 1;
+    top: -10px;
+    right: -10px;
+}
+
+.mision-card:hover, .vision-card:hover, .card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(30, 64, 175, 0.15);
+    border-color: rgba(30, 64, 175, 0.2);
+}
+
+.mision-card i, .vision-card i {
+    font-size: 3rem;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: block;
+    margin-bottom: 1.5rem;
+}
+
+.mision-card h3, .vision-card h3, .card-title {
+    font-size: 1.5rem;
     font-weight: 700;
-    color: var(--dark);
+    margin-bottom: 1rem;
+    color: var(--text);
 }
 
-/* =======================
-       SECCIÓN VALORES
-   ======================= */
-.value-card {
-    background: var(--bg);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow);
-    border: 1px solid var(--border);
-    transition: all 0.3s ease;
+.mision-card p, .vision-card p, .card p {
+    color: var(--text-secondary);
+    line-height: 1.8;
 }
 
-.value-card:hover {
-    transform: translateY(-7px) scale(1.03);
-    box-shadow: var(--shadow-lg);
-    border-color: var(--primary);
+/* Valores sección */
+.valores-section {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    padding: 80px 0;
+    color: #ffffff;
+    border-radius: var(--radius-3xl);
+    overflow: hidden;
+    margin-top: 4rem;
 }
 
-.value-card h5 {
-    font-weight: 700;
-    margin-bottom: 10px;
+.valores-section h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 3rem;
+    text-align: center;
 }
 
-/* Iconos */
-.value-card i {
+.valores-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+}
+
+.valor, .value-card {
+    text-align: center;
+    padding: 2rem 1.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-xl);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.valor:hover, .value-card:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-4px);
+}
+
+.valor i, .value-card i {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: block;
     transition: transform 0.3s;
 }
 
-.value-card:hover i {
+.valor:hover i, .value-card:hover i {
     transform: scale(1.15) rotate(5deg);
 }
 
-/* =======================
-     ANIMACIONES ENTRADA
-   ======================= */
+.valor h4, .value-card h5 {
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+}
+
+.valor p, .value-card p {
+    font-size: 0.95rem;
+    opacity: 0.9;
+}
+
+/* Animaciones entrada */
 .reveal {
     opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.7s ease-out;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .reveal.active {
@@ -64,24 +168,49 @@
     transform: translateY(0);
 }
 
-/* =======================
-   TÍTULOS PRINCIPALES
-   ======================= */
-h1, h2 {
-    font-weight: 800;
-    color: var(--primary);
-}
-
-h1 i, h2 i {
-    color: var(--primary);
-}
-
-/* Fino detalle visual */
 .container {
-    animation: fadeIn 0.8s ease both;
+    animation: fadeIn 0.8s ease-out both;
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .mision-section {
+        padding: 60px 0;
+    }
+
+    .mision-section h1 {
+        font-size: 1.875rem;
+    }
+
+    .mision-vision-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .mision-card, .vision-card, .card {
+        padding: 2rem 1.5rem;
+    }
+
+    .valores-section {
+        padding: 60px 0;
+    }
+
+    .valores-section h2 {
+        font-size: 1.5rem;
+    }
+
+    .valores-grid {
+        grid-template-columns: 1fr;
+    }
 }

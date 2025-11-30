@@ -1,16 +1,16 @@
 {% load static %}
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+<nav class="navbar navbar-expand-lg sticky-top">
     <div class="container-fluid">
         {% if show_sidebar %}
-        <button class="btn btn-outline-light d-lg-none me-2" id="openSidebar" type="button">
+        <button class="btn btn-icon navbar-mobile-toggle d-lg-none" id="openSidebar" type="button">
             <i class="fas fa-bars"></i>
         </button>
         {% endif %}
         <a class="navbar-brand fw-bold d-flex align-items-center gap-2" href="/">
             <img src="{% static 'images/escudo.jpg' %}" alt="Escudo" class="brand-logo" onerror="this.style.display='none'">
-            <span>U.E 26 DE FEBRERO
+            <span>U.E 26 DE FEBRERO</span>
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -48,7 +48,7 @@
                 
                 {% if user.is_authenticated %}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-user-circle"></i> {{ user.first_name|default:user.username }}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
@@ -69,9 +69,9 @@
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link btn btn-light btn-sm text-dark ms-2" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">
+                        <button class="btn btn-primary btn-sm ms-2" data-bs-toggle="modal" data-bs-target="#loginModal">
                             <i class="fas fa-sign-in-alt"></i> Iniciar
-                        </a>
+                        </button>
                     </li>
                 {% endif %}
             </ul>

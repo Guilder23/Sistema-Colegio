@@ -1,14 +1,226 @@
-/* Hero */
-.authorities-hero { background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%); color: var(--on-dark); padding: 64px 0; }
-.authorities-hero h1 { font-weight: 800; }
+/* ==================== AUTORIDADES ==================== */
 
-/* Cards Director/Secretaria */
-.authority-card { display: flex; align-items: center; gap: 16px; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 20px; background: var(--bg); box-shadow: var(--shadow-sm); }
-.authority-card.gradient { background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%); color: var(--on-dark); border: none; }
-.authority-card.gradient .badge { background-color: rgba(var(--on-dark-rgb), .2); }
-.authority-avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--bg-muted); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 22px; }
-.authority-card.gradient .authority-avatar { background: rgba(var(--on-dark-rgb), .15); color: var(--on-dark); }
+.autoridades-section {
+    padding: 120px 2rem;
+}
 
-/* Professors */
-.professor-card { border: 1px solid var(--border); border-radius: var(--radius-md); padding: 16px 16px; background: var(--bg); box-shadow: var(--shadow-sm); }
-.professor-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--bg-muted); display: flex; align-items: center; justify-content: center; color: var(--primary); }
+.autoridades-section h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.autoridades-section .lead {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 3rem;
+    line-height: 1.6;
+}
+
+.autoridades-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+    perspective: 1000px;
+}
+
+.autoridad-card, .authority-card {
+    background: #ffffff;
+    border: 2px solid var(--border-light);
+    border-radius: var(--radius-2xl);
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 4px 12px rgba(30, 64, 175, 0.08);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 20px;
+}
+
+.authority-card.gradient {
+    background: linear-gradient(135deg, var(--info-600) 0%, var(--info-bg) 100%);
+    color: #ffffff;
+    border: var(--info-text);
+}
+
+.autoridad-card:hover, .authority-card:hover {
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(30, 64, 175, 0.25);
+    border-color: var(--primary-light);
+}
+
+.autoridad-image {
+    width: 100%;
+    height: 300px;
+    background: linear-gradient(135deg, var(--primary-light) 0%, var(--secondary-light) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+    color: rgba(255, 255, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.autoridad-image::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, transparent 0%, rgba(30, 64, 175, 0.2) 100%);
+    pointer-events: none;
+}
+
+.autoridad-card img, .authority-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.autoridad-card:hover img, .authority-card:hover img {
+    transform: scale(1.05);
+}
+
+.authority-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(30, 64, 175, 0.1) 0%, rgba(8, 145, 178, 0.1) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+.authority-card.gradient .authority-avatar {
+    background: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+}
+
+.autoridad-info {
+    padding: 2.5rem 2rem;
+    background: linear-gradient(135deg, rgba(30, 64, 175, 0.03) 0%, rgba(8, 145, 178, 0.03) 100%);
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.authority-card.gradient .autoridad-info {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.autoridad-info h4 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--text);
+    line-height: 1.4;
+}
+
+.authority-card.gradient .autoridad-info h4 {
+    color: #ffffff;
+}
+
+.autoridad-cargo {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: #ffffff;
+    padding: 0.6rem 1.2rem;
+    border-radius: var(--radius-full);
+    font-size: 0.8rem;
+    font-weight: var(--font-weight-bold);
+    margin-bottom: 1rem;
+    width: fit-content;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.authority-card.gradient .badge {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+}
+
+.autoridad-info p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin: 0;
+    flex-grow: 1;
+}
+
+.authority-card.gradient .autoridad-info p {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.autoridad-social {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-light);
+}
+
+.authority-card.gradient .autoridad-social {
+    border-top-color: rgba(255, 255, 255, 0.2);
+}
+
+.autoridad-social a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: #ffffff;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 1rem;
+    box-shadow: 0 4px 12px rgba(30, 64, 175, 0.15);
+}
+
+.authority-card.gradient .autoridad-social a {
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+}
+
+.autoridad-social a:hover {
+    transform: translateY(-4px) rotate(10deg);
+    box-shadow: 0 8px 20px rgba(30, 64, 175, 0.25);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .autoridades-section {
+        padding: 60px 0;
+    }
+
+    .autoridades-section h1 {
+        font-size: 1.875rem;
+    }
+
+    .autoridades-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .autoridad-card, .authority-card {
+        border-radius: var(--radius-xl);
+    }
+
+    .autoridad-image {
+        height: 220px;
+    }
+
+    .autoridad-info {
+        padding: 1.5rem;
+    }
+}

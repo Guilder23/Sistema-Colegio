@@ -1,7 +1,7 @@
 {% load static %}
-<footer class="bg-dark text-light py-5 mt-5">
+<footer class="mt-5">
     <div class="container">
-        <div class="row">
+        <div class="row py-5">
             <!-- Información de Contacto -->
             <div class="col-md-4 mb-4">
                 <h5 class="mb-3">
@@ -15,11 +15,11 @@
                 </p>
                 <p class="mb-2">
                     <i class="fas fa-envelope"></i> 
-                    <a href="mailto:info@colegio.edu" class="text-light text-decoration-none">
+                    <a href="mailto:info@colegio.edu">
                         info@colegio.edu
                     </a>
                 </p>
-                <p class="mb-2">
+                <p class="mb-0">
                     <i class="fas fa-phone"></i> (555) 1234-5678
                 </p>
             </div>
@@ -30,16 +30,16 @@
                     <i class="fas fa-share-alt"></i> Síguenos
                 </h5>
                 <div class="d-flex gap-3">
-                    <a href="#" class="text-light fs-5 text-decoration-none" title="Facebook">
+                    <a href="#" title="Facebook" class="text-decoration-none">
                         <i class="fab fa-facebook"></i>
                     </a>
-                    <a href="#" class="text-light fs-5 text-decoration-none" title="Instagram">
+                    <a href="#" title="Instagram" class="text-decoration-none">
                         <i class="fab fa-instagram"></i>
                     </a>
-                    <a href="#" class="text-light fs-5 text-decoration-none" title="Twitter">
+                    <a href="#" title="Twitter" class="text-decoration-none">
                         <i class="fab fa-twitter"></i>
                     </a>
-                    <a href="#" class="text-light fs-5 text-decoration-none" title="YouTube">
+                    <a href="#" title="YouTube" class="text-decoration-none">
                         <i class="fab fa-youtube"></i>
                     </a>
                 </div>
@@ -52,22 +52,22 @@
                 </h5>
                 <ul class="list-unstyled">
                     <li class="mb-2">
-                        <a href="{% url 'core:home' %}" class="text-light text-decoration-none">
+                        <a href="{% url 'core:home' %}" class="text-decoration-none">
                             Inicio
                         </a>
                     </li>
                     <li class="mb-2">
-                        <a href="{% url 'core:historia' %}" class="text-light text-decoration-none">
+                        <a href="{% url 'core:historia' %}" class="text-decoration-none">
                             Historia
                         </a>
                     </li>
                     <li class="mb-2">
-                        <a href="{% url 'core:mision_vision' %}" class="text-light text-decoration-none">
+                        <a href="{% url 'core:mision_vision' %}" class="text-decoration-none">
                             Misión/Visión
                         </a>
                     </li>
-                    <li class="mb-2">
-                        <a href="{% url 'core:materias' %}" class="text-light text-decoration-none">
+                    <li class="mb-0">
+                        <a href="{% url 'core:materias' %}" class="text-decoration-none">
                             Materias
                         </a>
                     </li>
@@ -75,10 +75,10 @@
             </div>
         </div>
         
-        <hr class="bg-light">
+        <hr>
         
         <!-- Copyright -->
-        <div class="row">
+        <div class="row pb-4">
             <div class="col-12 text-center">
                 <p class="mb-0">
                     &copy; 2024 Institución Educativa. Todos los derechos reservados.

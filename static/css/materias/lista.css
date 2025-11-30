@@ -86,7 +86,7 @@
 }
 
 .btn-editar:hover {
-    background-color: #f59e0b;
+    background-color: var(--accent);
 }
 
 .btn-eliminar {
@@ -101,29 +101,46 @@
 .estado-badge {
     display: inline-block;
     padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-weight: 600;
+    border-radius: var(--radius-lg);
+    font-weight: var(--font-weight-bold);
     font-size: 0.85rem;
+    border: 1px solid transparent;
 }
 
 .estado-publicada {
-    background-color: #dcfce7;
-    color: #166534;
+    background-color: var(--success-bg);
+    color: var(--success-text);
+    border-color: var(--success-border);
 }
 
 .estado-borrador {
-    background-color: #fef3c7;
-    color: #92400e;
+    background-color: var(--warning-bg);
+    color: var(--warning-text);
+    border-color: var(--warning-border);
 }
 
 .estado-publico {
-    background-color: #dcfce7;
-    color: #166534;
+    background-color: var(--success-bg);
+    color: var(--success-text);
+    border-color: var(--success-border);
 }
 
 .estado-privado {
-    background-color: #fee2e2;
-    color: #991b1b;
+    background-color: var(--danger-bg);
+    color: var(--danger-text);
+    border-color: var(--danger-border);
+}
+
+.estado-activo {
+    background-color: var(--status-active-bg);
+    color: var(--status-active);
+    border-color: var(--status-active-border);
+}
+
+.estado-inactivo {
+    background-color: var(--status-inactive-bg);
+    color: var(--status-inactive);
+    border-color: var(--status-inactive-border);
 }
 
 @media (max-width: 768px) {
