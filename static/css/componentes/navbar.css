@@ -1,6 +1,6 @@
 /* ==================== NAVBAR ==================== */
 .navbar {
-    background-color: #ffffff;
+    background-color: var(--bg);
     box-shadow: var(--shadow);
     position: sticky;
     top: 0;
@@ -64,7 +64,7 @@
     position: absolute;
     top: 100%;
     right: 0;
-    background-color: #ffffff;
+    background-color: var(--bg);
     border: 1px solid var(--border);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-lg);
@@ -115,7 +115,7 @@
         top: 70px;
         left: 0;
         right: 0;
-        background-color: #ffffff;
+        background-color: var(--bg);
         flex-direction: column;
         gap: 0;
         max-height: 0;

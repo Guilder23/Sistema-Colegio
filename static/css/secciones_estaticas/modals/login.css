@@ -1,0 +1,5 @@
+.modal-dialog { max-width: var(--modal-max-width); }
+.modal-content { border-radius: var(--radius-md); border: 1px solid var(--modal-border-color); box-shadow: var(--shadow-lg); background: var(--modal-bg); }
+.modal-header { border-bottom: 1px solid var(--modal-border-color); }
+.modal-footer { border-top: 1px solid var(--modal-border-color); }
+.form-control { border-radius: var(--radius-sm); border-color: var(--border); }

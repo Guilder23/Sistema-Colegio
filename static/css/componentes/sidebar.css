@@ -7,7 +7,7 @@
 }
 
 .sidebar {
-    background-color: #f8f9fa;
+    background-color: var(--bg-muted);
     border-right: 1px solid var(--border);
     padding: 2rem 0;
     position: sticky;
@@ -39,13 +39,13 @@
 }
 
 .sidebar-link:hover {
-    background-color: rgba(30, 64, 175, 0.05);
+    background-color: rgba(var(--primary-rgb), 0.05);
     color: var(--primary);
     border-left-color: var(--primary);
 }
 
 .sidebar-link.active {
-    background-color: rgba(30, 64, 175, 0.1);
+    background-color: rgba(var(--primary-rgb), 0.1);
     color: var(--primary);
     border-left-color: var(--primary);
 }
@@ -155,5 +155,5 @@
 }
 
 .sidebar::-webkit-scrollbar-thumb:hover {
-    background: #cbd5e1;
+    background: var(--border-strong);
 }

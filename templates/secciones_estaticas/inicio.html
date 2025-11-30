@@ -84,83 +84,16 @@
     </section>
 </main>
 
-<!-- Modal Login -->
-<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="loginModalLabel">
-                    Iniciar Sesión
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form method="post" action="{% url 'core:login' %}" id="loginForm">
-                    {% csrf_token %}
-                    <div class="mb-3">
-                        <label for="login_username" class="form-label">Usuario</label>
-                        <input type="text" class="form-control" id="login_username" name="username" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="login_password" class="form-label">Contraseña</label>
-                        <input type="password" class="form-control" id="login_password" name="password" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100">
-                        Iniciar Sesión
-                    </button>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <p class="w-100 text-center mb-0">
-                    ¿No tienes cuenta? 
-                    <a href="#" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#registroModal">
-                        Regístrate aquí
-                    </a>
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
+{% include "secciones_estaticas/modals/login.html" %}
+{% include "secciones_estaticas/modals/registro.html" %}
+{% endblock %}
 
-<!-- Modal Registro -->
-<div class="modal fade" id="registroModal" tabindex="-1" aria-labelledby="registroModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="registroModalLabel">
-                    Registrarse
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form method="post" action="{% url 'core:registro' %}" id="registroForm">
-                    {% csrf_token %}
-                    <div class="mb-3">
-                        <label for="reg_username" class="form-label">Usuario</label>
-                        <input type="text" class="form-control" id="reg_username" name="username" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="reg_first_name" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" id="reg_first_name" name="first_name" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="reg_email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="reg_email" name="email" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="reg_password" class="form-label">Contraseña</label>
-                        <input type="password" class="form-control" id="reg_password" name="password" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="reg_password_confirm" class="form-label">Confirmar Contraseña</label>
-                        <input type="password" class="form-control" id="reg_password_confirm" name="password_confirm" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100">
-                        Registrarse
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/secciones_estaticas/modals/login.css' %}">
+<link rel="stylesheet" href="{% static 'css/secciones_estaticas/modals/registro.css' %}">
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/secciones_estaticas/modals/login.js' %}"></script>
+<script src="{% static 'js/secciones_estaticas/modals/registro.js' %}"></script>
 {% endblock %}

@@ -12,11 +12,11 @@
 }
 
 .modal-content-eliminar {
-    background-color: #fefefe;
+    background-color: var(--modal-bg);
     margin: 15% auto;
     padding: 20px;
-    border: 2px solid #d32f2f;
+    border: 2px solid var(--danger);
     width: 90%;
-    max-width: 500px;
-    border-radius: 5px;
+    max-width: var(--modal-max-width);
+    border-radius: var(--radius-md);
 }

@@ -1,27 +1,85 @@
-/* Estilos para listado público de materias */
-.public-materias-section {
-    padding: 40px 20px;
-    background: white;
+/* ======= CONTENEDOR GENERAL ======= */
+main {
+    background: #f5f7fb;
 }
 
-.public-materias-section h1 {
-    text-align: center;
-    margin-bottom: 40px;
-    font-size: 2rem;
-    color: #333;
+/* ======= TÍTULOS ======= */
+.materias-publicas-header h1 {
+    font-size: 2.3rem;
+    font-weight: 700;
+    color: #1f2937;
 }
 
-.materias-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 25px;
-    max-width: 1200px;
-    margin: 0 auto;
+.materias-publicas-header p {
+    color: #6b7280;
+    font-size: 1rem;
 }
 
-.materia-card {
-    background: #f8f9fa;
+/* ======= TARJETAS ======= */
+.card {
+    border: none;
+    border-radius: 18px;
+    background: #fff;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+}
+
+.card-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #111827;
+}
+
+.card-text {
+    font-size: 0.95rem;
+    color: #6b7280;
+}
+
+/* ======= ICONO PROFESOR ======= */
+.fa-chalkboard-teacher {
+    font-size: 1.1rem;
+    color: #2563eb;
+}
+
+/* ======= ESTADO PUBLICADA ======= */
+.badge.bg-success {
+    background: linear-gradient(135deg, #10b981, #059669) !important;
+    padding: 6px 10px;
     border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    font-size: 0.75rem;
+}
+
+/* ======= BOTÓN VER ======= */
+.btn-outline-primary {
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-weight: 600;
+    transition: all 0.25s ease;
+}
+
+.btn-outline-primary:hover {
+    background: #2563eb;
+    border-color: #2563eb;
+    color: #fff;
+}
+
+/* ======= ALERTA DE VACÍO ======= */
+.alert-info {
+    background: #ecf4ff;
+    border: 1px solid #bfdbfe;
+    color: #1d4ed8;
+    border-radius: 16px;
+    padding: 40px 20px;
+}
+
+/* ======= RESPONSIVE ======= */
+@media (max-width: 768px) {
+    .materias-publicas-header h1 {
+        font-size: 1.9rem;
+    }
 }

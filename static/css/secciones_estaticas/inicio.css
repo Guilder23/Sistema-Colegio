@@ -1,7 +1,7 @@
 /* Estilos para página de inicio */
 .hero-section {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
+    background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+    color: var(--on-dark);
     padding: 60px 20px;
     text-align: center;
 }

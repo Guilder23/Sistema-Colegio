@@ -1,7 +1,7 @@
 /* ==================== FOOTER ==================== */
 .footer {
     background-color: var(--dark);
-    color: #ffffff;
+    color: var(--on-dark);
     padding: 3rem 1.5rem 1rem;
     margin-top: 5rem;
 }
@@ -25,13 +25,13 @@
 }
 
 .footer-column p {
-    color: #d1d5db;
+    color: var(--border-strong);
     margin-bottom: 0.5rem;
     font-size: 0.95rem;
 }
 
 .footer-column a {
-    color: #d1d5db;
+    color: var(--border-strong);
     transition: color 0.3s ease;
 }
 
@@ -67,7 +67,7 @@
     height: 40px;
     background-color: var(--primary);
     border-radius: 50%;
-    color: #ffffff;
+    color: var(--on-dark);
     font-size: 1.2rem;
     transition: background-color 0.3s ease;
 }
@@ -97,7 +97,7 @@
 
 .footer-divider {
     height: 1px;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(var(--on-dark-rgb), 0.1);
     margin: 2rem 0;
 }
 
@@ -106,13 +106,13 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(var(--on-dark-rgb), 0.1);
 }
 
 .footer-bottom p {
     margin: 0;
     font-size: 0.9rem;
-    color: #d1d5db;
+    color: var(--border-strong);
 }
 
 .footer-bottom-links {
