@@ -80,9 +80,9 @@
 
 /* Variantes de alerta */
 .alert-success {
-    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.08) 100%);
-    border-color: rgba(16, 185, 129, 0.3);
-    color: #047857;
+    background: linear-gradient(135deg, var(--success-transparent) 0%, var(--success-bg) 100%);
+    border-color: var(--success-border);
+    color: var(--success-text);
 }
 
 .alert-success .btn-close {
@@ -103,9 +103,9 @@
 }
 
 .alert-danger {
-    background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(239, 68, 68, 0.08) 100%);
-    border-color: rgba(239, 68, 68, 0.3);
-    color: #991b1b;
+    background: linear-gradient(135deg, var(--danger-transparent) 0%, var(--danger-bg) 100%);
+    border-color: var(--danger-border);
+    color: var(--danger-text);
 }
 
 .alert-danger::before {
@@ -121,9 +121,9 @@
 }
 
 .alert-warning {
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(245, 158, 11, 0.08) 100%);
-    border-color: rgba(245, 158, 11, 0.3);
-    color: #92400e;
+    background: linear-gradient(135deg, var(--warning-transparent) 0%, var(--warning-bg) 100%);
+    border-color: var(--warning-border);
+    color: var(--warning-text);
 }
 
 .alert-warning::before {
@@ -139,9 +139,9 @@
 }
 
 .alert-info {
-    background: linear-gradient(135deg, rgba(8, 145, 178, 0.15) 0%, rgba(8, 145, 178, 0.08) 100%);
-    border-color: rgba(8, 145, 178, 0.3);
-    color: #0c4a6e;
+    background: linear-gradient(135deg, var(--info-transparent) 0%, var(--info-bg) 100%);
+    border-color: var(--info-border);
+    color: var(--info-text);
 }
 
 .alert-info::before {

@@ -128,7 +128,7 @@
                                                     <h6 class="mb-1">{{ materia.nombre }}</h6>
                                                     <p class="mb-0 small text-muted">{{ materia.descripcion|truncatewords:15 }}</p>
                                                 </div>
-                                                <span class="badge {% if materia.estado_publicacion == 'publicada' %}bg-success{% else %}bg-warning{% endif %}">
+                                                <span class="estado-badge {% if materia.estado_publicacion == 'publicada' %}estado-publicada{% else %}estado-borrador{% endif %}">
                                                     {{ materia.get_estado_publicacion_display }}
                                                 </span>
                                             </div>
@@ -160,7 +160,7 @@
                                                     <h6 class="mb-1">{{ contenido.titulo }}</h6>
                                                     <p class="mb-0 small text-muted">{{ contenido.materia.nombre }} • {{ contenido.get_tipo_display }}</p>
                                                 </div>
-                                                <span class="badge {% if contenido.estado_publicacion == 'publico' %}bg-success{% else %}bg-warning{% endif %}">
+                                                <span class="estado-badge {% if contenido.estado_publicacion == 'publico' %}estado-publico{% else %}estado-privado{% endif %}">
                                                     {{ contenido.get_estado_publicacion_display }}
                                                 </span>
                                             </div>

@@ -51,20 +51,20 @@
 
     /* Badge/Status Colors */
     --status-active: #10b981;
-    --status-active-bg: rgba(16, 185, 129, 0.12);
-    --status-active-border: rgba(16, 185, 129, 0.3);
+    --status-active-bg: rgba(16, 185, 129, 0.04);
+    --status-active-border: rgba(16, 185, 129, 0.12);
     
     --status-inactive: #6b7280;
-    --status-inactive-bg: rgba(107, 114, 128, 0.08);
-    --status-inactive-border: rgba(107, 114, 128, 0.2);
+    --status-inactive-bg: rgba(107, 114, 128, 0.03);
+    --status-inactive-border: rgba(107, 114, 128, 0.1);
     
     --status-pending: #f59e0b;
-    --status-pending-bg: rgba(245, 158, 11, 0.12);
-    --status-pending-border: rgba(245, 158, 11, 0.3);
+    --status-pending-bg: rgba(245, 158, 11, 0.04);
+    --status-pending-border: rgba(245, 158, 11, 0.12);
     
     --status-error: #ef4444;
-    --status-error-bg: rgba(239, 68, 68, 0.12);
-    --status-error-border: rgba(239, 68, 68, 0.3);
+    --status-error-bg: rgba(239, 68, 68, 0.04);
+    --status-error-border: rgba(239, 68, 68, 0.12);
 
     /* Colors: Neutrals */
     --bg: #ffffff;
@@ -138,7 +138,6 @@
     --form-bg-focus: rgba(59, 130, 246, 0.03);
     --form-shadow-focus: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
-
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 html {

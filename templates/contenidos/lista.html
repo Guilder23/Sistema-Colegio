@@ -42,7 +42,7 @@
                                         </span>
                                     </td>
                                     <td>
-                                        <span class="badge {% if contenido.estado_publicacion == 'publico' %}bg-success{% else %}bg-warning{% endif %}">
+                                        <span class="estado-badge {% if contenido.estado_publicacion == 'publico' %}estado-publico{% else %}estado-privado{% endif %}">
                                             {{ contenido.get_estado_publicacion_display }}
                                         </span>
                                     </td>

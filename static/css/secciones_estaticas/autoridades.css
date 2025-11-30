@@ -149,6 +149,28 @@
     color: #ffffff;
 }
 
+/* Estados y Badges */
+.estado-badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-lg);
+    font-weight: var(--font-weight-bold);
+    font-size: 0.85rem;
+    border: 1px solid transparent;
+}
+
+.estado-activo {
+    background-color: var(--status-active-bg);
+    color: var(--status-active);
+    border-color: var(--status-active-border);
+}
+
+.estado-publicada {
+    background-color: var(--success-bg);
+    color: var(--success-text);
+    border-color: var(--success-border);
+}
+
 .autoridad-info p {
     color: var(--text-secondary);
     font-size: 0.95rem;
