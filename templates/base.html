@@ -26,16 +26,20 @@
     <link rel="stylesheet" href="{% static 'css/secciones_estaticas/mision.css' %}">
     <link rel="stylesheet" href="{% static 'css/secciones_estaticas/autoridades.css' %}">
     <link rel="stylesheet" href="{% static 'css/secciones_estaticas/contacto.css' %}">
-    
-    <!-- CSS Secciones -->
-    <link rel="stylesheet" href="{% static 'css/secciones/lista.css' %}">
+    <link rel="stylesheet" href="{% static 'css/secciones_estaticas/materias_publicas.css' %}">
     
     <!-- CSS Vistas Dinámicas -->
     <link rel="stylesheet" href="{% static 'css/materias/lista.css' %}">
-    <link rel="stylesheet" href="{% static 'css/contenidos/lista.css' %}">
+    <link rel="stylesheet" href="{% static 'css/materias/modals/crear.css' %}">
+    <link rel="stylesheet" href="{% static 'css/materias/modals/editar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/materias/modals/ver.css' %}">
+    <link rel="stylesheet" href="{% static 'css/materias/modals/eliminar.css' %}">
     
-    <!-- CSS Modals -->
-    <link rel="stylesheet" href="{% static 'css/modals.css' %}">
+    <link rel="stylesheet" href="{% static 'css/contenidos/lista.css' %}">
+    <link rel="stylesheet" href="{% static 'css/contenidos/modals/crear.css' %}">
+    <link rel="stylesheet" href="{% static 'css/contenidos/modals/editar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/contenidos/modals/ver.css' %}">
+    <link rel="stylesheet" href="{% static 'css/contenidos/modals/eliminar.css' %}">
     
     {% block extra_css %}{% endblock %}
 </head>
@@ -75,16 +79,33 @@
     <!-- JS Componentes -->
     <script src="{% static 'js/componentes/navbar.js' %}"></script>
     <script src="{% static 'js/componentes/sidebar.js' %}"></script>
+    <script src="{% static 'js/componentes/footer.js' %}"></script>
     
-    <!-- JS Modales -->
-    <script src="{% static 'js/modales/modales.js' %}"></script>
+    <!-- JS Secciones Estáticas -->
+    <script src="{% static 'js/secciones_estaticas/inicio.js' %}"></script>
+    <script src="{% static 'js/secciones_estaticas/historia.js' %}"></script>
+    <script src="{% static 'js/secciones_estaticas/mision.js' %}"></script>
+    <script src="{% static 'js/secciones_estaticas/autoridades.js' %}"></script>
+    <script src="{% static 'js/secciones_estaticas/contacto.js' %}"></script>
+    <script src="{% static 'js/secciones_estaticas/materias_publicas.js' %}"></script>
     
-    <!-- JS Vistas Dinámicas -->
+    <!-- JS Base y Dashboard -->
+    <script src="{% static 'js/base.js' %}"></script>
+    <script src="{% static 'js/dashboard.js' %}"></script>
+    
+    <!-- JS Vistas Dinámicas - Materias -->
     <script src="{% static 'js/materias/lista.js' %}"></script>
-    <script src="{% static 'js/contenidos/lista.js' %}"></script>
+    <script src="{% static 'js/materias/modals/crear.js' %}"></script>
+    <script src="{% static 'js/materias/modals/editar.js' %}"></script>
+    <script src="{% static 'js/materias/modals/ver.js' %}"></script>
+    <script src="{% static 'js/materias/modals/eliminar.js' %}"></script>
     
-    <!-- JS Principal -->
-    <script src="{% static 'js/main.js' %}"></script>
+    <!-- JS Vistas Dinámicas - Contenidos -->
+    <script src="{% static 'js/contenidos/lista.js' %}"></script>
+    <script src="{% static 'js/contenidos/modals/crear.js' %}"></script>
+    <script src="{% static 'js/contenidos/modals/editar.js' %}"></script>
+    <script src="{% static 'js/contenidos/modals/ver.js' %}"></script>
+    <script src="{% static 'js/contenidos/modals/eliminar.js' %}"></script>
     
     {% block extra_js %}{% endblock %}
 </body>

@@ -1,36 +1,27 @@
-.materias-publicas-header h1 {
-    font-weight: 700;
+/* Estilos para listado público de materias */
+.public-materias-section {
+    padding: 40px 20px;
+    background: white;
 }
 
-.materias-publicas-header p {
-    color: #6b7280;
+.public-materias-section h1 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2rem;
+    color: #333;
 }
 
-.card {
-    border: 1px solid var(--border);
-    border-radius: var(--border-radius);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+.materias-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
-}
-
-.card-title {
-    font-weight: 600;
-}
-
-.card-text {
-    font-size: 0.95rem;
-}
-
-.badge {
-    font-size: 0.75rem;
-}
-
-.materias-card-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.materia-card {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }

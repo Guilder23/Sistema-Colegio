@@ -1,120 +1,26 @@
-.mision-section {
-    padding: 4rem 1.5rem;
+/* Estilos para página de misión y visión */
+.mission-vision-section {
+    padding: 40px 20px;
 }
 
-.mision-container {
-    max-width: 1200px;
+.mission-vision-section h1 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2.2rem;
+    color: #333;
+}
+
+.mission-vision-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    max-width: 1000px;
     margin: 0 auto;
 }
 
-.mision-header {
-    text-align: center;
-    margin-bottom: 3rem;
-}
-
-.mision-header h2 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-}
-
-.mision-header p {
-    font-size: 1.1rem;
-    color: #6b7280;
-}
-
-.mision-vision-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-bottom: 3rem;
-}
-
-.mision-card {
-    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-    color: #ffffff;
-    padding: 2.5rem;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-lg);
-}
-
-.mision-card h3 {
-    color: #ffffff;
-    margin-bottom: 1rem;
-    font-size: 1.75rem;
-}
-
-.mision-card p {
-    color: rgba(255, 255, 255, 0.95);
-    margin-bottom: 0;
-    line-height: 1.8;
-}
-
-.vision-card {
-    background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
-    color: #ffffff;
-    padding: 2.5rem;
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow-lg);
-}
-
-.vision-card h3 {
-    color: #ffffff;
-    margin-bottom: 1rem;
-    font-size: 1.75rem;
-}
-
-.vision-card p {
-    color: rgba(255, 255, 255, 0.95);
-    margin-bottom: 0;
-    line-height: 1.8;
-}
-
-.valores-section {
-    margin-top: 3rem;
-}
-
-.valores-title {
-    text-align: center;
-    font-size: 2rem;
-    margin-bottom: 2rem;
-    color: var(--dark);
-}
-
-.valores-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-}
-
-.valor-card {
-    background-color: #ffffff;
-    padding: 2rem;
-    border-radius: var(--border-radius);
-    border: 1px solid var(--border);
-    text-align: center;
-    transition: all 0.3s ease;
-}
-
-.valor-card:hover {
-    box-shadow: var(--shadow-lg);
-    transform: translateY(-5px);
-    border-color: var(--primary);
-}
-
-.valor-icon {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    color: var(--primary);
-}
-
-.valor-card h4 {
-    font-size: 1.25rem;
-    margin-bottom: 0.75rem;
-    color: var(--dark);
-}
-
-.valor-card p {
-    color: #6b7280;
-    margin-bottom: 0;
-    font-size: 0.95rem;
+.card-item {
+    padding: 25px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
