@@ -10,6 +10,7 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 from django.utils.decorators import method_decorator
 from .models import Materia, Contenido, ProfesorProfile
+from django.db.models import Count
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 import json
@@ -71,6 +72,24 @@ class AutoridadesView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['show_sidebar'] = False
+        context['director'] = {
+            'nombre': 'Dr. Juan Pérez García',
+            'cargo': 'Rector',
+            'email': 'rector@colegio.edu',
+            'telefono': '5551234567'
+        }
+        context['secretaria'] = {
+            'nombre': 'Lic. María Rodríguez López',
+            'cargo': 'Secretaría Académica',
+            'email': 'secretaria@colegio.edu',
+            'telefono': '5559876543'
+        }
+        context['profesores'] = (
+            ProfesorProfile.objects
+            .annotate(materias_count=Count('materia'))
+            .select_related('user')
+            .order_by('-materias_count', 'user__first_name')
+        )
         return context
 
 

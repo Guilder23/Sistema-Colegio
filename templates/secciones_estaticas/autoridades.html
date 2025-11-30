@@ -3,118 +3,85 @@
 
 {% block title %}Autoridades - Sistema de Colegio{% endblock %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/secciones_estaticas/autoridades.css' %}">
+{% endblock %}
+
 {% block content %}
-<main class="py-5">
-    <div class="container">
-        <h1 class="text-center mb-5">
-            <i class="fas fa-users"></i> Autoridades
-        </h1>
-        
-        <p class="text-center lead mb-5">
-            Conoce al equipo directivo que dirige nuestra institución.
-        </p>
-        
-        <div class="row">
-            <!-- Autoridad 1 -->
-            <div class="col-md-6 mb-4">
-                <div class="authority-card">
-                    <div class="authority-image">
-                        <i class="fas fa-user-tie fa-4x"></i>
-                    </div>
-                    <div class="authority-info">
-                        <h5>Dr. Juan Pérez García</h5>
-                        <p class="role">Rector</p>
-                        <p class="specialty">Educación Superior</p>
-                        <p class="description">
-                            Profesional con más de 20 años de experiencia en gestión educativa.
-                        </p>
-                        <div class="authority-contact mt-3">
-                            <a href="mailto:rector@colegio.edu" class="btn btn-sm btn-outline-primary">
-                                <i class="fas fa-envelope"></i> Email
-                            </a>
-                            <a href="tel:5551234567" class="btn btn-sm btn-outline-secondary">
-                                <i class="fas fa-phone"></i> Llamar
-                            </a>
+<main>
+    <section class="authorities-hero">
+        <div class="container text-center">
+            <h1 class="mb-3">Autoridades</h1>
+            <p class="lead">Equipo directivo y cuerpo docente de nuestra institución</p>
+        </div>
+    </section>
+
+    <section class="authorities-section container py-5">
+        <div class="row g-4">
+            <div class="col-lg-6">
+                <div class="authority-card gradient">
+                    <div class="authority-avatar"><i class="fas fa-user-tie"></i></div>
+                    <div>
+                        <h5 class="mb-1">{{ director.nombre }}</h5>
+                        <span class="badge bg-primary">{{ director.cargo }}</span>
+                        <p class="text-muted mt-2">Dirección general y liderazgo institucional.</p>
+                        <div class="mt-3 d-flex gap-2">
+                            <a href="mailto:{{ director.email }}" class="btn btn-outline-light btn-sm">Email</a>
+                            <a href="tel:{{ director.telefono }}" class="btn btn-outline-light btn-sm">Llamar</a>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <!-- Autoridad 2 -->
-            <div class="col-md-6 mb-4">
+            <div class="col-lg-6">
                 <div class="authority-card">
-                    <div class="authority-image">
-                        <i class="fas fa-user-tie fa-4x"></i>
-                    </div>
-                    <div class="authority-info">
-                        <h5>Lic. María Rodríguez López</h5>
-                        <p class="role">Vicerrectora Académica</p>
-                        <p class="specialty">Pedagogía</p>
-                        <p class="description">
-                            Especialista en currículo y desarrollo de programas educativos innovadores.
-                        </p>
-                        <div class="authority-contact mt-3">
-                            <a href="mailto:vicerrectora@colegio.edu" class="btn btn-sm btn-outline-primary">
-                                <i class="fas fa-envelope"></i> Email
-                            </a>
-                            <a href="tel:5559876543" class="btn btn-sm btn-outline-secondary">
-                                <i class="fas fa-phone"></i> Llamar
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Autoridad 3 -->
-            <div class="col-md-6 mb-4">
-                <div class="authority-card">
-                    <div class="authority-image">
-                        <i class="fas fa-user-tie fa-4x"></i>
-                    </div>
-                    <div class="authority-info">
-                        <h5>Ing. Carlos Mendoza Silva</h5>
-                        <p class="role">Director de Tecnología</p>
-                        <p class="specialty">Informática Educativa</p>
-                        <p class="description">
-                            Ingeniero en Sistemas con especialización en plataformas educativas digitales.
-                        </p>
-                        <div class="authority-contact mt-3">
-                            <a href="mailto:tecnologia@colegio.edu" class="btn btn-sm btn-outline-primary">
-                                <i class="fas fa-envelope"></i> Email
-                            </a>
-                            <a href="tel:5555551234" class="btn btn-sm btn-outline-secondary">
-                                <i class="fas fa-phone"></i> Llamar
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Autoridad 4 -->
-            <div class="col-md-6 mb-4">
-                <div class="authority-card">
-                    <div class="authority-image">
-                        <i class="fas fa-user-tie fa-4x"></i>
-                    </div>
-                    <div class="authority-info">
-                        <h5>Psic. Laura Fernández Gómez</h5>
-                        <p class="role">Directora de Bienestar</p>
-                        <p class="specialty">Psicología Educativa</p>
-                        <p class="description">
-                            Psicóloga clínica especializada en atención al desarrollo integral del estudiante.
-                        </p>
-                        <div class="authority-contact mt-3">
-                            <a href="mailto:bienestar@colegio.edu" class="btn btn-sm btn-outline-primary">
-                                <i class="fas fa-envelope"></i> Email
-                            </a>
-                            <a href="tel:5554443333" class="btn btn-sm btn-outline-secondary">
-                                <i class="fas fa-phone"></i> Llamar
-                            </a>
+                    <div class="authority-avatar"><i class="fas fa-user-tie"></i></div>
+                    <div>
+                        <h5 class="mb-1">{{ secretaria.nombre }}</h5>
+                        <span class="badge bg-info">{{ secretaria.cargo }}</span>
+                        <p class="text-muted mt-2">Gestión académica y coordinación de procesos.</p>
+                        <div class="mt-3 d-flex gap-2">
+                            <a href="mailto:{{ secretaria.email }}" class="btn btn-outline-primary btn-sm">Email</a>
+                            <a href="tel:{{ secretaria.telefono }}" class="btn btn-outline-secondary btn-sm">Llamar</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+
+    <section class="professors-section container py-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="mb-0">Profesores de las Materias</h2>
+            <span class="text-muted">{{ profesores|length }} profesores</span>
+        </div>
+        <div class="row g-4">
+            {% for prof in profesores %}
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="professor-card h-100">
+                        <div class="d-flex align-items-center gap-3 mb-2">
+                            <div class="professor-avatar">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                            </div>
+                            <div>
+                                <h6 class="mb-0">{{ prof.user.first_name|default:prof.user.username }}</h6>
+                                <small class="text-muted">{{ prof.especialidad|default:"Profesor" }}</small>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="badge bg-success">{{ prof.materias_count }} materias</span>
+                            <a href="/materias/" class="btn btn-sm btn-outline-primary">Ver Materias</a>
+                        </div>
+                        <ul class="list-unstyled small text-muted mb-0">
+                            {% for m in prof.materia_set.all|slice:":2" %}
+                                <li>• {{ m.nombre }}</li>
+                            {% empty %}
+                                <li>• Sin materias aún</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
 </main>
 {% endblock %}

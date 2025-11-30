@@ -1,27 +1,14 @@
-/* Estilos para página de autoridades */
-.authorities-section {
-    padding: 40px 20px;
-    background: white;
-}
+/* Hero */
+.authorities-hero { background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%); color: var(--on-dark); padding: 64px 0; }
+.authorities-hero h1 { font-weight: 800; }
 
-.authorities-section h1 {
-    text-align: center;
-    margin-bottom: 40px;
-    font-size: 2rem;
-    color: #333;
-}
+/* Cards Director/Secretaria */
+.authority-card { display: flex; align-items: center; gap: 16px; border: 1px solid var(--border); border-radius: var(--radius-md); padding: 20px; background: var(--bg); box-shadow: var(--shadow-sm); }
+.authority-card.gradient { background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%); color: var(--on-dark); border: none; }
+.authority-card.gradient .badge { background-color: rgba(var(--on-dark-rgb), .2); }
+.authority-avatar { width: 56px; height: 56px; border-radius: 50%; background: var(--bg-muted); display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 22px; }
+.authority-card.gradient .authority-avatar { background: rgba(var(--on-dark-rgb), .15); color: var(--on-dark); }
 
-.authorities-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.authority-card {
-    text-align: center;
-    padding: 20px;
-    border-radius: 8px;
-    background: #f8f9fa;
-}
+/* Professors */
+.professor-card { border: 1px solid var(--border); border-radius: var(--radius-md); padding: 16px 16px; background: var(--bg); box-shadow: var(--shadow-sm); }
+.professor-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--bg-muted); display: flex; align-items: center; justify-content: center; color: var(--primary); }
