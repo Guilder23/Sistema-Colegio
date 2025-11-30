@@ -154,7 +154,7 @@
     --link-hover: var(--primary-light);
 
     /* Modals */
-    --modal-max-width: 680px;
+    --modal-max-width: 480px;
     --modal-bg: var(--bg);
     --modal-header-bg: var(--bg);
     --modal-border-color: var(--border);
