@@ -6,116 +6,102 @@
 {% block content %}
 <main class="py-5">
     <div class="container">
-        <h1 class="text-center mb-5">
-            <i class="fas fa-envelope"></i> Contacto
-        </h1>
+        <div class="contact-header mb-5">
+            <h1 class="text-center mb-3">
+                <i class="fas fa-envelope"></i> Contacto
+            </h1>
+            <p class="text-center text-muted lead">Ponte en contacto con nosotros para cualquier consulta o información</p>
+        </div>
         
-        <div class="row">
+        <div class="row g-4">
             <!-- Información de Contacto -->
-            <div class="col-lg-6 mb-4">
-                <div class="contact-info">
-                    <h3 class="mb-4">Información de Contacto</h3>
-                    
-                    <div class="contact-item mb-4">
-                        <h6 class="text-primary mb-2">
-                            <i class="fas fa-map-marker-alt"></i> Dirección
-                        </h6>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-content">
+                        <h4>Dirección</h4>
                         <p>Calle Principal 123, Piso 2<br>Código Postal: 28001<br>Ciudad/País</p>
                     </div>
-                    
-                    <div class="contact-item mb-4">
-                        <h6 class="text-secondary mb-2">
-                            <i class="fas fa-phone"></i> Teléfono
-                        </h6>
+                </div>
+            </div>
+            
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="contact-content">
+                        <h4>Teléfono</h4>
                         <p>
                             <a href="tel:+5551234567">(555) 123-4567</a><br>
                             <a href="tel:+5559876543">(555) 987-6543</a>
                         </p>
                     </div>
-                    
-                    <div class="contact-item mb-4">
-                        <h6 class="text-warning mb-2">
-                            <i class="fas fa-envelope"></i> Email
-                        </h6>
+                </div>
+            </div>
+            
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-content">
+                        <h4>Email</h4>
                         <p>
                             <a href="mailto:info@colegio.edu">info@colegio.edu</a><br>
                             <a href="mailto:soporte@colegio.edu">soporte@colegio.edu</a>
                         </p>
                     </div>
-                    
-                    <div class="contact-item mb-4">
-                        <h6 class="text-success mb-2">
-                            <i class="fas fa-clock"></i> Horario de Atención
-                        </h6>
+                </div>
+            </div>
+            
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="contact-content">
+                        <h4>Horario de Atención</h4>
                         <p>
                             Lunes a Viernes: 7:00 AM - 4:00 PM<br>
                             Sábado: 8:00 AM - 12:00 PM<br>
                             Domingo: Cerrado
                         </p>
                     </div>
-                    
-                    <div class="contact-item">
-                        <h6 class="mb-3">Redes Sociales</h6>
-                        <div class="d-flex gap-3">
-                            <a href="#" class="btn btn-sm btn-outline-primary" title="Facebook">
-                                <i class="fab fa-facebook"></i>
-                            </a>
-                            <a href="#" class="btn btn-sm btn-outline-info" title="Twitter">
-                                <i class="fab fa-twitter"></i>
-                            </a>
-                            <a href="#" class="btn btn-sm btn-outline-danger" title="Instagram">
-                                <i class="fab fa-instagram"></i>
-                            </a>
-                            <a href="#" class="btn btn-sm btn-outline-danger" title="YouTube">
-                                <i class="fab fa-youtube"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Formulario de Contacto -->
-            <div class="col-lg-6">
-                <div class="contact-form">
-                    <h3 class="mb-4">Envíanos un Mensaje</h3>
-                    <form method="post" id="contactForm">
-                        {% csrf_token %}
-                        <div class="mb-3">
-                            <label for="nombre" class="form-label">Nombre Completo</label>
-                            <input type="text" class="form-control" id="nombre" name="nombre" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="asunto" class="form-label">Asunto</label>
-                            <input type="text" class="form-control" id="asunto" name="asunto" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="tipo" class="form-label">Tipo de Consulta</label>
-                            <select class="form-control" id="tipo" name="tipo" required>
-                                <option value="">Selecciona una opción</option>
-                                <option value="general">Consulta General</option>
-                                <option value="admisiones">Admisiones</option>
-                                <option value="academica">Cuestión Académica</option>
-                                <option value="soporte">Soporte Técnico</option>
-                                <option value="otro">Otro</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="mensaje" class="form-label">Mensaje</label>
-                            <textarea class="form-control" id="mensaje" name="mensaje" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">
-                            <i class="fas fa-paper-plane"></i> Enviar Mensaje
-                        </button>
-                    </form>
                 </div>
             </div>
         </div>
         
-        <!-- Mapa (opcional) -->
+        <!-- Redes Sociales -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="social-section">
+                    <h3 class="text-center mb-4">Síguenos en Redes Sociales</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-btn" title="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                            <span>Facebook</span>
+                        </a>
+                        <a href="#" class="social-btn" title="Twitter">
+                            <i class="fab fa-twitter"></i>
+                            <span>Twitter</span>
+                        </a>
+                        <a href="#" class="social-btn" title="Instagram">
+                            <i class="fab fa-instagram"></i>
+                            <span>Instagram</span>
+                        </a>
+                        <a href="#" class="social-btn" title="YouTube">
+                            <i class="fab fa-youtube"></i>
+                            <span>YouTube</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mapa -->
         <div class="row mt-5">
             <div class="col-12">
                 <div class="map-container">
