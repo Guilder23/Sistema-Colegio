@@ -137,6 +137,14 @@
     --form-border-focus: var(--primary-light);
     --form-bg-focus: rgba(59, 130, 246, 0.03);
     --form-shadow-focus: 0 0 0 3px rgba(59, 130, 246, 0.1);
+
+    /* Footer */
+    --footer-bg: linear-gradient(135deg, #0f172a 30%, #0c2246 100%);
+    --footer-bg-light: #1a1f3a;
+    --footer-text: rgba(255, 255, 255, 0.85);
+    --footer-text-light: rgba(255, 255, 255, 0.7);
+    --footer-border: rgba(255, 255, 255, 0.08);
+    --footer-heading: #ffffff;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
