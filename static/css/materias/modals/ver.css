@@ -20,3 +20,16 @@
     max-width: var(--modal-max-width);
     border-radius: var(--radius-md);
 }
+
+/* Reducir padding de modal Bootstrap */
+#modal-ver-materia .modal-header {
+    padding: 1rem;
+}
+
+#modal-ver-materia .modal-body {
+    padding: 1rem;
+}
+
+#modal-ver-materia .modal-footer {
+    padding: 0.75rem 1rem;
+}
