@@ -7,13 +7,14 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
-                <p>¿Estás seguro de que deseas eliminar esta materia? Esta acción no se puede deshacer.</p>
+                <p>¿Estás seguro de que deseas eliminar <span id="eliminar-nombre-materia"></span>? Esta acción no se puede deshacer.</p>
                 <div class="alert alert-warning">
                     <strong>Advertencia:</strong> Se eliminarán todos los contenidos asociados a esta materia.
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" id="btn-confirmar-eliminar-materia" class="btn btn-danger">Eliminar</button>
             </div>
         </div>
     </div>

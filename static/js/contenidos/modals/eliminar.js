@@ -1,35 +1,46 @@
 document.addEventListener('DOMContentLoaded', function() {
     const botonesEliminar = document.querySelectorAll('[data-eliminar-contenido]');
+    const modalEliminar = document.getElementById('modal-eliminar-contenido');
+    const btnConfirmarEliminar = document.getElementById('btn-confirmar-eliminar-contenido');
+    let contenidoIdActual = null;
     
     botonesEliminar.forEach(boton => {
         boton.addEventListener('click', function() {
-            const contenidoId = this.getAttribute('data-eliminar-contenido');
+            contenidoIdActual = this.getAttribute('data-eliminar-contenido');
             const contenidoTitulo = this.getAttribute('data-contenido-titulo') || 'este contenido';
             
-            if (confirm(`¿Estás seguro de que deseas eliminar "${contenidoTitulo}"? Esta acción no se puede deshacer.`)) {
-                const formData = new FormData();
-                formData.append('csrfmiddlewaretoken', getCookie('csrftoken'));
-
-                fetch(`/contenido/${contenidoId}/eliminar/`, {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert('Contenido eliminado exitosamente');
-                        location.reload();
-                    } else {
-                        alert('Error: ' + (data.error || 'Error desconocido'));
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('Error de red: ' + error.message);
-                });
-            }
+            document.getElementById('eliminar-titulo-contenido').textContent = `"${contenidoTitulo}"`;
+            const modal = new bootstrap.Modal(modalEliminar);
+            modal.show();
         });
     });
+    
+    if (btnConfirmarEliminar) {
+        btnConfirmarEliminar.addEventListener('click', function() {
+            if (!contenidoIdActual) return;
+            
+            const formData = new FormData();
+            formData.append('csrfmiddlewaretoken', getCookie('csrftoken'));
+
+            fetch(`/contenido/${contenidoIdActual}/eliminar/`, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    const modal = bootstrap.Modal.getInstance(modalEliminar);
+                    if (modal) modal.hide();
+                    location.reload();
+                } else {
+                    console.error('Error:', data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error de red:', error);
+            });
+        });
+    }
 });
 
 function getCookie(name) {

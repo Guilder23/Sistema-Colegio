@@ -46,15 +46,15 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                alert('Materia actualizada exitosamente');
+                const modal = bootstrap.Modal.getInstance(document.getElementById('editarMateriaModal'));
+                if (modal) modal.hide();
                 location.reload();
             } else {
-                alert('Error: ' + (data.error || 'Error desconocido'));
+                console.error('Error:', data.error);
             }
         })
         .catch(error => {
-            console.error('Error:', error);
-            alert('Error de red: ' + error.message);
+            console.error('Error de red:', error);
         });
     });
 });

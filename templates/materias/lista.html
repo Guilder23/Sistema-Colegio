@@ -13,7 +13,7 @@
                     <h1>Gestión de Materias</h1>
                 </div>
                 <div class="col-auto">
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-crear-materia">
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearMateriaModal">
                         <i class="fas fa-plus"></i> Nueva Materia
                     </button>
                 </div>
@@ -44,7 +44,7 @@
                                         <button class="btn btn-sm btn-info" data-ver-materia="{{ materia.id }}">
                                             Ver
                                         </button>
-                                        <button class="btn btn-sm btn-warning" data-editar-materia="{{ materia.id }}" data-bs-toggle="modal" data-bs-target="#modal-editar-materia">
+                                        <button class="btn btn-sm btn-warning" data-editar-materia="{{ materia.id }}" data-bs-toggle="modal" data-bs-target="#editarMateriaModal">
                                             Editar
                                         </button>
                                         <button class="btn btn-sm btn-danger" data-eliminar-materia="{{ materia.id }}" data-materia-nombre="{{ materia.nombre }}">
@@ -57,10 +57,10 @@
                     </table>
                 </div>
             {% else %}
-                <div class="alert alert-info text-center py-5">
+                    <button class="alert alert-info text-center py-5">
                     <i class="fas fa-info-circle fa-2x mb-3"></i>
                     <p>No has creado materias aún.</p>
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-crear-materia">
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearMateriaModal">
                         <i class="fas fa-plus"></i> Crear Primera Materia
                     </button>
                 </div>

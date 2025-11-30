@@ -13,7 +13,7 @@
                     <h1>Gestión de Contenidos</h1>
                 </div>
                 <div class="col-auto">
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-crear-contenido">
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearContenidoModal">
                         <i class="fas fa-plus"></i> Nuevo Contenido
                     </button>
                 </div>
@@ -50,7 +50,7 @@
                                         <button class="btn btn-sm btn-info" data-ver-contenido="{{ contenido.id }}">
                                             Ver
                                         </button>
-                                        <button class="btn btn-sm btn-warning" data-editar-contenido="{{ contenido.id }}" data-bs-toggle="modal" data-bs-target="#modal-editar-contenido">
+                                        <button class="btn btn-sm btn-warning" data-editar-contenido="{{ contenido.id }}" data-bs-toggle="modal" data-bs-target="#editarContenidoModal">
                                             Editar
                                         </button>
                                         <button class="btn btn-sm btn-danger" data-eliminar-contenido="{{ contenido.id }}" data-contenido-titulo="{{ contenido.titulo }}">
@@ -66,7 +66,7 @@
                 <div class="alert alert-info text-center py-5">
                     <i class="fas fa-info-circle fa-2x mb-3"></i>
                     <p>No hay contenidos creados aún.</p>
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-crear-contenido">
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#crearContenidoModal">
                         <i class="fas fa-plus"></i> Crear Primer Contenido
                     </button>
                 </div>
