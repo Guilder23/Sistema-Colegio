@@ -147,7 +147,7 @@
 
 .features-section {
     padding: 100px 0;
-    background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg-secondary) 100%);
 }
 
 .features-section h2 {
@@ -235,7 +235,7 @@
 ========================================================== */
 
 .ambientes-section {
-    background: #ffffff;
+    background: var(--bg);
     padding: 100px 0;
 }
 

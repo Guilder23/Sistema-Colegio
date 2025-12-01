@@ -160,7 +160,7 @@
 /* Professors Section */
 .professors-section {
     padding: 80px 0;
-    background: #f8fafc;
+    background: var(--bg-secondary);
 }
 
 .professors-section h2 {

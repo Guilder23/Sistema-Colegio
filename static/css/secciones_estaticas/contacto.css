@@ -1,7 +1,7 @@
 /* ==================== CONTACTO ==================== */
 
 main {
-    background: linear-gradient(135deg, #f8fafc 0%, rgba(8, 145, 178, 0.05) 100%);
+    background: linear-gradient(135deg, var(--bg) 0%, rgba(8, 145, 178, 0.05) 100%);
 }
 
 .contact-header {
