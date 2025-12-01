@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Inicializar funciones
     initScrollReveal();
     initFeatureCardHover();
+    initHeroBackgroundCarousel();
 });
 
 
@@ -55,4 +56,29 @@ function initFeatureCardHover() {
             card.style.transform = "translateY(0) scale(1)";
         });
     });
+}
+
+// ============================================
+// 3. Carrusel de fondo del Hero
+// - Avanza a la izquierda cada 3 segundos
+// - Transición de cambio: 2 segundos
+// ============================================
+
+function initHeroBackgroundCarousel() {
+    const track = document.querySelector('.hero-bg-track');
+    if (!track) return;
+
+    const slides = Array.from(track.querySelectorAll('img'));
+    const total = slides.length;
+    if (total === 0) return;
+
+    let index = 0;
+    slides.forEach((img, i) => img.classList.toggle('active', i === 0));
+
+    const intervalMs = 3000; // cambio cada 3 segundos
+    setInterval(() => {
+        slides[index].classList.remove('active');
+        index = (index + 1) % total;
+        slides[index].classList.add('active');
+    }, intervalMs);
 }

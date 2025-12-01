@@ -10,6 +10,43 @@
     background-attachment: fixed;
 }
 
+/* Carrusel de fondo */
+.hero-bg-carousel {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 1;
+    background: #0f172a; /* fondo oscuro para evitar ver el fallback */
+}
+
+.hero-bg-track {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-bg-track img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: brightness(0.55) saturate(1.1);
+    opacity: 0;
+    transition: opacity 2s ease;
+}
+
+.hero-bg-track img.active { opacity: 1; }
+
+/* Responsive: en pantallas pequeñas acercar ligeramente para evitar bordes */
+@media (max-width: 768px) {
+    .hero-bg-track img {
+        object-fit: contain;
+        transform: none;
+    }
+}
+
 .hero-landing .hero-overlay {
     position: relative;
     background: linear-gradient(135deg, rgba(15, 23, 42, 0.6) 0%, rgba(30, 64, 175, 0.4) 100%);
@@ -17,6 +54,7 @@
     min-height: 100vh;
     display: flex;
     align-items: center;
+    z-index: 2; /* por encima del carrusel */
 }
 
 /* Animación suave de entrada */
@@ -90,12 +128,8 @@
     box-shadow: 0 8px 20px rgba(255, 255, 255, 0.15);
 }
 
-/* Imagen Hero */
-.hero-landing {
-    background-image: url('/static/images/colegio_frontal.jpeg');
-    background-size: cover;
-    background-position: center;
-}
+/* Fallback de imagen si el carrusel no carga */
+.hero-landing { background-image: none; }
 
 .hero-landing img {
     filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.3));
