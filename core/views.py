@@ -102,7 +102,7 @@ class ContactoView(TemplateView):
         context['show_sidebar'] = False
         return context
 
-
+# Muestra las materias publicadas de los profesores para que los alumnos las vean
 class MateriasListView(TemplateView):
     """Vista para listar materias públicas"""
     template_name = 'secciones_estaticas/materias_publicas.html'
@@ -136,7 +136,7 @@ class MateriasListView(TemplateView):
         context['contenidos_por_materia'] = contenidos_por_materia
         return context
 
-
+# lista de materias que ha creado el profesor logueado
 class MateriasGestionView(LoginRequiredMixin, TemplateView):
     """Vista para gestionar materias del usuario"""
     template_name = 'materias/lista.html'
@@ -148,7 +148,7 @@ class MateriasGestionView(LoginRequiredMixin, TemplateView):
         context['materias'] = Materia.objects.filter(profesor=profesor_profile)
         return context
 
-
+# lista de contenidos que ha creado el profesor logueado
 class ContenidosGestionView(LoginRequiredMixin, TemplateView):
     """Vista para gestionar contenidos"""
     template_name = 'contenidos/lista.html'
@@ -161,7 +161,7 @@ class ContenidosGestionView(LoginRequiredMixin, TemplateView):
         context['materias'] = Materia.objects.filter(profesor=profesor_profile)
         return context
 
-
+# Muestra el formulario de login
 class CustomLoginView(LoginView):
     """Vista personalizada de login"""
     template_name = 'secciones_estaticas/inicio.html'
@@ -185,7 +185,7 @@ class CustomLoginView(LoginView):
         context['show_sidebar'] = False
         return context
 
-
+# Cierra la sesión del usuario
 class CustomLogoutView(LogoutView):
     """Vista personalizada de logout"""
     next_page = 'core:index'
@@ -198,7 +198,7 @@ class CustomLogoutView(LogoutView):
         logout(request)
         return redirect(self.next_page)
 
-
+# crea un nuevo usuario
 class RegistroView(CreateView):
     """Vista para registro de usuarios"""
     model = User
